@@ -1,21 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/app/App';
+import AppHeader from './components/app-header/app-header';
 import reportWebVitals from './reportWebVitals';
-import {Button} from '@ya.praktikum/react-developer-burger-ui-components';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-    <Button type="primary" size="medium">
-      Я кнопка из UI системы Yandex
-    </Button>
+    <AppHeader />
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
+// If you want to start measuring performance in your app-header, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
