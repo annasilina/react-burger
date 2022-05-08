@@ -1,0 +1,13 @@
+.ingredients {
+}
+
+.ingredientsList {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ingredientsItem {
+	margin: 40px 0 0;
+	padding-bottom: 12px;
+}

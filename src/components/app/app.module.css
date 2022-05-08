@@ -1,0 +1,10 @@
+.page {
+	width: calc(100% - 680px);
+	margin: 0 auto;
+}
+
+.burgerMenu {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 60px;
+}
