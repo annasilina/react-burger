@@ -1,6 +1,7 @@
-.page {
-	width: calc(100% - 680px);
+.main {
+	max-width: 1240px;
 	margin: 0 auto;
+	background:  #131316;
 }
 
 .burgerMenu {

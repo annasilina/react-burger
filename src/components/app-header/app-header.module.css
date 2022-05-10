@@ -1,37 +1,38 @@
 .header {
 	max-width: 1920px;
-	padding: 0 320px;
-	margin-bottom: 40px;
 	background: #1C1C21;
 	box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.menu {
+	width: 1280px;
+	margin: 0 auto;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	align-items: center;
 }
 
 .menuList {
 	list-style-type: none;
-	padding: 0 0 0 12px;
+	padding: 0;
 	margin: 0;
 	display: flex;
-	justify-content: start;
-	align-items: center;
 }
 
 .menuItem {
 	display: flex;
 	align-items: center;
-	padding-left: 8px;
-}
-
-.logo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .profile {
-	display: flex;
-	justify-content: end;
-	align-items: center;
+	justify-self: self-end;
+}
+
+.menuLink {
+	text-decoration: none;
+	color: unset;
+}
+
+.logo {
+	justify-self: center;
+	align-self: center;
 }
