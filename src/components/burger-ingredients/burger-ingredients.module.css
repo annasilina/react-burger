@@ -1,19 +1,19 @@
-.ingredientsTabs {
+.tabs {
 	display: flex;
 }
 
-.ingredientsContainer {
+.container {
 	margin-top: 40px;
 	overflow-y: auto;
 	max-height: calc(100vh - 320px);
 }
 
-.ingredientsContainer::-webkit-scrollbar {
+.container::-webkit-scrollbar {
 	width: 8px;
 	background-color: #2F2F37;
 }
 
-.ingredientsContainer::-webkit-scrollbar-thumb {
+.container::-webkit-scrollbar-thumb {
 	background-color: #8585AD;
 	border: 3px solid #8585AD;
 }
@@ -27,19 +27,19 @@
 	row-gap: 32px;
 }
 
-.ingredientsItem {
+.item {
 	list-style-type: none;
 	position: relative;
 	cursor: grab;
 }
 
-.ingredientCurrency {
+.itemCurrency {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.ingredientsCaption {
+.itemCaption {
 	text-align: center;
 }
 

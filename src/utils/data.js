@@ -1,4 +1,4 @@
-export const data = [
+const data = [
 	{
 		"_id":"60666c42cc7b410027a1a9b1",
 		"name":"Краторная булка N-200i",
@@ -210,3 +210,13 @@ export const data = [
 		"__v":0
 	}
 ]
+
+const randomDec = Math.floor(Math.random() * 4);
+
+const randomIngredients = data.filter(
+	(ingredient, index) => (ingredient.type !== 'bun' && index % randomDec === 0)
+);
+
+randomIngredients.push(data.find(ingredient => ingredient.type === 'bun'))
+
+export {data, randomIngredients}

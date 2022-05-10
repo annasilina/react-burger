@@ -25,14 +25,14 @@ function BurgerIngredient({ ingredient }) {
 	const count = Math.floor(Math.random() * 2);
 
 	return (
-		<li className={`${styles.ingredientsItem}`}>
+		<li className={`${styles.item}`}>
 			<img src={ingredient.image} alt={ingredient.name} className="pr-4 pl-4"/>
 			{count > 0 && <Counter count={count} size={'default'} />}
-			<div className={`${styles.ingredientCurrency} mb-1 mt-1`}>
+			<div className={`${styles.itemCurrency} mb-1 mt-1`}>
 				<p className="text text_type_digits-default mr-2">{ingredient.price}</p>
 				<CurrencyIcon type="primary" />
 			</div>
-			<p className={`${styles.ingredientsCaption} text text_type_main-default pt-1`}>
+			<p className={`${styles.itemCaption} text text_type_main-default pt-1`}>
 				{ingredient.name}
 			</p>
 		</li>
@@ -50,7 +50,7 @@ function BurgerIngredients(props) {
 			<h1 className="text text_type_main-large pt-10 pb-5">
 				Соберите бургер
 			</h1>
-			<div className={`${styles.ingredientsTabs} mb-10`}>
+			<div className={`${styles.tabs} mb-10`}>
 				<Tab
 					value="bun"
 					active={current === 'bun'}
@@ -70,7 +70,7 @@ function BurgerIngredients(props) {
 					Начинки
 				</Tab>
 			</div>
-			<div className={styles.ingredientsContainer}>
+			<div className={styles.container}>
 				<IngredientsCategory
 					type="bun"
 					title='Булки'
