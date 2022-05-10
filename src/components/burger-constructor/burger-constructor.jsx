@@ -1,8 +1,9 @@
 import React from "react";
 
 import styles from './burger-constructor.module.css';
-
+import {ingredientPropTypes} from '../../utils/types';
 import {ConstructorElement, DragIcon, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+
 
 function IngredientsList({ ingredients }) {
 	return (
@@ -50,6 +51,10 @@ function BurgerConstructor(props) {
 			</div>
 		</section>
 	)
+}
+
+BurgerConstructor.propTypes = {
+	currentIngredients: ingredientPropTypes.isRequired,
 }
 
 export default BurgerConstructor;

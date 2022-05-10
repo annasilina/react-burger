@@ -1,10 +1,11 @@
 import React from 'react';
-
 import {useState} from 'react';
 
-import styles from './burger-ingredients.module.css';
-
 import {Tab, CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import styles from './burger-ingredients.module.css';
+import {ingredientPropTypes} from '../../utils/types';
+
 
 function IngredientsCategory({ type, title, ingredients }) {
 	return (
@@ -88,6 +89,10 @@ function BurgerIngredients(props) {
 			</div>
 		</section>
 	)
+}
+
+BurgerIngredients.propTypes = {
+	ingredients: ingredientPropTypes.isRequired,
 }
 
 export default BurgerIngredients;
