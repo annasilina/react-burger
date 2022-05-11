@@ -3,6 +3,7 @@ import React from "react";
 import styles from './burger-constructor.module.css';
 import {ingredientPropTypes} from '../../utils/types';
 import {ConstructorElement, DragIcon, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
 
 function IngredientsList({ ingredients }) {
@@ -21,6 +22,10 @@ function IngredientsList({ ingredients }) {
 	)
 }
 
+IngredientsList.propTypes = {
+	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+}
+
 function BurgerConstructor(props) {
 	const bun = props.currentIngredients.find(ingredient => ingredient.type === 'bun');
 	const orderCost = props.currentIngredients.reduce((prevValue, ingredient) => {return prevValue + ingredient.price}, 0);
@@ -29,13 +34,13 @@ function BurgerConstructor(props) {
 		<section className={`${styles.constructor} mt-25`}>
 			<div className={`${styles.elementsContainer} ml-4`}>
 				<div className={`${styles.ingredientElement} pl-8`}>
-					<ConstructorElement type="top" isLocked={true} thumbnail={bun.image} price={bun.price}  text={bun.name}/>
+					<ConstructorElement type="top" isLocked={true} thumbnail={bun.image} price={bun.price}  text={`${bun.name} (верх)`}/>
 				</div>
 				<ul className={`${styles.ingredientList}`}>
 					<IngredientsList ingredients={props.currentIngredients} />
 				</ul>
 				<div className={`${styles.ingredientElement} pl-8`}>
-					<ConstructorElement type="bottom" isLocked={true} thumbnail={bun.image} price={bun.price}  text={bun.name}/>
+					<ConstructorElement type="bottom" isLocked={true} thumbnail={bun.image} price={bun.price}  text={`${bun.name} (низ)`}/>
 				</div>
 			</div>
 			<div className={`${styles.order} mt-10 mr-4`}>
@@ -54,7 +59,7 @@ function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-	currentIngredients: ingredientPropTypes.isRequired,
+	currentIngredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 }
 
 export default BurgerConstructor;

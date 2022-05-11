@@ -5,6 +5,7 @@ import {Tab, CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-u
 
 import styles from './burger-ingredients.module.css';
 import {ingredientPropTypes} from '../../utils/types';
+import PropTypes from 'prop-types';
 
 
 function IngredientsCategory({ type, title, ingredients }) {
@@ -15,11 +16,19 @@ function IngredientsCategory({ type, title, ingredients }) {
 			</h2>
 			<ul className={`${styles.typeList} mt-6 mr-2 mb-10 ml-4`} key={type}>
 				{ingredients.map((ingredient) =>
-					<BurgerIngredient key={ingredient._id} ingredient={ingredient} />)
+					(
+						<BurgerIngredient key={ingredient._id} ingredient={ingredient} />)
+					)
 				}
 			</ul>
 		</div>
 	)
+}
+
+IngredientsCategory.propTypes = {
+	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+	type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
+	title: PropTypes.string
 }
 
 function BurgerIngredient({ ingredient }) {
@@ -38,6 +47,10 @@ function BurgerIngredient({ ingredient }) {
 			</p>
 		</li>
 	)
+}
+
+BurgerIngredient.propTypes = {
+	ingredient: ingredientPropTypes.isRequired,
 }
 
 function BurgerIngredients(props) {
@@ -92,7 +105,7 @@ function BurgerIngredients(props) {
 }
 
 BurgerIngredients.propTypes = {
-	ingredients: ingredientPropTypes.isRequired,
+	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 }
 
 export default BurgerIngredients;
