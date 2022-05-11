@@ -1,0 +1,46 @@
+.tabs {
+	display: flex;
+}
+
+.container {
+	margin-top: 40px;
+	overflow-y: auto;
+	max-height: calc(100vh - 320px);
+}
+
+.container::-webkit-scrollbar {
+	width: 8px;
+	background-color: #2F2F37;
+}
+
+.container::-webkit-scrollbar-thumb {
+	background-color: #8585AD;
+	border: 3px solid #8585AD;
+}
+
+.typeList {
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	justify-items: center;
+	column-gap: 24px;
+	row-gap: 32px;
+}
+
+.item {
+	list-style-type: none;
+	position: relative;
+	cursor: grab;
+}
+
+.itemCurrency {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.itemCaption {
+	text-align: center;
+}
+
+

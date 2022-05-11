@@ -1,6 +1,33 @@
-# Getting Started with Create React App
+# Проектная работа - 7 спринт "Основы React"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Обзор
+1. Описание проекта
+2. Функциональность проекта
+3. Технологии проекта
+
+____
+
+### 1. Описание проекта
+В рамках 7 спринта создано приложение-конфигуратор бургеров react-burger. Цель проекта - изучение основ React
+
+### 2. Функциональность проекта
+Сайт состоит из одной страницы. Функциональные секции сайта:
+- список ингредиентов для бургеров. На будущее заложена функциональность выбора ингредиентов для конструктора
+- конструктов бургеров
+- итоговая стоимость заказа
+
+### 3. Технологии проекта
+Проект собран на React, с использованием UI библиотеки от yandex-praktikum
+
+Сайт не адаптивен.
+
+Основные разрешения сайта:
+- Мониторы (1280px)
+----
+
+# Getting Started with Create React AppHeader
+
+This project was bootstrapped with [Create React AppHeader](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -41,6 +68,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can learn more in the [Create React AppHeader documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
