@@ -217,6 +217,15 @@ const randomIngredients = data.filter(
 	(ingredient, index) => (ingredient.type !== 'bun' && index % randomDec === 0)
 );
 
-randomIngredients.push(data.find(ingredient => ingredient.type === 'bun'))
+randomIngredients.push(data.find(ingredient => ingredient.type === 'bun'));
 
-export {data, randomIngredients}
+const apiConfig = {
+	baseURL: 'https://norma.nomoreparties.space/api',
+	headers: {
+		authorization: '963eab40-f1b1-4bf3-8893-fd8fa8464a41',
+		'Content-Type': 'application/json'
+	}
+}
+
+
+export {data, randomIngredients, apiConfig}
