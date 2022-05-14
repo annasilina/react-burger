@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useEffect} from 'react';
 import styles from './app.module.css';
 
-import {randomIngredients, apiConfig} from '../../utils/data';
+import {apiConfig, constructorData} from '../../utils/data';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -26,7 +26,7 @@ function App() {
 			<AppHeader />
 			<main className={styles.main}>
 				<BurgerIngredients ingredients={ingredients} />
-				<BurgerConstructor currentIngredients={randomIngredients}/>
+				<BurgerConstructor currentIngredients={constructorData}/>
 			</main>
 		</>
 	)

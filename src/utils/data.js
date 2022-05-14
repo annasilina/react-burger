@@ -1,4 +1,4 @@
-const data = [
+const constructorData = [
 	{
 		"_id":"60666c42cc7b410027a1a9b1",
 		"name":"Краторная булка N-200i",
@@ -28,20 +28,6 @@ const data = [
 		"__v":0
 	},
 	{
-		"_id":"60666c42cc7b410027a1a9b6",
-		"name":"Биокотлета из марсианской Магнолии",
-		"type":"main",
-		"proteins":420,
-		"fat":142,
-		"carbohydrates":242,
-		"calories":4242,
-		"price":424,
-		"image":"https://code.s3.yandex.net/react/code/meat-01.png",
-		"image_mobile":"https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-		"image_large":"https://code.s3.yandex.net/react/code/meat-01-large.png",
-		"__v":0
-	},
-	{
 		"_id":"60666c42cc7b410027a1a9b7",
 		"name":"Соус Spicy-X",
 		"type":"sauce",
@@ -56,20 +42,6 @@ const data = [
 		"__v":0
 	},
 	{
-		"_id":"60666c42cc7b410027a1a9b4",
-		"name":"Мясо бессмертных моллюсков Protostomia",
-		"type":"main",
-		"proteins":433,
-		"fat":244,
-		"carbohydrates":33,
-		"calories":420,
-		"price":1337,
-		"image":"https://code.s3.yandex.net/react/code/meat-02.png",
-		"image_mobile":"https://code.s3.yandex.net/react/code/meat-02-mobile.png",
-		"image_large":"https://code.s3.yandex.net/react/code/meat-02-large.png",
-		"__v":0
-	},
-	{
 		"_id":"60666c42cc7b410027a1a9b9",
 		"name":"Соус традиционный галактический",
 		"type":"sauce",
@@ -81,34 +53,6 @@ const data = [
 		"image":"https://code.s3.yandex.net/react/code/sauce-03.png",
 		"image_mobile":"https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
 		"image_large":"https://code.s3.yandex.net/react/code/sauce-03-large.png",
-		"__v":0
-	},
-	{
-		"_id":"60666c42cc7b410027a1a9b8",
-		"name":"Соус фирменный Space Sauce",
-		"type":"sauce",
-		"proteins":50,
-		"fat":22,
-		"carbohydrates":11,
-		"calories":14,
-		"price":80,
-		"image":"https://code.s3.yandex.net/react/code/sauce-04.png",
-		"image_mobile":"https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-		"image_large":"https://code.s3.yandex.net/react/code/sauce-04-large.png",
-		"__v":0
-	},
-	{
-		"_id":"60666c42cc7b410027a1a9bc",
-		"name":"Плоды Фалленианского дерева",
-		"type":"main",
-		"proteins":20,
-		"fat":5,
-		"carbohydrates":55,
-		"calories":77,
-		"price":874,
-		"image":"https://code.s3.yandex.net/react/code/sp_1.png",
-		"image_mobile":"https://code.s3.yandex.net/react/code/sp_1-mobile.png",
-		"image_large":"https://code.s3.yandex.net/react/code/sp_1-large.png",
 		"__v":0
 	},
 	{
@@ -153,71 +97,8 @@ const data = [
 		"image_large":"https://code.s3.yandex.net/react/code/core-large.png",
 		"__v":0
 	},
-	{
-		"_id":"60666c42cc7b410027a1a9be",
-		"name":"Мини-салат Экзо-Плантаго",
-		"type":"main",
-		"proteins":1,
-		"fat":2,
-		"carbohydrates":3,
-		"calories":6,
-		"price":4400,
-		"image":"https://code.s3.yandex.net/react/code/salad.png",
-		"image_mobile":"https://code.s3.yandex.net/react/code/salad-mobile.png",
-		"image_large":"https://code.s3.yandex.net/react/code/salad-large.png",
-		"__v":0
-	},
-	{
-		"_id":"60666c42cc7b410027a1a9b3",
-		"name":"Филе Люминесцентного тетраодонтимформа",
-		"type":"main",
-		"proteins":44,
-		"fat":26,
-		"carbohydrates":85,
-		"calories":643,
-		"price":988,
-		"image":"https://code.s3.yandex.net/react/code/meat-03.png",
-		"image_mobile":"https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-		"image_large":"https://code.s3.yandex.net/react/code/meat-03-large.png",
-		"__v":0
-	},
-	{
-		"_id":"60666c42cc7b410027a1a9bf",
-		"name":"Сыр с астероидной плесенью",
-		"type":"main",
-		"proteins":84,
-		"fat":48,
-		"carbohydrates":420,
-		"calories":3377,
-		"price":4142,
-		"image":"https://code.s3.yandex.net/react/code/cheese.png",
-		"image_mobile":"https://code.s3.yandex.net/react/code/cheese-mobile.png",
-		"image_large":"https://code.s3.yandex.net/react/code/cheese-large.png",
-		"__v":0
-	},
-	{
-		"_id":"60666c42cc7b410027a1a9b2",
-		"name":"Флюоресцентная булка R2-D3",
-		"type":"bun",
-		"proteins":44,
-		"fat":26,
-		"carbohydrates":85,
-		"calories":643,
-		"price":988,
-		"image":"https://code.s3.yandex.net/react/code/bun-01.png",
-		"image_mobile":"https://code.s3.yandex.net/react/code/bun-01-mobile.png",
-		"image_large":"https://code.s3.yandex.net/react/code/bun-01-large.png",
-		"__v":0
-	}
 ]
 
-const randomDec = Math.floor(Math.random() * 4);
-
-const randomIngredients = data.filter(
-	(ingredient, index) => (ingredient.type !== 'bun' && index % randomDec === 0)
-);
-
-randomIngredients.push(data.find(ingredient => ingredient.type === 'bun'));
 
 const apiConfig = {
 	baseURL: 'https://norma.nomoreparties.space/api',
@@ -228,4 +109,4 @@ const apiConfig = {
 }
 
 
-export {data, randomIngredients, apiConfig}
+export {apiConfig, constructorData}
