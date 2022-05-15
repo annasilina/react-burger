@@ -15,7 +15,7 @@
 	list-style-type: none;
 	padding-left: 0;
 	margin: 0;
-	max-height: calc(100vh - 550px);
+	max-height: calc(100vh - 500px);
 	overflow-y: auto;
 	min-width: 568px;
 }

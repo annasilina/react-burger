@@ -1,7 +1,6 @@
 export default class Api {
-	constructor(options) {
-		this._url = options.baseURL;
-		this._headers = options.headers;
+	constructor(config) {
+		this._url = config.baseURL;
 	}
 
 	// функция проверки ответа на запрос
@@ -15,8 +14,6 @@ export default class Api {
 
 	// функция получения данных по ингредиентам
 	getIngredients = () => {
-		return fetch(`${this._url}/ingredients`, {
-			headers: this._headers
-		}).then((res) => this._checkResponse(res));
+		return fetch(`${this._url}/ingredients`).then((res) => this._checkResponse(res));
 	}
 }
