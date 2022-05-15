@@ -50,7 +50,7 @@ function BurgerConstructor(props) {
 					</p>
 					<CurrencyIcon type={'primary'} />
 				</div>
-				<Button type={'primary'} size={'large'}>
+				<Button type={'primary'} size={'large'} onClick={() => props.setModalVisibility(true)}>
 					Оформить заказ
 				</Button>
 			</div>
@@ -60,6 +60,7 @@ function BurgerConstructor(props) {
 
 BurgerConstructor.propTypes = {
 	currentIngredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+	setModalVisibility: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

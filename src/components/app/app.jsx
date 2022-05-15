@@ -15,8 +15,11 @@ const api = new Api(apiConfig);
 
 function App() {
 	const [ingredients, setIngredients] = useState([]);
-	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(true);
+	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
+	const [ingredientId, setIngredientId] = useState();
+
+	const orderId = Math.floor(Math.random() * 200000);
 
 	useEffect(() => {
 		api.getIngredients()
@@ -39,17 +42,17 @@ function App() {
 		<>
 			<AppHeader />
 			<main className={styles.main}>
-				<BurgerIngredients ingredients={ingredients} />
-				<BurgerConstructor currentIngredients={constructorData}/>
+				<BurgerIngredients ingredients={ingredients} setIngredientId={setIngredientId} setModalVisibility={setIsIngredientDetailsOpened}/>
+				<BurgerConstructor currentIngredients={constructorData} setModalVisibility={setIsOrderDetailsOpened}/>
 			</main>
 			{isOrderDetailsOpen &&
 				<Modal title="" handleClose={closeAllModals} handleCloseEsc={handleEscKeydown}>
-					<OrderDetails />
+					<OrderDetails orderId={orderId}/>
 				</Modal>
 			}
 			{isIngredientDetailsOpen &&
-				<Modal title="Детали игредиента" handleClose={closeAllModals} handleCloseEsc={handleEscKeydown}>
-					<IngredientDetails ingredient={constructorData[1]}/>
+				<Modal title="Детали ингредиента" handleClose={closeAllModals} handleCloseEsc={handleEscKeydown}>
+					<IngredientDetails ingredient={ingredients.find(ingredient => ingredient._id === ingredientId)}/>
 				</Modal>
 			}
 		</>
