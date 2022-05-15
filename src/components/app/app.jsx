@@ -49,7 +49,7 @@ function App() {
 			}
 			{isIngredientDetailsOpen &&
 				<Modal title="Детали игредиента" handleClose={closeAllModals} handleCloseEsc={handleEscKeydown}>
-					<IngredientDetails ingredient={constructorData[0]}/>
+					<IngredientDetails ingredient={constructorData[1]}/>
 				</Modal>
 			}
 		</>
