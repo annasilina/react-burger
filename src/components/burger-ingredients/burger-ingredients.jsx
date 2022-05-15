@@ -38,7 +38,6 @@ function BurgerIngredient(props) {
 	const showIngredientDetails = (ingredientId) => {
 		props.setIngredientId(ingredientId);
 		props.setModalVisibility(true);
-		console.log('был клик');
 	}
 
 	return (
