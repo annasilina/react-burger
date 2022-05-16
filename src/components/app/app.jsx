@@ -37,12 +37,21 @@ function App() {
 		event.key === "Escape" && closeAllModals();
 	};
 
+	const handleOrderDetailsOpen = () => {
+		setIsOrderDetailsOpened(true);
+	}
+
+	const handleIngredientDetailsOpen = (ingredientId) => {
+		setIngredientId(ingredientId);
+		setIsIngredientDetailsOpened(true);
+	}
+
 	return (
 		<>
 			<AppHeader />
 			<main className={styles.main}>
-				<BurgerIngredients ingredients={ingredients} setIngredientId={setIngredientId} setModalVisibility={setIsIngredientDetailsOpened}/>
-				<BurgerConstructor currentIngredients={constructorData} setModalVisibility={setIsOrderDetailsOpened}/>
+				<BurgerIngredients ingredients={ingredients} setModalVisibility={handleIngredientDetailsOpen}/>
+				<BurgerConstructor currentIngredients={constructorData} setModalVisibility={handleOrderDetailsOpen}/>
 			</main>
 			{isOrderDetailsOpen &&
 				<Modal title="" handleClose={closeAllModals} handleCloseEsc={handleEscKeydown}>

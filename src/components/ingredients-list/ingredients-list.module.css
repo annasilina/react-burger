@@ -1,0 +1,9 @@
+.ingredientItem {
+	display: flex;
+	align-items: center;
+	margin-bottom: 16px;
+}
+
+.ingredientItem:last-child {
+	margin-bottom: 0;
+}

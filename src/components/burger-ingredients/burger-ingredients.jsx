@@ -8,12 +8,12 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import PropTypes from 'prop-types';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 
-function BurgerIngredients(props) {
+function BurgerIngredients({ ingredients, setModalVisibility }) {
 
 	const [current, setCurrent] = useState('bun');
-	const ingredientsTypeBun = props.ingredients.filter((ingredient) => ingredient.type === 'bun');
-	const ingredientsTypeMain = props.ingredients.filter((ingredient) => ingredient.type === 'main');
-	const ingredientsTypeSauce = props.ingredients.filter((ingredient) => ingredient.type === 'sauce');
+	const ingredientsTypeBun = ingredients.filter((ingredient) => ingredient.type === 'bun');
+	const ingredientsTypeMain = ingredients.filter((ingredient) => ingredient.type === 'main');
+	const ingredientsTypeSauce = ingredients.filter((ingredient) => ingredient.type === 'sauce');
 
 	return (
 		<section>
@@ -45,22 +45,19 @@ function BurgerIngredients(props) {
 					type="bun"
 					title='Булки'
 					ingredients={ingredientsTypeBun}
-					setIngredientId={props.setIngredientId}
-					setModalVisibility={props.setModalVisibility}
+					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type="main"
 					title='Начинки'
 					ingredients={ingredientsTypeMain}
-					setIngredientId={props.setIngredientId}
-					setModalVisibility={props.setModalVisibility}
+					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type="sauce"
 					title='Соусы'
 					ingredients={ingredientsTypeSauce}
-					setIngredientId={props.setIngredientId}
-					setModalVisibility={props.setModalVisibility}
+					setModalVisibility={setModalVisibility}
 				/>
 			</div>
 		</section>
@@ -69,7 +66,6 @@ function BurgerIngredients(props) {
 
 BurgerIngredients.propTypes = {
 	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-	setIngredientId: PropTypes.func.isRequired,
 	setModalVisibility: PropTypes.func.isRequired
 }
 
