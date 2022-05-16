@@ -1,4 +1,8 @@
-export default class Api {
+const apiConfig = {
+	baseURL: 'https://norma.nomoreparties.space/api',
+}
+
+class Api {
 	constructor(config) {
 		this._url = config.baseURL;
 	}
@@ -17,3 +21,7 @@ export default class Api {
 		return fetch(`${this._url}/ingredients`).then((res) => this._checkResponse(res));
 	}
 }
+
+const api = new Api(apiConfig);
+
+export {api}

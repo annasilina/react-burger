@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ingredientPropTypes} from '../../utils/types';
+import {ingredientPropTypes} from '../../types/ingredient';
 import styles from './ingredient-details.module.css';
 
 const IngredientDetails = ({ ingredient }) => {

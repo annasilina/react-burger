@@ -1,0 +1,15 @@
+.item {
+	list-style-type: none;
+	position: relative;
+	cursor: grab;
+}
+
+.itemCurrency {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.itemCaption {
+	text-align: center;
+}

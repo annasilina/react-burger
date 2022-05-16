@@ -2,16 +2,15 @@ import React, {useState} from 'react';
 import {useEffect} from 'react';
 import styles from './app.module.css';
 
-import {apiConfig, constructorData} from '../../utils/data';
+import {constructorData} from '../../utils/data';
+import {api} from '../../api/api';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import Api from '../api/api';
 
-const api = new Api(apiConfig);
 
 function App() {
 	const [ingredients, setIngredients] = useState([]);

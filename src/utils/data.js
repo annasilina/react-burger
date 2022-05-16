@@ -113,8 +113,4 @@ const constructorData = [
 	},
 ]
 
-const apiConfig = {
-	baseURL: 'https://norma.nomoreparties.space/api',
-}
-
-export {apiConfig, constructorData}
+export {constructorData}
