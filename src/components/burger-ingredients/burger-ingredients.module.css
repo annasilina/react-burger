@@ -18,29 +18,3 @@
 	border: 3px solid #8585AD;
 }
 
-.typeList {
-	padding: 0;
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	justify-items: center;
-	column-gap: 24px;
-	row-gap: 32px;
-}
-
-.item {
-	list-style-type: none;
-	position: relative;
-	cursor: grab;
-}
-
-.itemCurrency {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.itemCaption {
-	text-align: center;
-}
-
-
