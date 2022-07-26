@@ -4,7 +4,7 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function BurgerIngredient({ ingredient, setModalVisibility }) {
+const BurgerIngredient = React.memo(({ ingredient, setModalVisibility }) => {
 	const count = Math.floor(Math.random() * 2);
 
 	return (
@@ -20,9 +20,11 @@ export default function BurgerIngredient({ ingredient, setModalVisibility }) {
 			</p>
 		</li>
 	)
-}
+})
 
 BurgerIngredient.propTypes = {
 	ingredient: ingredientPropTypes.isRequired,
 	setModalVisibility: PropTypes.func.isRequired
 }
+
+export default BurgerIngredient
