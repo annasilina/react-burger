@@ -8,9 +8,12 @@ import IngredientsContext from '../../context/ingredients-context';
 
 const BurgerConstructor = ({ setModalVisibility }) => {
 	const ingredients = useContext(IngredientsContext).ingredients;
+
 	const bun = ingredients.find(ingredient => ingredient.type === 'bun');
-	const orderCost = ingredients.reduce((prevValue, ingredient) => {return prevValue + ingredient.price}, bun.price);
-	console.log('tick constructor');
+	const currentIngredients = ingredients.filter(ingredient => ingredient.type !== 'bun');
+	const orderCost = currentIngredients.reduce((prevValue, ingredient) => {return prevValue + ingredient.price}, bun.price * 2);
+
+	const handleButtonClick = () => setModalVisibility(ingredients.map(ingredient => ingredient._id));
 
 	return (
 		<section className={`mt-25`}>
@@ -19,7 +22,7 @@ const BurgerConstructor = ({ setModalVisibility }) => {
 					<ConstructorElement type="top" isLocked={true} thumbnail={bun.image} price={bun.price}  text={`${bun.name} (верх)`}/>
 				</div>
 				<ul className={`${styles.ingredientList}`}>
-					<IngredientsList ingredients={ingredients} />
+					<IngredientsList ingredients={currentIngredients} />
 				</ul>
 				<div className={`${styles.ingredientElement} pl-8`}>
 					<ConstructorElement type="bottom" isLocked={true} thumbnail={bun.image} price={bun.price}  text={`${bun.name} (низ)`}/>
@@ -32,7 +35,7 @@ const BurgerConstructor = ({ setModalVisibility }) => {
 					</p>
 					<CurrencyIcon type={'primary'} />
 				</div>
-				<Button type={'primary'} size={'large'} onClick={setModalVisibility}>
+				<Button type={'primary'} size={'large'} onClick={handleButtonClick}>
 					Оформить заказ
 				</Button>
 			</div>

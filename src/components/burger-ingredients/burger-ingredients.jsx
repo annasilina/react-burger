@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 import IngredientsContext from '../../context/ingredients-context';
 
-const BurgerIngredients = ({ setModalVisibility }) => {
+const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 	const ingredients = useContext(IngredientsContext).ingredients;
 	const [current, setCurrent] = useState('bun');
-	console.log('tick ingredients');
+
 	const ingredientFilter = (ingredients, type) => {
 		return ingredients.filter((ingredient) => ingredient.type === type);
 	};
@@ -63,7 +63,7 @@ const BurgerIngredients = ({ setModalVisibility }) => {
 			</div>
 		</section>
 	)
-}
+});
 
 BurgerIngredients.propTypes = {
 	setModalVisibility: PropTypes.func.isRequired

@@ -1,10 +1,14 @@
 const apiConfig = {
 	baseURL: 'https://norma.nomoreparties.space/api',
+	headers: {
+		'Content-Type': 'application/json',
+	}
 }
 
 class Api {
 	constructor(config) {
 		this._url = config.baseURL;
+		this._headers = config.headers;
 	}
 
 	// функция проверки ответа на запрос
@@ -19,6 +23,16 @@ class Api {
 	// функция получения данных по ингредиентам
 	getIngredients = () => {
 		return fetch(`${this._url}/ingredients`).then((res) => this._checkResponse(res));
+	}
+
+	sendNewOrder = (IDs) => {
+		return fetch(`${this._url}/orders`, {
+			method: 'POST',
+			headers: this._headers,
+			body: JSON.stringify({
+				ingredients: IDs,
+			}),
+		}).then((res) => this._checkResponse(res));
 	}
 }
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {useEffect} from 'react';
 import styles from './app.module.css';
 
@@ -11,20 +11,20 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import IngredientsContext from '../../context/ingredients-context';
 
-
 const App = () => {
 	const [ingredients, setIngredients] = useState({
 		isLoading: false,
 		hasError: false,
 		data: [],
 	});
-
+	const [orderDetails, setOrderDetails] = useState({
+		isLoading: false,
+		hasError: false,
+		number: 0,
+	});
 	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
 	const [ingredientId, setIngredientId] = useState();
-
-	const orderId = Math.floor(Math.random() * 200000);
-	console.log('tick App')
 
 	useEffect(() => {
 		setIngredients({
@@ -32,7 +32,7 @@ const App = () => {
 			isLoading: true,
 		})
 		api.getIngredients()
-			.then(ingredientsData => {
+			.then((ingredientsData) => {
 				setIngredients({
 					...ingredients,
 					data: ingredientsData.data,
@@ -49,23 +49,44 @@ const App = () => {
 			})
 	}, []);
 
-	const closeAllModals = useCallback(() => {
+	const closeAllModals = () => {
 		setIsOrderDetailsOpened(false);
 		setIsIngredientDetailsOpened(false)
-	}, []);
+	};
 
-	const handleEscKeydown = useCallback((event) => {
+	const handleEscKeydown = (event) => {
 		event.key === "Escape" && closeAllModals();
-	}, []);
+	};
 
-	const handleOrderDetailsOpen = useCallback(() => {
-		setIsOrderDetailsOpened(true);
-	}, [])
+	const handleOrderDetailsOpen = (IDs) => {
+		setOrderDetails({
+			...orderDetails,
+			isLoading: true,
+		})
 
-	const handleIngredientDetailsOpen = useCallback((ingredientId) => {
+		api.sendNewOrder(IDs)
+			.then((res) => {
+				setOrderDetails({
+					...orderDetails,
+					number: res.order.number,
+					isLoading: false,
+				})
+				setIsOrderDetailsOpened(true);
+			})
+			.catch((err) => {
+				setOrderDetails({
+					...orderDetails,
+					isLoading: false,
+					hasError: true,
+				})
+				console.log(err);
+			})
+	};
+
+	const handleIngredientDetailsOpen = (ingredientId) => {
 		setIngredientId(ingredientId);
 		setIsIngredientDetailsOpened(true);
-	}, [])
+	};
 
 	return (
 		<>
@@ -78,9 +99,9 @@ const App = () => {
 					</IngredientsContext.Provider>
 				}
 			</main>
-			{isOrderDetailsOpen &&
+			{isOrderDetailsOpen && !orderDetails.isLoading && !orderDetails.hasError &&
 				<Modal title="" handleClose={closeAllModals} handleCloseEsc={handleEscKeydown}>
-					<OrderDetails orderId={orderId}/>
+					<OrderDetails orderId={orderDetails.number}/>
 				</Modal>
 			}
 			{isIngredientDetailsOpen &&
