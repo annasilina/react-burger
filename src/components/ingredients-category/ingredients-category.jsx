@@ -6,7 +6,7 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 
 
-export default function IngredientsCategory({ title, ingredients, setModalVisibility}) {
+const IngredientsCategory = ({ title, ingredients, setModalVisibility}) => {
 	return (
 		<div>
 			<h2 className="text text_type_main-medium">
@@ -23,8 +23,11 @@ export default function IngredientsCategory({ title, ingredients, setModalVisibi
 	)
 }
 
+
 IngredientsCategory.propTypes = {
 	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 	title: PropTypes.string.isRequired,
 	setModalVisibility: PropTypes.func.isRequired
 }
+
+export default IngredientsCategory

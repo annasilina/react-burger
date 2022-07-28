@@ -8,12 +8,13 @@ import PropTypes from 'prop-types';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 import IngredientsContext from '../../context/ingredients-context';
 
-function BurgerIngredients({ setModalVisibility }) {
-	const { ingredients } = useContext(IngredientsContext);
+const BurgerIngredients = ({ setModalVisibility }) => {
+	const ingredients = useContext(IngredientsContext).ingredients;
 	const [current, setCurrent] = useState('bun');
-	const ingredientsTypeBun = ingredients.filter((ingredient) => ingredient.type === 'bun');
-	const ingredientsTypeMain = ingredients.filter((ingredient) => ingredient.type === 'main');
-	const ingredientsTypeSauce = ingredients.filter((ingredient) => ingredient.type === 'sauce');
+	console.log('tick ingredients');
+	const ingredientFilter = (ingredients, type) => {
+		return ingredients.filter((ingredient) => ingredient.type === type);
+	};
 
 	return (
 		<section>
@@ -44,19 +45,19 @@ function BurgerIngredients({ setModalVisibility }) {
 				<IngredientsCategory
 					type="bun"
 					title='Булки'
-					ingredients={ingredientsTypeBun}
+					ingredients={ingredientFilter(ingredients, 'bun')}
 					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type="main"
 					title='Начинки'
-					ingredients={ingredientsTypeMain}
+					ingredients={ingredientFilter(ingredients, 'main')}
 					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type="sauce"
 					title='Соусы'
-					ingredients={ingredientsTypeSauce}
+					ingredients={ingredientFilter(ingredients, 'sauce')}
 					setModalVisibility={setModalVisibility}
 				/>
 			</div>

@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.css';
-import {ingredientPropTypes} from '../../types/ingredient';
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsList from '../ingredients-list/ingredients-list';
+import IngredientsContext from '../../context/ingredients-context';
 
-function BurgerConstructor({ currentIngredients, setModalVisibility }) {
-	const bun = currentIngredients.find(ingredient => ingredient.type === 'bun');
-	const orderCost = currentIngredients.reduce((prevValue, ingredient) => {return prevValue + ingredient.price}, 0);
+const BurgerConstructor = ({ setModalVisibility }) => {
+	const ingredients = useContext(IngredientsContext).ingredients;
+	const bun = ingredients.find(ingredient => ingredient.type === 'bun');
+	const orderCost = ingredients.reduce((prevValue, ingredient) => {return prevValue + ingredient.price}, bun.price);
+	console.log('tick constructor');
 
 	return (
 		<section className={`mt-25`}>
@@ -17,7 +19,7 @@ function BurgerConstructor({ currentIngredients, setModalVisibility }) {
 					<ConstructorElement type="top" isLocked={true} thumbnail={bun.image} price={bun.price}  text={`${bun.name} (верх)`}/>
 				</div>
 				<ul className={`${styles.ingredientList}`}>
-					<IngredientsList ingredients={currentIngredients} />
+					<IngredientsList ingredients={ingredients} />
 				</ul>
 				<div className={`${styles.ingredientElement} pl-8`}>
 					<ConstructorElement type="bottom" isLocked={true} thumbnail={bun.image} price={bun.price}  text={`${bun.name} (низ)`}/>
@@ -39,7 +41,6 @@ function BurgerConstructor({ currentIngredients, setModalVisibility }) {
 }
 
 BurgerConstructor.propTypes = {
-	currentIngredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 	setModalVisibility: PropTypes.func.isRequired
 }
 
