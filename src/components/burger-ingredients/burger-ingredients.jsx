@@ -1,15 +1,15 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-ingredients.module.css';
-import {ingredientPropTypes} from '../../types/ingredient';
 import PropTypes from 'prop-types';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
+import IngredientsContext from '../../context/ingredients-context';
 
-function BurgerIngredients({ ingredients, setModalVisibility }) {
-
+function BurgerIngredients({ setModalVisibility }) {
+	const { ingredients } = useContext(IngredientsContext);
 	const [current, setCurrent] = useState('bun');
 	const ingredientsTypeBun = ingredients.filter((ingredient) => ingredient.type === 'bun');
 	const ingredientsTypeMain = ingredients.filter((ingredient) => ingredient.type === 'main');
@@ -65,7 +65,6 @@ function BurgerIngredients({ ingredients, setModalVisibility }) {
 }
 
 BurgerIngredients.propTypes = {
-	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 	setModalVisibility: PropTypes.func.isRequired
 }
 

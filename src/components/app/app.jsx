@@ -10,6 +10,7 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import IngredientsContext from '../../context/ingredients-context';
 
 
 function App() {
@@ -50,7 +51,9 @@ function App() {
 		<>
 			<AppHeader />
 			<main className={styles.main}>
-				<BurgerIngredients ingredients={ingredients} setModalVisibility={handleIngredientDetailsOpen}/>
+				<IngredientsContext.Provider value={{ingredients}}>
+					<BurgerIngredients setModalVisibility={handleIngredientDetailsOpen}/>
+				</IngredientsContext.Provider>
 				<BurgerConstructor currentIngredients={constructorData} setModalVisibility={handleOrderDetailsOpen}/>
 			</main>
 			{isOrderDetailsOpen &&
