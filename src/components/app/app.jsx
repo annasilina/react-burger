@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useEffect} from 'react';
 import styles from './app.module.css';
 
@@ -50,10 +50,10 @@ const App = () => {
 			})
 	}, []);
 
-	const closeAllModals = () => {
+	const closeAllModals = useCallback(() => {
 		setIsOrderDetailsOpened(false);
 		setIsIngredientDetailsOpened(false)
-	};
+	}, [setIsIngredientDetailsOpened, setIsOrderDetailsOpened]);
 
 	const handleOrderDetailsOpen = (IDs) => {
 		setOrderDetails({
