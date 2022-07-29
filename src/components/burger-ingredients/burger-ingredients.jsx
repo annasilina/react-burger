@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {useState, useContext} from 'react';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,10 +11,31 @@ import IngredientsContext from '../../context/ingredients-context';
 const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 	const ingredients = useContext(IngredientsContext).ingredients;
 	const [current, setCurrent] = useState('bun');
+	const bunListRef = useRef(null);
+	const mainListRef = useRef(null);
+	const sauceListRef = useRef(null);
 
 	const ingredientFilter = (ingredients, type) => {
 		return ingredients.filter((ingredient) => ingredient.type === type);
 	};
+
+	const handleScroll = (ref) => {
+			ref.current.scrollIntoView({behavior: 'smooth'});
+	}
+
+	const handleTabClick = (event) => {
+		setCurrent(event);
+
+		if (event === 'bun') {
+			handleScroll(bunListRef);
+		} else if (event === 'sauce') {
+			handleScroll(sauceListRef);
+		} else {
+			handleScroll(mainListRef);
+		}
+	}
+
+	console.log('tick ingredients');
 
 	return (
 		<section>
@@ -25,19 +46,19 @@ const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 				<Tab
 					value="bun"
 					active={current === 'bun'}
-					onClick={setCurrent}>
+					onClick={handleTabClick}>
 					Булки
 				</Tab>
 				<Tab
 					value="sauce"
 					active={current === 'sauce'}
-					onClick={setCurrent}>
+					onClick={handleTabClick}>
 					Соусы
 				</Tab>
 				<Tab
 					value="main"
 					active={current === 'main'}
-					onClick={setCurrent}>
+					onClick={handleTabClick}>
 					Начинки
 				</Tab>
 			</div>
@@ -45,18 +66,21 @@ const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 				<IngredientsCategory
 					type="bun"
 					title='Булки'
+					ref={bunListRef}
 					ingredients={ingredientFilter(ingredients, 'bun')}
 					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type="main"
 					title='Начинки'
+					ref={mainListRef}
 					ingredients={ingredientFilter(ingredients, 'main')}
 					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type="sauce"
 					title='Соусы'
+					ref={sauceListRef}
 					ingredients={ingredientFilter(ingredients, 'sauce')}
 					setModalVisibility={setModalVisibility}
 				/>

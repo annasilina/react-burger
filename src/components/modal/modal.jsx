@@ -10,9 +10,13 @@ import PropTypes from 'prop-types';
 
 const modalsContainer = document.querySelector('#modals');
 
-const Modal = ({ title, handleClose, handleCloseEsc, children }) => {
+const Modal = ({ title, handleClose, children }) => {
 
 	useEffect(() => {
+		const handleCloseEsc = (e) => {
+			e.key === "Escape" && handleClose();
+		}
+
 		document.addEventListener('keydown', handleCloseEsc);
 
 		return () => {
@@ -36,7 +40,6 @@ const Modal = ({ title, handleClose, handleCloseEsc, children }) => {
 Modal.propTypes = {
 	title: PropTypes.string,
 	handleClose: PropTypes.func.isRequired,
-	handleCloseEsc: PropTypes.func.isRequired,
 	children: PropTypes.element.isRequired
 }
 

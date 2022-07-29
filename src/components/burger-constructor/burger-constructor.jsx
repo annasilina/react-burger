@@ -15,6 +15,8 @@ const BurgerConstructor = ({ setModalVisibility }) => {
 
 	const handleButtonClick = () => setModalVisibility(ingredients.map(ingredient => ingredient._id));
 
+	console.log('tick constructor');
+
 	return (
 		<section className={`mt-25`}>
 			<div className={`${styles.elementsContainer} ml-4`}>

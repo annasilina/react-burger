@@ -6,10 +6,10 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 
 
-const IngredientsCategory = ({ title, ingredients, setModalVisibility}) => {
+const IngredientsCategory = React.forwardRef(({ title, ingredients, setModalVisibility}, ref) => {
 	return (
 		<div>
-			<h2 className="text text_type_main-medium">
+			<h2 className="text text_type_main-medium" ref={ref}>
 				{title}
 			</h2>
 			<ul className={`${styles.typeList} mt-6 mr-2 mb-10 ml-4`}>
@@ -21,7 +21,7 @@ const IngredientsCategory = ({ title, ingredients, setModalVisibility}) => {
 			</ul>
 		</div>
 	)
-}
+})
 
 
 IngredientsCategory.propTypes = {

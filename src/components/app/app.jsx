@@ -25,6 +25,7 @@ const App = () => {
 	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
 	const [ingredientId, setIngredientId] = useState();
+	console.log('tick App');
 
 	useEffect(() => {
 		setIngredients({
@@ -52,10 +53,6 @@ const App = () => {
 	const closeAllModals = () => {
 		setIsOrderDetailsOpened(false);
 		setIsIngredientDetailsOpened(false)
-	};
-
-	const handleEscKeydown = (event) => {
-		event.key === "Escape" && closeAllModals();
 	};
 
 	const handleOrderDetailsOpen = (IDs) => {
@@ -100,12 +97,12 @@ const App = () => {
 				}
 			</main>
 			{isOrderDetailsOpen && !orderDetails.isLoading && !orderDetails.hasError &&
-				<Modal title="" handleClose={closeAllModals} handleCloseEsc={handleEscKeydown}>
+				<Modal title="" handleClose={closeAllModals} >
 					<OrderDetails orderId={orderDetails.number}/>
 				</Modal>
 			}
 			{isIngredientDetailsOpen &&
-				<Modal title="Детали ингредиента" handleClose={closeAllModals} handleCloseEsc={handleEscKeydown}>
+				<Modal title="Детали ингредиента" handleClose={closeAllModals} >
 					<IngredientDetails ingredient={ingredients.data.find(ingredient => ingredient._id === ingredientId)}/>
 				</Modal>
 			}
