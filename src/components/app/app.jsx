@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {useEffect} from 'react';
 import styles from './app.module.css';
 
@@ -10,6 +10,7 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import IngredientsContext from '../../context/ingredients-context';
+import {ModalContext} from '../../context/modal-context';
 
 const App = () => {
 	const [ingredients, setIngredients] = useState({
@@ -50,10 +51,10 @@ const App = () => {
 			})
 	}, []);
 
-	const closeAllModals = useCallback(() => {
-		setIsOrderDetailsOpened(false);
-		setIsIngredientDetailsOpened(false)
-	}, [setIsIngredientDetailsOpened, setIsOrderDetailsOpened]);
+	// const closeAllModals = useCallback(() => {
+	// 	setIsOrderDetailsOpened(false);
+	// 	setIsIngredientDetailsOpened(false)
+	// }, [setIsIngredientDetailsOpened, setIsOrderDetailsOpened]);
 
 	const handleOrderDetailsOpen = (IDs) => {
 		setOrderDetails({
@@ -87,7 +88,7 @@ const App = () => {
 
 	return (
 		<>
-			<AppHeader />
+			<AppHeader/>
 			<main className={styles.main}>
 				{!ingredients.isLoading && !ingredients.hasError && ingredients.data.length &&
 					<IngredientsContext.Provider value={{ingredients: ingredients.data}}>
@@ -97,17 +98,21 @@ const App = () => {
 				}
 			</main>
 			{isOrderDetailsOpen && !orderDetails.isLoading && !orderDetails.hasError &&
-				<Modal title="" handleClose={closeAllModals} >
-					<OrderDetails orderId={orderDetails.number}/>
-				</Modal>
+				<ModalContext.Provider value={{setIsIngredientDetailsOpened, setIsOrderDetailsOpened}}>
+					<Modal title="">
+						<OrderDetails orderId={orderDetails.number}/>
+					</Modal>
+				</ModalContext.Provider>
 			}
 			{isIngredientDetailsOpen &&
-				<Modal title="Детали ингредиента" handleClose={closeAllModals} >
-					<IngredientDetails ingredient={ingredients.data.find(ingredient => ingredient._id === ingredientId)}/>
-				</Modal>
+				<ModalContext.Provider value={{setIsIngredientDetailsOpened, setIsOrderDetailsOpened}}>
+					<Modal title="Детали ингредиента">
+						<IngredientDetails ingredient={ingredients.data.find(ingredient => ingredient._id === ingredientId)}/>
+					</Modal>
+				</ModalContext.Provider>
 			}
 		</>
-	)
+	);
 }
 
 export default App;

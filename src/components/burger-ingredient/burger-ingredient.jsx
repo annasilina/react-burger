@@ -7,6 +7,7 @@ import React from 'react';
 const BurgerIngredient = React.memo(({ ingredient, setModalVisibility }) => {
 	const count = Math.floor(Math.random() * 2);
 	const handleClick = () => setModalVisibility(ingredient._id);
+
 	return (
 		<li key={ingredient._id} className={`${styles.item}`} onClick={handleClick}>
 			<img src={ingredient.image} alt={ingredient.name} className="pr-4 pl-4"/>
