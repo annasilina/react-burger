@@ -1,19 +1,41 @@
-import React from 'react';
-import {useState} from 'react';
+import React, {useRef} from 'react';
+import {useState, useContext} from 'react';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-ingredients.module.css';
-import {ingredientPropTypes} from '../../types/ingredient';
 import PropTypes from 'prop-types';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
+import IngredientsContext from '../../context/ingredients-context';
 
-function BurgerIngredients({ ingredients, setModalVisibility }) {
-
+const BurgerIngredients = React.memo(({ setModalVisibility }) => {
+	const ingredients = useContext(IngredientsContext).ingredients;
 	const [current, setCurrent] = useState('bun');
-	const ingredientsTypeBun = ingredients.filter((ingredient) => ingredient.type === 'bun');
-	const ingredientsTypeMain = ingredients.filter((ingredient) => ingredient.type === 'main');
-	const ingredientsTypeSauce = ingredients.filter((ingredient) => ingredient.type === 'sauce');
+	const bunListRef = useRef(null);
+	const mainListRef = useRef(null);
+	const sauceListRef = useRef(null);
+
+	const ingredientFilter = (ingredients, type) => {
+		return ingredients.filter((ingredient) => ingredient.type === type);
+	};
+
+	const handleScroll = (ref) => {
+			ref.current.scrollIntoView({behavior: 'smooth'});
+	}
+
+	const handleTabClick = (event) => {
+		setCurrent(event);
+
+		if (event === 'bun') {
+			handleScroll(bunListRef);
+		} else if (event === 'sauce') {
+			handleScroll(sauceListRef);
+		} else {
+			handleScroll(mainListRef);
+		}
+	}
+
+	console.log('tick ingredients');
 
 	return (
 		<section>
@@ -24,19 +46,19 @@ function BurgerIngredients({ ingredients, setModalVisibility }) {
 				<Tab
 					value="bun"
 					active={current === 'bun'}
-					onClick={setCurrent}>
+					onClick={handleTabClick}>
 					Булки
 				</Tab>
 				<Tab
 					value="sauce"
 					active={current === 'sauce'}
-					onClick={setCurrent}>
+					onClick={handleTabClick}>
 					Соусы
 				</Tab>
 				<Tab
 					value="main"
 					active={current === 'main'}
-					onClick={setCurrent}>
+					onClick={handleTabClick}>
 					Начинки
 				</Tab>
 			</div>
@@ -44,28 +66,30 @@ function BurgerIngredients({ ingredients, setModalVisibility }) {
 				<IngredientsCategory
 					type="bun"
 					title='Булки'
-					ingredients={ingredientsTypeBun}
+					ref={bunListRef}
+					ingredients={ingredientFilter(ingredients, 'bun')}
 					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type="main"
 					title='Начинки'
-					ingredients={ingredientsTypeMain}
+					ref={mainListRef}
+					ingredients={ingredientFilter(ingredients, 'main')}
 					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type="sauce"
 					title='Соусы'
-					ingredients={ingredientsTypeSauce}
+					ref={sauceListRef}
+					ingredients={ingredientFilter(ingredients, 'sauce')}
 					setModalVisibility={setModalVisibility}
 				/>
 			</div>
 		</section>
 	)
-}
+});
 
 BurgerIngredients.propTypes = {
-	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 	setModalVisibility: PropTypes.func.isRequired
 }
 
