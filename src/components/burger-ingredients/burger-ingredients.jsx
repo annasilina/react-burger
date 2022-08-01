@@ -9,33 +9,37 @@ import IngredientsCategory from '../ingredients-category/ingredients-category';
 import IngredientsContext from '../../context/ingredients-context';
 
 const BurgerIngredients = React.memo(({ setModalVisibility }) => {
+	console.log('tick ingredients');
+
 	const ingredients = useContext(IngredientsContext).ingredients;
 	const [current, setCurrent] = useState('bun');
 	const bunListRef = useRef(null);
 	const mainListRef = useRef(null);
 	const sauceListRef = useRef(null);
+	const containerRef = useRef(null);
 
 	const ingredientFilter = (ingredients, type) => {
 		return ingredients.filter((ingredient) => ingredient.type === type);
 	};
 
-	const handleScroll = (ref) => {
+	const handleTabScroll = (ref) => {
 			ref.current.scrollIntoView({behavior: 'smooth'});
 	}
 
-	const handleTabClick = (event) => {
-		setCurrent(event);
+	const handleContainerScroll = () => {
+		const scrollTop = containerRef.current.scrollTop;
 
-		if (event === 'bun') {
-			handleScroll(bunListRef);
-		} else if (event === 'sauce') {
-			handleScroll(sauceListRef);
+		const bunHeight = bunListRef.current.clientHeight;
+		const sauceHeight = sauceListRef.current.clientHeight;
+
+		if (scrollTop < bunHeight) {
+			setCurrent('bun');
+		} else if (scrollTop > bunHeight + sauceHeight) {
+			setCurrent('main');
 		} else {
-			handleScroll(mainListRef);
+			setCurrent('sauce');
 		}
 	}
-
-	console.log('tick ingredients');
 
 	return (
 		<section>
@@ -46,23 +50,32 @@ const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 				<Tab
 					value="bun"
 					active={current === 'bun'}
-					onClick={handleTabClick}>
+					onClick={(event) => {
+						handleTabScroll(bunListRef);
+						setCurrent(event);
+					}}>
 					Булки
 				</Tab>
 				<Tab
 					value="sauce"
 					active={current === 'sauce'}
-					onClick={handleTabClick}>
+					onClick={(event) => {
+						handleTabScroll(sauceListRef);
+						setCurrent(event);
+					}}>
 					Соусы
 				</Tab>
 				<Tab
 					value="main"
 					active={current === 'main'}
-					onClick={handleTabClick}>
+					onClick={(event) => {
+						handleTabScroll(mainListRef);
+						setCurrent(event);
+					}}>
 					Начинки
 				</Tab>
 			</div>
-			<div className={styles.container}>
+			<div className={styles.container} ref={containerRef} onScroll={handleContainerScroll}>
 				<IngredientsCategory
 					type="bun"
 					title='Булки'
@@ -71,17 +84,17 @@ const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
-					type="main"
-					title='Начинки'
-					ref={mainListRef}
-					ingredients={ingredientFilter(ingredients, 'main')}
-					setModalVisibility={setModalVisibility}
-				/>
-				<IngredientsCategory
 					type="sauce"
 					title='Соусы'
 					ref={sauceListRef}
 					ingredients={ingredientFilter(ingredients, 'sauce')}
+					setModalVisibility={setModalVisibility}
+				/>
+				<IngredientsCategory
+					type="main"
+					title='Начинки'
+					ref={mainListRef}
+					ingredients={ingredientFilter(ingredients, 'main')}
 					setModalVisibility={setModalVisibility}
 				/>
 			</div>
