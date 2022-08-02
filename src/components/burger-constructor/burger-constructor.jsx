@@ -1,13 +1,13 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.css';
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsList from '../ingredients-list/ingredients-list';
-import IngredientsContext from '../../context/ingredients-context';
+import {useSelector} from 'react-redux';
 
 const BurgerConstructor = ({ setModalVisibility }) => {
-	const ingredients = useContext(IngredientsContext).ingredients;
+	const ingredients = useSelector(state => state.burger.ingredients);
 
 	const bun = ingredients.find(ingredient => ingredient.type === 'bun');
 	const currentIngredients = ingredients.filter(ingredient => ingredient.type !== 'bun');

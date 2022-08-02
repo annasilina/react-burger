@@ -1,17 +1,17 @@
 import React, {useRef} from 'react';
-import {useState, useContext} from 'react';
+import {useState} from 'react';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
-import IngredientsContext from '../../context/ingredients-context';
+import {useSelector} from 'react-redux';
 
 const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 	console.log('tick ingredients');
 
-	const ingredients = useContext(IngredientsContext).ingredients;
+	const ingredients = useSelector(state => state.burger.ingredients)
 	const [current, setCurrent] = useState('bun');
 
 	const bunListRef = useRef(null);

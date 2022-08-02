@@ -9,52 +9,36 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import IngredientsContext from '../../context/ingredients-context';
 import {ModalContext} from '../../context/modal-context';
+import {useDispatch, useSelector} from 'react-redux';
+import {getIngredients} from '../../services/actions/burger';
 
 const App = () => {
-	const [ingredients, setIngredients] = useState({
-		isLoading: false,
-		hasError: false,
-		data: [],
-	});
+	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
+		ingredients: state.burger.ingredients,
+		ingredientsIsLoading: state.burger.ingredientsIsLoading,
+		ingredientsHasError: state.burger.ingredientsHasError,
+	}));
+
+	const dispatch = useDispatch();
+
 	const [orderDetails, setOrderDetails] = useState({
 		isLoading: false,
 		hasError: false,
 		number: 0,
 	});
+
 	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
 	const [ingredientId, setIngredientId] = useState();
 	console.log('tick App');
 
-	useEffect(() => {
-		setIngredients({
-			...ingredients,
-			isLoading: true,
-		})
-		api.getIngredients()
-			.then((ingredientsData) => {
-				setIngredients({
-					...ingredients,
-					data: ingredientsData.data,
-					isLoading: false,
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-				setIngredients({
-					...ingredients,
-					isLoading: false,
-					hasError: true,
-				})
-			})
-	}, []);
-
-	// const closeAllModals = useCallback(() => {
-	// 	setIsOrderDetailsOpened(false);
-	// 	setIsIngredientDetailsOpened(false)
-	// }, [setIsIngredientDetailsOpened, setIsOrderDetailsOpened]);
+	useEffect(
+		() => {
+			dispatch(getIngredients());
+		},
+		[dispatch]
+	);
 
 	const handleOrderDetailsOpen = (IDs) => {
 		setOrderDetails({
@@ -62,7 +46,7 @@ const App = () => {
 			isLoading: true,
 		})
 
-		api.sendNewOrder(IDs)
+		api.sendNewOrderRequest(IDs)
 			.then((res) => {
 				setOrderDetails({
 					...orderDetails,
@@ -90,11 +74,11 @@ const App = () => {
 		<>
 			<AppHeader/>
 			<main className={styles.main}>
-				{!ingredients.isLoading && !ingredients.hasError && ingredients.data.length &&
-					<IngredientsContext.Provider value={{ingredients: ingredients.data}}>
+				{!ingredientsIsLoading && !ingredientsHasError && ingredients.length &&
+					<>
 						<BurgerIngredients setModalVisibility={handleIngredientDetailsOpen}/>
 						<BurgerConstructor setModalVisibility={handleOrderDetailsOpen}/>
-					</IngredientsContext.Provider>
+					</>
 				}
 			</main>
 			{isOrderDetailsOpen && !orderDetails.isLoading && !orderDetails.hasError &&
