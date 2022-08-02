@@ -25,12 +25,12 @@ class Api {
 		return fetch(`${this._url}/ingredients`).then((res) => this._checkResponse(res));
 	}
 
-	sendNewOrderRequest = (IDs) => {
+	sendNewOrderRequest = (idArray) => {
 		return fetch(`${this._url}/orders`, {
 			method: 'POST',
 			headers: this._headers,
 			body: JSON.stringify({
-				ingredients: IDs,
+				ingredients: idArray,
 			}),
 		}).then((res) => this._checkResponse(res));
 	}

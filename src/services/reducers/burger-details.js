@@ -1,7 +1,7 @@
 import {
 	GET_INGREDIENTS_LOADING,
 	GET_INGREDIENTS_LOADED,
-	GET_INGREDIENTS_FAILED
+	GET_INGREDIENTS_FAILED, GET_SELECTED_BUN, GET_SELECTED_INGREDIENTS, SET_INGREDIENT_DETAILS, RESET_INGREDIENT_DETAILS
 } from '../actions/burger-details.js';
 
 const initialState = {
@@ -28,7 +28,7 @@ export const burgerReducer = (state = initialState, action) => {
 				...state,
 				ingredientsIsLoading: false,
 				ingredientsHasError: false,
-				ingredients: action.ingredients
+				ingredients: action.ingredients.map(ingredient => ({...ingredient, count: 0}))
 			}
 		}
 		case GET_INGREDIENTS_FAILED: {
@@ -36,6 +36,30 @@ export const burgerReducer = (state = initialState, action) => {
 				...state,
 				ingredientsIsLoading: false,
 				ingredientsHasError: true
+			}
+		}
+		case GET_SELECTED_BUN: {
+			return {
+				...state,
+				bunSelected: action.bunSelected
+			}
+		}
+		case GET_SELECTED_INGREDIENTS: {
+			return {
+				...state,
+				ingredientsSelected: action.ingredientsSelected
+			}
+		}
+		case SET_INGREDIENT_DETAILS: {
+			return {
+				...state,
+				ingredientDetails: action.ingredient
+			}
+		}
+		case RESET_INGREDIENT_DETAILS: {
+			return {
+				...state,
+				ingredientDetails: {}
 			}
 		}
 		default:

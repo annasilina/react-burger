@@ -10,7 +10,7 @@ export default function IngredientsList({ ingredients }) {
 		ingredients.map(ingredient =>
 			(
 				ingredient.type !== 'bun' &&
-				<li key={ingredient._id} className={`${styles.ingredientItem}`}>
+				<li key={Math.random().toString(36).slice(2)} className={`${styles.ingredientItem}`}>
 					<div className="mr-2">
 						<DragIcon type="primary" />
 					</div>

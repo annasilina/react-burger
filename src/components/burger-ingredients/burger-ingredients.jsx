@@ -28,14 +28,15 @@ const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 
 	const handleContainerScroll = () => {
 		const bunScrollTop = bunListRef.current.getBoundingClientRect().top;
+		const bunHeight = bunListRef.current.clientHeight;
 		const sauceScrollTop = sauceListRef.current.getBoundingClientRect().top;
 
-		if (bunScrollTop > 1) {
+		if (bunScrollTop > bunHeight / 2) {
 			setCurrent('bun');
-		} else if (sauceScrollTop > 0 ) {
-			setCurrent('sauce');
-		} else {
+		} else if (sauceScrollTop < -50) {
 			setCurrent('main');
+		} else {
+			setCurrent('sauce');
 		}
 	}
 

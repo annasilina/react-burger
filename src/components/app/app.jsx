@@ -8,14 +8,15 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch, useSelector} from 'react-redux';
-import {getIngredients} from '../../services/actions/burger-details';
+import {getIngredients, RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/burger-details';
 import {createOrder} from '../../services/actions/order-details';
 
 const App = () => {
-	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
+	const { ingredients, ingredientsIsLoading, ingredientsHasError, ingredientDetails } = useSelector((state) => ({
 		ingredients: state.burger.ingredients,
 		ingredientsIsLoading: state.burger.ingredientsIsLoading,
 		ingredientsHasError: state.burger.ingredientsHasError,
+		ingredientDetails: state.burger.ingredientDetails
 	}));
 
 	const { orderNumber, orderIsLoading, orderHasError } = useSelector((state) => ({
@@ -28,7 +29,7 @@ const App = () => {
 
 	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
-	const [ingredientId, setIngredientId] = useState();
+
 	console.log('tick App');
 
 	useEffect(
@@ -38,21 +39,29 @@ const App = () => {
 		[dispatch]
 	);
 
-	const handleOrderDetailsOpen = (IDs) => {
-		dispatch(createOrder(IDs))
+	const handleOrderDetailsOpen = (orderDetails) => {
+		dispatch(createOrder(orderDetails))
 		setIsOrderDetailsOpened(true);
 	};
 
-	const handleIngredientDetailsOpen = (ingredientId) => {
-		setIngredientId(ingredientId);
-		setIsIngredientDetailsOpened(true);
+	const handleIngredientDetailsOpen = (ingredient) => {
+		dispatch({
+			type: SET_INGREDIENT_DETAILS,
+			ingredient: ingredient
+		})
+		setIsIngredientDetailsOpened(true)
 	};
 
-	const closeAllModals = () => {
+	const handleCloseIngredientModal = () => {
+		setIsIngredientDetailsOpened(false);
+		dispatch({
+			type: RESET_INGREDIENT_DETAILS
+		})
+	}
+
+	const handleCloseOrderModal = () => {
 		setIsOrderDetailsOpened(false)
-		setIsIngredientDetailsOpened(false)
 	};
-
 
 	return (
 		<>
@@ -66,13 +75,13 @@ const App = () => {
 				}
 			</main>
 			{isOrderDetailsOpen && !orderIsLoading && !orderHasError &&
-				<Modal title="" handleClose={closeAllModals}>
+				<Modal title="" handleClose={handleCloseOrderModal}>
 					<OrderDetails orderId={orderNumber}/>
 				</Modal>
 			}
 			{isIngredientDetailsOpen &&
-				<Modal title="Детали ингредиента" handleClose={closeAllModals}>
-					<IngredientDetails ingredient={ingredients.find(ingredient => ingredient._id === ingredientId)}/>
+				<Modal title="Детали ингредиента" handleClose={handleCloseIngredientModal}>
+					<IngredientDetails ingredient={ingredientDetails}/>
 				</Modal>
 			}
 		</>

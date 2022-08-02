@@ -5,11 +5,12 @@ export const CREATE_ORDER_LOADED = 'CREATE_ORDER_LOADED';
 export const CREATE_ORDER_FAILED = 'CREATE_ORDER_FAILED';
 
 export const createOrder = (orderDetails) => {
+	const idArray = orderDetails.map(ingredient => ingredient._id)
 	return function(dispatch) {
 		dispatch({
 			type: CREATE_ORDER_LOADING
 		})
-		api.sendNewOrderRequest(orderDetails)
+		api.sendNewOrderRequest(idArray)
 			.then((res) => {
 				dispatch({
 					type: CREATE_ORDER_LOADED,
