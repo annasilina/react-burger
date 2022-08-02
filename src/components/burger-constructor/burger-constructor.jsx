@@ -11,9 +11,11 @@ const BurgerConstructor = ({ setModalVisibility }) => {
 
 	const bun = ingredients.find(ingredient => ingredient.type === 'bun');
 	const currentIngredients = ingredients.filter(ingredient => ingredient.type !== 'bun');
+	currentIngredients.push(bun);
+	console.log(currentIngredients);
 	const orderCost = currentIngredients.reduce((prevValue, ingredient) => {return prevValue + ingredient.price}, bun.price * 2);
 
-	const handleButtonClick = () => setModalVisibility(ingredients.map(ingredient => ingredient._id));
+	const handleButtonClick = () => setModalVisibility(currentIngredients.map(ingredient => ingredient._id));
 
 	console.log('tick constructor');
 

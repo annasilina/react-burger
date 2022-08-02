@@ -1,8 +1,8 @@
 import { api } from '../../api/api';
 
 export const GET_INGREDIENTS_LOADING = 'GET_INGREDIENTS_LOADING';
-export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
-export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
+export const GET_INGREDIENTS_LOADED = 'GET_INGREDIENTS_LOADED';
+export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 
 export function getIngredients() {
 	return function(dispatch) {
@@ -12,13 +12,13 @@ export function getIngredients() {
 		api.getIngredientsRequest()
 			.then((res) => {
 				dispatch({
-					type: GET_INGREDIENTS_SUCCESS,
+					type: GET_INGREDIENTS_LOADED,
 					ingredients: res.data,
 				});
 			})
 			.catch((err) => {
 				dispatch({
-					type: GET_INGREDIENTS_ERROR
+					type: GET_INGREDIENTS_FAILED
 				});
 				console.log(err)
 			})
