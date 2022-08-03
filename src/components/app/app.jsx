@@ -9,7 +9,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIngredients, RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/burger-details';
-import {createOrder} from '../../services/actions/order-details';
+import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-details';
 
 const App = () => {
 	const { ingredients, ingredientsIsLoading, ingredientsHasError, ingredientDetails } = useSelector((state) => ({
@@ -61,7 +61,10 @@ const App = () => {
 
 	const handleCloseOrderModal = useCallback(() => {
 		setIsOrderDetailsOpened(false)
-	}, []);
+		dispatch({
+			type: RESET_ORDER_DETAILS
+		})
+	}, [dispatch]);
 
 	return (
 		<>

@@ -1,4 +1,9 @@
-import {CREATE_ORDER_FAILED, CREATE_ORDER_LOADED, CREATE_ORDER_LOADING} from '../actions/order-details';
+import {
+	CREATE_ORDER_FAILED,
+	CREATE_ORDER_LOADED,
+	CREATE_ORDER_LOADING,
+	RESET_ORDER_DETAILS
+} from '../actions/order-details';
 
 const initialState = {
 	orderNumber: 0,
@@ -27,6 +32,12 @@ export const orderReducer = (state = initialState, action) => {
 			...state,
 			orderIsLoading: false,
 			orderHasError: true,
+			}
+		}
+		case RESET_ORDER_DETAILS: {
+			return {
+				...state,
+				orderNumber: 0,
 			}
 		}
 		default:
