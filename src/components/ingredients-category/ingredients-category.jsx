@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './ingredients-category.module.css';
 import {ingredientPropTypes} from '../../types/ingredient';
-import BurgerIngredient from '../burger-ingredient/burger-ingredient';
+import DraggableBurgerIngredient from '../draggable-burger-ingredient/draggable-burger-ingredient';
 
 
 const IngredientsCategory = React.forwardRef(({ title, ingredients, setModalVisibility, type}, ref) => {
@@ -15,7 +15,7 @@ const IngredientsCategory = React.forwardRef(({ title, ingredients, setModalVisi
 			<ul className={`${styles.typeList} mt-6 mr-2 mb-10 ml-4`}>
 				{ingredients.map((ingredient) =>
 					(
-						<BurgerIngredient key={ingredient._id} ingredient={ingredient} setModalVisibility={setModalVisibility} />)
+						<DraggableBurgerIngredient key={ingredient._id} ingredient={ingredient} setModalVisibility={setModalVisibility} />)
 					)
 				}
 			</ul>
