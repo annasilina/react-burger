@@ -1,12 +1,10 @@
-import React, {useCallback, useRef} from 'react';
-import {useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
+import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-
 import styles from './burger-ingredients.module.css';
-import PropTypes from 'prop-types';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
-import {useSelector} from 'react-redux';
 
 const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 	console.log('tick ingredients');

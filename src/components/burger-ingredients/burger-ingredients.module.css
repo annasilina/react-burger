@@ -5,6 +5,7 @@
 .container {
 	margin-top: 40px;
 	overflow-y: auto;
+	overflow-x: hidden;
 	max-height: calc(100vh - 320px);
 }
 

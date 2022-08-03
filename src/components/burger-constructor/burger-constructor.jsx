@@ -5,8 +5,10 @@ import styles from './burger-constructor.module.css';
 import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientsList from '../ingredients-list/ingredients-list';
 import {useSelector} from 'react-redux';
+import {useDrop} from 'react-dnd';
 
 const BurgerConstructor = React.memo(({ setModalVisibility }) => {
+	const ingredients = useSelector(state => state.burger.ingredients);
 	const bunSelected = useSelector(state => state.burger.bunSelected);
 	const ingredientsSelected = useSelector(state => state.burger.ingredientsSelected)
 
@@ -15,6 +17,18 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 	}, [ingredientsSelected, bunSelected]);
 
 	const handleButtonClick = () => setModalVisibility(ingredientsSelected);
+
+	/*const [, dropTarget] = useDrop({
+		accept: 'ingredient',
+		drop: (target) => onDropHandler(target.id),
+	})
+
+	const onDropHandler = (targetID) => {
+		const ingredientTarget = ingredients.filter((ingredient) => targetID === ingredient._id)
+		const ingredientTargetObj = {...ingredientTarget[0], inConstructorID: Math.random().toString(36).slice(2)}
+
+
+	}*/
 
 	console.log('tick constructor');
 
