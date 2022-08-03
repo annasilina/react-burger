@@ -10,6 +10,8 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIngredients, RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/burger-details';
 import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-details';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 
 const App = () => {
 	const { ingredients, ingredientsIsLoading, ingredientsHasError, ingredientDetails } = useSelector((state) => ({
@@ -69,14 +71,14 @@ const App = () => {
 	return (
 		<>
 			<AppHeader/>
-			<main className={styles.main}>
-				{!ingredientsIsLoading && !ingredientsHasError && ingredients.length &&
-					<>
-						<BurgerIngredients setModalVisibility={handleIngredientDetailsOpen}/>
-						<BurgerConstructor setModalVisibility={handleOrderDetailsOpen}/>
-					</>
-				}
-			</main>
+				<main className={styles.main}>
+					{!ingredientsIsLoading && !ingredientsHasError && ingredients.length &&
+						<>
+							<BurgerIngredients setModalVisibility={handleIngredientDetailsOpen}/>
+							<BurgerConstructor setModalVisibility={handleOrderDetailsOpen}/>
+						</>
+					}
+				</main>
 			{isOrderDetailsOpen && !orderIsLoading && !orderHasError &&
 				<Modal title="" handleClose={handleCloseOrderModal}>
 					<OrderDetails orderID={orderNumber}/>

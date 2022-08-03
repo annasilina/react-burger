@@ -10,10 +10,9 @@ import {useSelector} from 'react-redux';
 
 const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 	console.log('tick ingredients');
-
 	const ingredients = useSelector(state => state.burger.ingredients)
-	const [current, setCurrent] = useState('bun');
 
+	const [current, setCurrent] = useState('bun');
 	const bunListRef = useRef(null);
 	const sauceListRef = useRef(null);
 

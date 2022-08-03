@@ -6,7 +6,7 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 
 
-const IngredientsCategory = React.forwardRef(({ title, ingredients, setModalVisibility, type }, ref) => {
+const IngredientsCategory = React.forwardRef(({ title, ingredients, setModalVisibility, type}, ref) => {
 	return (
 		<div ref={ref}>
 			<h2 className="text text_type_main-medium" id={type}>
