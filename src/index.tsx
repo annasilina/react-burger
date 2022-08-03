@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+/*import ReactDOM from 'react-dom';*/
+import {createRoot} from "react-dom/client";
 import reportWebVitals from './reportWebVitals';
 import { legacy_createStore as createStore, compose, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
@@ -22,12 +23,12 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(rootReducer, enhancer);
+const rootElement = document.getElementById('root');
 
-ReactDOM.render(
-		<Provider store={store}>
-			<App />
-		</Provider>,
-  document.getElementById('root')
-);
+createRoot(rootElement!).render(
+	<Provider store={store}>
+		<App />
+	</Provider>
+)
 
 reportWebVitals();
