@@ -71,7 +71,10 @@ const App = () => {
 	return (
 		<>
 			<AppHeader/>
+			<DndProvider backend={HTML5Backend}>
 				<main className={styles.main}>
+					{ingredientsIsLoading && <span className="text text_type_main-large pt-10 pb-5">Загрузка...</span>}
+					{ingredientsHasError && <span className="text text_type_main-large pt-10 pb-5">Упс, произошла ошибка. Пожалуйста, перезагрузите страницу.</span>}
 					{!ingredientsIsLoading && !ingredientsHasError && ingredients.length &&
 						<>
 							<BurgerIngredients setModalVisibility={handleIngredientDetailsOpen}/>
@@ -79,6 +82,7 @@ const App = () => {
 						</>
 					}
 				</main>
+			</DndProvider>
 			{isOrderDetailsOpen && !orderIsLoading && !orderHasError &&
 				<Modal title="" handleClose={handleCloseOrderModal}>
 					<OrderDetails orderID={orderNumber}/>
