@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useEffect} from 'react';
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
@@ -39,29 +39,29 @@ const App = () => {
 		[dispatch]
 	);
 
-	const handleOrderDetailsOpen = (orderDetails) => {
+	const handleOrderDetailsOpen = useCallback((orderDetails) => {
 		dispatch(createOrder(orderDetails))
 		setIsOrderDetailsOpened(true);
-	};
+	}, [dispatch]);
 
-	const handleIngredientDetailsOpen = (ingredient) => {
+	const handleIngredientDetailsOpen = useCallback((ingredient) => {
 		dispatch({
 			type: SET_INGREDIENT_DETAILS,
 			ingredient: ingredient
 		})
 		setIsIngredientDetailsOpened(true)
-	};
+	}, [dispatch]);
 
-	const handleCloseIngredientModal = () => {
+	const handleCloseIngredientModal = useCallback(() => {
 		setIsIngredientDetailsOpened(false);
 		dispatch({
 			type: RESET_INGREDIENT_DETAILS
 		})
-	}
+	},[dispatch])
 
-	const handleCloseOrderModal = () => {
+	const handleCloseOrderModal = useCallback(() => {
 		setIsOrderDetailsOpened(false)
-	};
+	}, []);
 
 	return (
 		<>
@@ -76,7 +76,7 @@ const App = () => {
 			</main>
 			{isOrderDetailsOpen && !orderIsLoading && !orderHasError &&
 				<Modal title="" handleClose={handleCloseOrderModal}>
-					<OrderDetails orderId={orderNumber}/>
+					<OrderDetails orderID={orderNumber}/>
 				</Modal>
 			}
 			{isIngredientDetailsOpen &&

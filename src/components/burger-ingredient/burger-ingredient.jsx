@@ -1,11 +1,12 @@
-import styles from './burger-ingredient.module.css';
-import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {ingredientPropTypes} from '../../types/ingredient';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import styles from './burger-ingredient.module.css';
+import {ingredientPropTypes} from '../../types/ingredient';
 
 const BurgerIngredient = React.memo(({ ingredient, setModalVisibility }) => {
-	const handleClick = () => setModalVisibility(ingredient);
+	const handleClick = () => {setModalVisibility(ingredient)};
 
 	return (
 		<li key={ingredient._id} className={`${styles.item}`} onClick={handleClick}>

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useCallback, useRef} from 'react';
 import {useState} from 'react';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -26,7 +26,8 @@ const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 		document.getElementById(tab).scrollIntoView({behavior: 'smooth'});
 	}
 
-	const handleContainerScroll = () => {
+	const handleContainerScroll = useCallback(
+		() => {
 		const bunScrollTop = bunListRef.current.getBoundingClientRect().top;
 		const bunHeight = bunListRef.current.clientHeight;
 		const sauceScrollTop = sauceListRef.current.getBoundingClientRect().top;
@@ -38,7 +39,7 @@ const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 		} else {
 			setCurrent('sauce');
 		}
-	}
+	}, [])
 
 	return (
 		<section>

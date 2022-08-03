@@ -6,7 +6,7 @@ import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-deve
 import IngredientsList from '../ingredients-list/ingredients-list';
 import {useSelector} from 'react-redux';
 
-const BurgerConstructor = ({ setModalVisibility }) => {
+const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 	const bunSelected = useSelector(state => state.burger.bunSelected);
 	const ingredientsSelected = useSelector(state => state.burger.ingredientsSelected)
 
@@ -47,7 +47,7 @@ const BurgerConstructor = ({ setModalVisibility }) => {
 			</div>
 		</section>
 	)
-}
+})
 
 BurgerConstructor.propTypes = {
 	setModalVisibility: PropTypes.func.isRequired
