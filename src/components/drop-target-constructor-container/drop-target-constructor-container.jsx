@@ -5,7 +5,7 @@ import bunDefault from '../../images/bunDefault.png';
 import DraggableConstructorIngredient from '../draggable-constructor-ingredient/draggable-constructor-ingredient';
 import {useDrop} from 'react-dnd';
 import {useDispatch} from 'react-redux';
-import {addItemConstructor} from '../../services/actions/constructor';
+import {addIngredientToConstructor} from '../../services/actions/constructor';
 
 export const DropTargetConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 	const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export const DropTargetConstructorContainer = ({bunSelected, ingredientsSelected
 	const [, dropTarget] = useDrop({
 		accept: 'ingredient',
 		drop(item) {
-			dispatch(addItemConstructor(item))
+			dispatch(addIngredientToConstructor(item))
 		}
 	})
 

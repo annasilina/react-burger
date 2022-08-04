@@ -5,7 +5,7 @@ export const CONSTRUCTOR_DELETE_ITEM = 'GET_SELECTED_INGREDIENTS';
 export const CONSTRUCTOR_REORDER_ITEM = 'CONSTRUCTOR_REORDER_ITEM';
 export const CONSTRUCTOR_RESET = 'CONSTRUCTOR_RESET';
 
-export const addItemConstructor = (ingredient) => {
+export const addIngredientToConstructor = (ingredient) => {
 	return {
 		type: CONSTRUCTOR_ADD_ITEM,
 		payload: {
