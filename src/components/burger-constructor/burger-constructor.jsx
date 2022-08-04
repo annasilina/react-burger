@@ -43,7 +43,7 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 					</p>
 					<CurrencyIcon type={'primary'} />
 				</div>
-				<Button type={'primary'} size={'large'} onClick={handleButtonClick} disabled={!(orderCost && bunSelected)}>
+				<Button type={'primary'} size={'large'} onClick={handleButtonClick} disabled={!(bunSelected && ingredientsSelected)}>
 					Оформить заказ
 				</Button>
 			</div>

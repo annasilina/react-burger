@@ -23,7 +23,7 @@ export const constructorReducer = (state = initialState, action) => {
 			return {
 				...state,
 				ingredientsSelected: [
-					...state.ingredientsSelected].filter(ingredient => ingredient.constructorID === action.ingredient.constructorID)
+					...state.ingredientsSelected].filter(ingredient => ingredient.constructorID !== action.payload.constructorID)
 			}
 		}
 		case CONSTRUCTOR_RESET: {
