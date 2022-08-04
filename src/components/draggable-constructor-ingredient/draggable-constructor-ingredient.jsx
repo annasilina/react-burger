@@ -5,6 +5,7 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDispatch} from 'react-redux';
 import {CONSTRUCTOR_DELETE_ITEM} from '../../services/actions/constructor';
+import {DECREASE_INGREDIENT} from '../../services/actions/burger-ingredients';
 
 export default function DraggableConstructorIngredient({ ingredient }) {
 	const dispatch = useDispatch();
@@ -12,6 +13,10 @@ export default function DraggableConstructorIngredient({ ingredient }) {
 	const handleDelete = (ingredient) => {
 		dispatch({
 			type: CONSTRUCTOR_DELETE_ITEM,
+			payload: ingredient
+		});
+		dispatch({
+			type: DECREASE_INGREDIENT,
 			payload: ingredient
 		})
 	}

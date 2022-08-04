@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.css';
 import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {DropTargetConstructorContainer} from '../drop-target-constructor-container/drop-target-constructor-container';
-import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
 
 const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 	console.log('tick constructor');
-
-	const dispatch = useDispatch();
 
 	const bunSelected = useSelector(state => state.constructorData.bunSelected);
 	const ingredientsSelected = useSelector(state => state.constructorData.ingredientsSelected)
@@ -28,9 +25,6 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 
 	const handleButtonClick = () => {
 		setModalVisibility(ingredientsSelected);
-		dispatch({
-			type: CONSTRUCTOR_RESET
-		})
 	}
 
 	return (
@@ -43,7 +37,8 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 					</p>
 					<CurrencyIcon type={'primary'} />
 				</div>
-				<Button type={'primary'} size={'large'} onClick={handleButtonClick} disabled={!(bunSelected && ingredientsSelected)}>
+				<Button type={'primary'} size={'large'} onClick={handleButtonClick}
+								{...bunSelected && ingredientsSelected.length ? {disabled: false} : {disabled: true}}>
 					Оформить заказ
 				</Button>
 			</div>

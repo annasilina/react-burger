@@ -6,6 +6,10 @@ import DraggableConstructorIngredient from '../draggable-constructor-ingredient/
 import {useDrop} from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import {addIngredientToConstructor} from '../../services/actions/constructor';
+import {
+	INCREASE_INGREDIENT,
+	SELECT_INGREDIENT_BUN
+} from '../../services/actions/burger-ingredients';
 
 export const DropTargetConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 	const dispatch = useDispatch();
@@ -14,6 +18,17 @@ export const DropTargetConstructorContainer = ({bunSelected, ingredientsSelected
 		accept: 'ingredient',
 		drop(item) {
 			dispatch(addIngredientToConstructor(item))
+			if (item.type === 'bun') {
+				dispatch({
+					type: SELECT_INGREDIENT_BUN,
+					payload: item
+				})
+			} else {
+				dispatch({
+					type: INCREASE_INGREDIENT,
+					payload: item
+				})
+			}
 		}
 	})
 

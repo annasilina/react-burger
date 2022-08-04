@@ -2,6 +2,10 @@ import {
 	GET_INGREDIENTS_LOADING,
 	GET_INGREDIENTS_LOADED,
 	GET_INGREDIENTS_FAILED,
+	SELECT_INGREDIENT_BUN,
+	INCREASE_INGREDIENT,
+	DECREASE_INGREDIENT,
+	RESET_SELECTED_INGREDIENTS,
 } from '../actions/burger-ingredients.js';
 
 const initialState = {
@@ -23,7 +27,7 @@ export const ingredientsReducer = (state = initialState, action) => {
 				...state,
 				ingredientsIsLoading: false,
 				ingredientsHasError: false,
-				ingredients: action.ingredients.map(ingredient => ({...ingredient, count: 0}))
+				ingredients: action.payload
 			}
 		}
 		case GET_INGREDIENTS_FAILED: {
@@ -31,6 +35,30 @@ export const ingredientsReducer = (state = initialState, action) => {
 				...state,
 				ingredientsIsLoading: false,
 				ingredientsHasError: true
+			}
+		}
+		case INCREASE_INGREDIENT: {
+			return {
+				...state,
+				ingredients: [...state.ingredients].map(ingredient => ingredient._id === action.payload._id ? {...ingredient, count: ++ingredient.count} : ingredient)
+			}
+		}
+		case DECREASE_INGREDIENT: {
+			return {
+				...state,
+				ingredients: [...state.ingredients].map(ingredient => ingredient._id === action.payload._id ? {...ingredient, count: --ingredient.count} : ingredient)
+			}
+		}
+		case SELECT_INGREDIENT_BUN: {
+			return {
+				...state,
+				ingredients: [...state.ingredients].map(ingredient => ingredient._id === action.payload._id ? {...ingredient, count: 2} : {...ingredient, count: 0})
+			}
+		}
+		case RESET_SELECTED_INGREDIENTS: {
+			return {
+				...state,
+				ingredients: [...state.ingredients].map(ingredient => ({...ingredient, count: 0}))
 			}
 		}
 		default:

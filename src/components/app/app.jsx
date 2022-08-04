@@ -12,9 +12,10 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 
-import {getIngredients} from '../../services/actions/burger-ingredients';
+import {getIngredients, RESET_SELECTED_INGREDIENTS} from '../../services/actions/burger-ingredients';
 import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-details';
 import {RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/ingredient-details';
+import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
 
 const App = () => {
 	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
@@ -66,9 +67,15 @@ const App = () => {
 	},[dispatch])
 
 	const handleCloseOrderModal = useCallback(() => {
-		setIsOrderDetailsOpened(false)
+		setIsOrderDetailsOpened(false);
 		dispatch({
 			type: RESET_ORDER_DETAILS
+		});
+		dispatch({
+			type: CONSTRUCTOR_RESET
+		})
+		dispatch({
+			type: RESET_SELECTED_INGREDIENTS
 		})
 	}, [dispatch]);
 
