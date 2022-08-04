@@ -35,10 +35,7 @@ export const orderReducer = (state = initialState, action) => {
 			}
 		}
 		case RESET_ORDER_DETAILS: {
-			return {
-				...state,
-				orderNumber: 0,
-			}
+			return initialState
 		}
 		default:
 			return state

@@ -7,6 +7,7 @@ export const RESET_ORDER_DETAILS = 'RESET_ORDER_DETAILS';
 
 export const createOrder = (orderDetails) => {
 	const idArray = orderDetails.map(ingredient => ingredient._id)
+
 	return function(dispatch) {
 		dispatch({
 			type: CREATE_ORDER_LOADING

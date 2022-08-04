@@ -7,12 +7,19 @@ import {useSelector} from 'react-redux';
 import {DropTargetConstructorContainer} from '../drop-target-constructor-container/drop-target-constructor-container';
 
 const BurgerConstructor = React.memo(({ setModalVisibility }) => {
-	const bunSelected = useSelector(state => state.burger.bunSelected);
-	const ingredientsSelected = useSelector(state => state.burger.ingredientsSelected)
+	const bunSelected = useSelector(state => state.constructorData.bunSelected);
+	const ingredientsSelected = useSelector(state => state.constructorData.ingredientsSelected)
 
 	const orderCost = useMemo(() => {
-		return ingredientsSelected.reduce((prevValue, ingredient) => {return prevValue + ingredient.price}, bunSelected.price * 2);
-	}, [ingredientsSelected, bunSelected]);
+		return (
+			bunSelected ?
+				ingredientsSelected.reduce((prev, ingredient) =>
+				{return prev + ingredient.price}, bunSelected.price * 2)
+				:
+				ingredientsSelected.reduce((prev, ingredient) =>
+				{return prev + ingredient.price}, 0)
+		)
+	}, [bunSelected, ingredientsSelected])
 
 	const handleButtonClick = () => setModalVisibility(ingredientsSelected);
 	console.log('tick constructor');
@@ -22,15 +29,12 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 			<DropTargetConstructorContainer bunSelected={bunSelected} ingredientsSelected={ingredientsSelected}/>
 			<div className={`${styles.order} mt-10 mr-4`}>
 				<div className={`${styles.orderCost} mr-10`}>
-					{
-						orderCost &&
-						<p className="text text_type_digits-medium mr-2">
-							{orderCost}
-						</p>
-					}
+					<p className="text text_type_digits-medium mr-2">
+						{orderCost ? orderCost : 0}
+					</p>
 					<CurrencyIcon type={'primary'} />
 				</div>
-				<Button type={'primary'} size={'large'} onClick={handleButtonClick}>
+				<Button type={'primary'} size={'large'} onClick={handleButtonClick} disabled={!(orderCost && bunSelected)}>
 					Оформить заказ
 				</Button>
 			</div>

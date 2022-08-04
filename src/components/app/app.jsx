@@ -1,31 +1,35 @@
-import React, {useCallback, useState} from 'react';
-import {useEffect} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
+
+
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import {useDispatch, useSelector} from 'react-redux';
-import {getIngredients, RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/burger-details';
+import Modal from '../modal/modal';
+
+import {getIngredients} from '../../services/actions/burger-ingredients';
 import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-details';
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
+import {RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/ingredient-details';
 
 const App = () => {
-	const { ingredients, ingredientsIsLoading, ingredientsHasError, ingredientDetails } = useSelector((state) => ({
-		ingredients: state.burger.ingredients,
-		ingredientsIsLoading: state.burger.ingredientsIsLoading,
-		ingredientsHasError: state.burger.ingredientsHasError,
-		ingredientDetails: state.burger.ingredientDetails
+	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
+		ingredients: state.ingredientsData.ingredients,
+		ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
+		ingredientsHasError: state.ingredientsData.ingredientsHasError,
 	}));
 
 	const { orderNumber, orderIsLoading, orderHasError } = useSelector((state) => ({
-		orderNumber: state.order.orderNumber,
-		orderIsLoading: state.order.orderIsLoading,
-		orderHasError: state.order.orderHasError
+		orderNumber: state.orderData.orderNumber,
+		orderIsLoading: state.orderData.orderIsLoading,
+		orderHasError: state.orderData.orderHasError
 	}));
+
+	const ingredientDetails = useSelector(state => state.detailsData.ingredientDetails)
 
 	const dispatch = useDispatch();
 

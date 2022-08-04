@@ -8,7 +8,7 @@ import IngredientsCategory from '../ingredients-category/ingredients-category';
 
 const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 	console.log('tick ingredients');
-	const ingredients = useSelector(state => state.burger.ingredients)
+	const ingredients = useSelector(state => state.ingredientsData.ingredients);
 
 	const [current, setCurrent] = useState('bun');
 	const bunListRef = useRef(null);

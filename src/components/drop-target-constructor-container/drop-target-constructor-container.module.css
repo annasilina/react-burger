@@ -26,3 +26,13 @@
 	background-color: #8585AD;
 	border: 3px solid #8585AD;
 }
+
+.emptyContainer {
+	align-self: center;
+	text-align: center;
+	box-sizing: border-box;
+	margin: 0;
+	max-height: calc(100vh - 500px);
+	overflow-y: auto;
+	max-width: 450px;
+}
