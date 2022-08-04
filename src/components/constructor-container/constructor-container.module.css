@@ -2,6 +2,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	box-sizing: border-box;
 }
 
 .ingredientElement {
@@ -35,4 +36,9 @@
 	max-height: calc(100vh - 500px);
 	overflow-y: auto;
 	max-width: 450px;
+}
+
+.markedContainer {
+
+	border: 1px #7B61FF dashed;
 }

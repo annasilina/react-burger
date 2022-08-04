@@ -14,8 +14,13 @@ import {
 export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 	const dispatch = useDispatch();
 
-	const [, dropTarget] = useDrop({
+	const [{isHover}, dropTarget] = useDrop({
 		accept: 'ingredient',
+		collect(monitor) {
+			return {
+				isHover: monitor.isOver(),
+			}
+		},
 		drop(item) {
 			dispatch(addIngredientToConstructor(item))
 			if (item.type === 'bun') {
@@ -32,8 +37,13 @@ export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 		}
 	})
 
+	const className = `${styles.elementsContainer} ml-4 ${isHover ? styles.markedContainer : ''}`;
+
 	return (
-		<div className={`${styles.elementsContainer} ml-4`} ref={dropTarget}>
+		<div
+			className={className}
+			ref={dropTarget}
+		>
 			<div className={`${styles.ingredientElement} pl-8`}>
 					{bunSelected !== null
 						?
@@ -62,9 +72,11 @@ export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 					</p>
 				:
 					<ul className={`${styles.ingredientList}`}>
-						{ingredientsSelected.map(ingredient => (
-							<ConstructorIngredient ingredient={ingredient}
-																		 key={ingredient.constructorID}/>
+						{ingredientsSelected.map((ingredient, index) => (
+							<ConstructorIngredient
+								ingredient={ingredient}
+								index={index}
+								key={ingredient.constructorID}/>
 						))}
 					</ul>
 			}
