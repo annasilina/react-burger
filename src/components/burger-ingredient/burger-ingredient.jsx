@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import styles from './draggable-burger-ingredient.module.css';
+import styles from './burger-ingredient.module.css';
 import {ingredientPropTypes} from '../../types/ingredient';
 import {useDrag} from 'react-dnd';
 
-const DraggableBurgerIngredient = React.memo(({ ingredient, setModalVisibility }) => {
+const BurgerIngredient = React.memo(({ ingredient, setModalVisibility }) => {
 	const handleClick = () => {setModalVisibility(ingredient)};
 
 	const [{ isDragging }, dragRef] = useDrag({
@@ -35,9 +35,9 @@ const DraggableBurgerIngredient = React.memo(({ ingredient, setModalVisibility }
 	)
 })
 
-DraggableBurgerIngredient.propTypes = {
+BurgerIngredient.propTypes = {
 	ingredient: ingredientPropTypes.isRequired,
 	setModalVisibility: PropTypes.func.isRequired
 }
 
-export default DraggableBurgerIngredient
+export default BurgerIngredient

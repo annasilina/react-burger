@@ -1,8 +1,8 @@
 import React from 'react';
 import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './drop-target-constructor-container.module.css';
+import styles from './constructor-container.module.css';
 import bunDefault from '../../images/bunDefault.png';
-import DraggableConstructorIngredient from '../draggable-constructor-ingredient/draggable-constructor-ingredient';
+import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import {useDrop} from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import {addIngredientToConstructor} from '../../services/actions/constructor';
@@ -11,7 +11,7 @@ import {
 	SELECT_INGREDIENT_BUN
 } from '../../services/actions/burger-ingredients';
 
-export const DropTargetConstructorContainer = ({bunSelected, ingredientsSelected}) => {
+export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 	const dispatch = useDispatch();
 
 	const [, dropTarget] = useDrop({
@@ -54,18 +54,19 @@ export const DropTargetConstructorContainer = ({bunSelected, ingredientsSelected
 							/>
 					}
 			</div>
-			{!ingredientsSelected.length &&
-				<p className={`${styles.emptyContainer} text text_type_main-default text_color_inactive`}>
-					Пока здесь пусто. Перетащите ингредиенты из списка слева, чтобы собрать свой бургер.
-				</p>
-			}
-			{ingredientsSelected.length !== 0 &&
-				<ul className={`${styles.ingredientList}`}>
-					{ingredientsSelected.map(ingredient => (
-						<DraggableConstructorIngredient ingredient={ingredient}
-																					key={ingredient.constructorID}/>
-					))}
-				</ul>
+			{
+				ingredientsSelected.length === 0
+				?
+					<p className={`${styles.emptyContainer} text text_type_main-default text_color_inactive`}>
+						Пока здесь пусто. Перетащите ингредиенты из списка слева, чтобы собрать свой бургер.
+					</p>
+				:
+					<ul className={`${styles.ingredientList}`}>
+						{ingredientsSelected.map(ingredient => (
+							<ConstructorIngredient ingredient={ingredient}
+																		 key={ingredient.constructorID}/>
+						))}
+					</ul>
 			}
 			<div className={`${styles.ingredientElement} pl-8`}>
 				{bunSelected !== null

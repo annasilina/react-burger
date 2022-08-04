@@ -52,9 +52,13 @@ export const ingredientsReducer = (state = initialState, action) => {
 		case SELECT_INGREDIENT_BUN: {
 			return {
 				...state,
-				ingredients: [...state.ingredients].map(ingredient => ingredient._id === action.payload._id ? {...ingredient, count: 2} : {...ingredient, count: 0})
+				ingredients: [...state.ingredients].map((ingredient) => {
+					if (ingredient.type === 'bun') {
+						return ingredient._id === action.payload._id ? {...ingredient, count: 2} : {...ingredient, count: 0}
+					}
+				return {...ingredient} })
+				}
 			}
-		}
 		case RESET_SELECTED_INGREDIENTS: {
 			return {
 				...state,

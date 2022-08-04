@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector} from 'react-redux';
-import {DropTargetConstructorContainer} from '../drop-target-constructor-container/drop-target-constructor-container';
+import {ConstructorContainer} from '../constructor-container/constructor-container';
 
 const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 	console.log('tick constructor');
@@ -14,12 +14,13 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 
 	const orderCost = useMemo(() => {
 		return (
-			bunSelected ?
-				ingredientsSelected.reduce((prev, ingredient) =>
-				{return prev + ingredient.price}, bunSelected.price * 2)
+			bunSelected
+				?
+					ingredientsSelected.reduce((prevValue, ingredient) =>
+					{return prevValue + ingredient.price}, bunSelected.price * 2)
 				:
-				ingredientsSelected.reduce((prev, ingredient) =>
-				{return prev + ingredient.price}, 0)
+					ingredientsSelected.reduce((prevValue, ingredient) =>
+					{return prevValue + ingredient.price}, 0)
 		)
 	}, [bunSelected, ingredientsSelected])
 
@@ -29,7 +30,7 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 
 	return (
 		<section className={`mt-25`}>
-			<DropTargetConstructorContainer bunSelected={bunSelected} ingredientsSelected={ingredientsSelected}/>
+			<ConstructorContainer bunSelected={bunSelected} ingredientsSelected={ingredientsSelected}/>
 			<div className={`${styles.order} mt-10 mr-4`}>
 				<div className={`${styles.orderCost} mr-10`}>
 					<p className="text text_type_digits-medium mr-2">
