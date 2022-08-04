@@ -2,11 +2,16 @@ import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.css';
-import { CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from 'react-redux';
+import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import {useDispatch, useSelector} from 'react-redux';
 import {DropTargetConstructorContainer} from '../drop-target-constructor-container/drop-target-constructor-container';
+import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
 
 const BurgerConstructor = React.memo(({ setModalVisibility }) => {
+	console.log('tick constructor');
+
+	const dispatch = useDispatch();
+
 	const bunSelected = useSelector(state => state.constructorData.bunSelected);
 	const ingredientsSelected = useSelector(state => state.constructorData.ingredientsSelected)
 
@@ -21,8 +26,12 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 		)
 	}, [bunSelected, ingredientsSelected])
 
-	const handleButtonClick = () => setModalVisibility(ingredientsSelected);
-	console.log('tick constructor');
+	const handleButtonClick = () => {
+		setModalVisibility(ingredientsSelected);
+		dispatch({
+			type: CONSTRUCTOR_RESET
+		})
+	}
 
 	return (
 		<section className={`mt-25`}>

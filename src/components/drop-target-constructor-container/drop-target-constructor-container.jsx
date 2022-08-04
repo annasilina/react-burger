@@ -3,10 +3,22 @@ import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-compon
 import styles from './drop-target-constructor-container.module.css';
 import bunDefault from '../../images/bunDefault.png';
 import DraggableConstructorIngredient from '../draggable-constructor-ingredient/draggable-constructor-ingredient';
+import {useDrop} from 'react-dnd';
+import {useDispatch} from 'react-redux';
+import {addItemConstructor} from '../../services/actions/constructor';
 
 export const DropTargetConstructorContainer = ({bunSelected, ingredientsSelected}) => {
+	const dispatch = useDispatch();
+
+	const [, dropTarget] = useDrop({
+		accept: 'ingredient',
+		drop(item) {
+			dispatch(addItemConstructor(item))
+		}
+	})
+
 	return (
-		<div className={`${styles.elementsContainer} ml-4`}>
+		<div className={`${styles.elementsContainer} ml-4`} ref={dropTarget}>
 			<div className={`${styles.ingredientElement} pl-8`}>
 					{bunSelected !== null
 						?
@@ -36,7 +48,7 @@ export const DropTargetConstructorContainer = ({bunSelected, ingredientsSelected
 				<ul className={`${styles.ingredientList}`}>
 					{ingredientsSelected.map(ingredient => (
 						<DraggableConstructorIngredient ingredient={ingredient}
-																					key={ingredient._id}/>
+																					key={ingredient.constructorID}/>
 					))}
 				</ul>
 			}

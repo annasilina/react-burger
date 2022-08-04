@@ -11,7 +11,7 @@ const DraggableBurgerIngredient = React.memo(({ ingredient, setModalVisibility }
 
 	const [{ isDragging }, dragRef] = useDrag({
 		type: 'ingredient',
-		item: ingredient._id,
+		item: ingredient,
 		collect: monitor => ({
 			isDragging: monitor.isDragging()
 		})

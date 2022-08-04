@@ -1,6 +1,6 @@
 import {
-	GET_SELECTED_BUN,
-	GET_SELECTED_INGREDIENTS
+	CONSTRUCTOR_ADD_ITEM,
+	CONSTRUCTOR_DELETE_ITEM, CONSTRUCTOR_RESET
 } from '../actions/constructor';
 
 const initialState = {
@@ -10,17 +10,24 @@ const initialState = {
 
 export const constructorReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case GET_SELECTED_BUN: {
+		case CONSTRUCTOR_ADD_ITEM: {
+			if (action.payload.type === 'bun') {
+				return {...state, bunSelected: action.payload}
+			}
 			return {
 				...state,
-				bunSelected: action.bunSelected
+				ingredientsSelected: [...state.ingredientsSelected, action.payload]
 			}
 		}
-		case GET_SELECTED_INGREDIENTS: {
+		case CONSTRUCTOR_DELETE_ITEM: {
 			return {
 				...state,
-				ingredientsSelected: action.ingredientsSelected
+				ingredientsSelected: [
+					...state.ingredientsSelected].filter(ingredient => ingredient.constructorID === action.ingredient.constructorID)
 			}
+		}
+		case CONSTRUCTOR_RESET: {
+			return initialState
 		}
 		default:
 			return state
