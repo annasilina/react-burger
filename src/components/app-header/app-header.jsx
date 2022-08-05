@@ -23,7 +23,9 @@ const AppHeader = React.memo(() => {
           </li>
         </ul>
           <div className={`${styles.logo}`}>
-            <Logo />
+            <a href='/' className={`${styles.menuLink}`}>
+              <Logo />
+            </a>
           </div>
         <ul className={`${styles.menuList} ${styles.profile}`}>
           <li>
