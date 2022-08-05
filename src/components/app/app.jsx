@@ -40,8 +40,6 @@ const App = () => {
 	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
 
-	console.log('tick App');
-
 	useEffect(
 		() => {
 			dispatch(getIngredients());
@@ -57,7 +55,7 @@ const App = () => {
 	const handleIngredientDetailsOpen = useCallback((ingredient) => {
 		dispatch({
 			type: SET_INGREDIENT_DETAILS,
-			ingredient: ingredient
+			payload: ingredient
 		})
 		setIsIngredientDetailsOpened(true)
 	}, [dispatch]);

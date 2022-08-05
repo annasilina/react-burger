@@ -77,10 +77,8 @@ export default function ConstructorIngredient({ ingredient, index }) {
 	}
 
 	const cursor = isDragging ? 'grabbing' : 'grab';
-	/*const opacity = isDragging ? 0 : 1*/
 
 	return (
-		ingredient.type !== 'bun' &&
 			<li
 				ref={elementRef}
 				className={`${styles.ingredientItem}`}
