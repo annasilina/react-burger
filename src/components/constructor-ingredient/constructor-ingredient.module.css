@@ -1,7 +1,13 @@
 .ingredientItem {
 	display: flex;
+	min-height: 80px;
 	align-items: center;
 	margin-bottom: 16px;
+	cursor: grab;
+}
+
+.ingredientItem:hover {
+	opacity: 1;
 }
 
 .ingredientItem:last-child {

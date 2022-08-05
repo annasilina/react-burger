@@ -21,16 +21,16 @@ class Api {
 	}
 
 	// функция получения данных по ингредиентам
-	getIngredients = () => {
+	getIngredientsRequest = () => {
 		return fetch(`${this._url}/ingredients`).then((res) => this._checkResponse(res));
 	}
 
-	sendNewOrder = (IDs) => {
+	sendNewOrderRequest = (idArray) => {
 		return fetch(`${this._url}/orders`, {
 			method: 'POST',
 			headers: this._headers,
 			body: JSON.stringify({
-				ingredients: IDs,
+				ingredients: idArray,
 			}),
 		}).then((res) => this._checkResponse(res));
 	}

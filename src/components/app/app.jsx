@@ -1,113 +1,114 @@
-import React, {useCallback, useState} from 'react';
-import {useEffect} from 'react';
-import styles from './app.module.css';
+import React, {useCallback, useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 
-import {api} from '../../api/api';
+
+import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import IngredientsContext from '../../context/ingredients-context';
+import Modal from '../modal/modal';
+
+import {
+	getIngredients,
+	RESET_SELECTED_INGREDIENTS,
+} from '../../services/actions/burger-ingredients';
+import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-details';
+import {RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/ingredient-details';
+import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
 
 const App = () => {
-	const [ingredients, setIngredients] = useState({
-		isLoading: false,
-		hasError: false,
-		data: [],
-	});
-	const [orderDetails, setOrderDetails] = useState({
-		isLoading: false,
-		hasError: false,
-		number: 0,
-	});
+	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
+		ingredients: state.ingredientsData.ingredients,
+		ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
+		ingredientsHasError: state.ingredientsData.ingredientsHasError,
+	}));
+
+	const { orderNumber, orderIsLoading, orderHasError } = useSelector((state) => ({
+		orderNumber: state.orderData.orderNumber,
+		orderIsLoading: state.orderData.orderIsLoading,
+		orderHasError: state.orderData.orderHasError
+	}));
+
+	const ingredientDetails = useSelector(state => state.detailsData.ingredientDetails)
+
+	const dispatch = useDispatch();
+
 	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
-	const [ingredientId, setIngredientId] = useState();
+
 	console.log('tick App');
 
-	useEffect(() => {
-		setIngredients({
-			...ingredients,
-			isLoading: true,
-		})
-		api.getIngredients()
-			.then((ingredientsData) => {
-				setIngredients({
-					...ingredients,
-					data: ingredientsData.data,
-					isLoading: false,
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-				setIngredients({
-					...ingredients,
-					isLoading: false,
-					hasError: true,
-				})
-			})
-	}, []);
+	useEffect(
+		() => {
+			dispatch(getIngredients());
+		},
+		[dispatch]
+	);
 
-	const closeAllModals = useCallback(() => {
+	const handleOrderDetailsOpen = useCallback((orderDetails) => {
+		dispatch(createOrder(orderDetails))
+		setIsOrderDetailsOpened(true);
+	}, [dispatch]);
+
+	const handleIngredientDetailsOpen = useCallback((ingredient) => {
+		dispatch({
+			type: SET_INGREDIENT_DETAILS,
+			ingredient: ingredient
+		})
+		setIsIngredientDetailsOpened(true)
+	}, [dispatch]);
+
+	const handleCloseIngredientModal = useCallback(() => {
+		setIsIngredientDetailsOpened(false);
+		dispatch({
+			type: RESET_INGREDIENT_DETAILS
+		})
+	},[dispatch])
+
+	const handleCloseOrderModal = useCallback(() => {
 		setIsOrderDetailsOpened(false);
-		setIsIngredientDetailsOpened(false)
-	}, [setIsIngredientDetailsOpened, setIsOrderDetailsOpened]);
-
-	const handleOrderDetailsOpen = (IDs) => {
-		setOrderDetails({
-			...orderDetails,
-			isLoading: true,
+		dispatch({
+			type: RESET_ORDER_DETAILS
+		});
+		dispatch({
+			type: CONSTRUCTOR_RESET
 		})
-
-		api.sendNewOrder(IDs)
-			.then((res) => {
-				setOrderDetails({
-					...orderDetails,
-					number: res.order.number,
-					isLoading: false,
-				})
-				setIsOrderDetailsOpened(true);
-			})
-			.catch((err) => {
-				setOrderDetails({
-					...orderDetails,
-					isLoading: false,
-					hasError: true,
-				})
-				console.log(err);
-			})
-	};
-
-	const handleIngredientDetailsOpen = (ingredientId) => {
-		setIngredientId(ingredientId);
-		setIsIngredientDetailsOpened(true);
-	};
+		dispatch({
+			type: RESET_SELECTED_INGREDIENTS
+		})
+	}, [dispatch]);
 
 	return (
 		<>
-			<AppHeader />
-			<main className={styles.main}>
-				{!ingredients.isLoading && !ingredients.hasError && ingredients.data.length &&
-					<IngredientsContext.Provider value={{ingredients: ingredients.data}}>
-						<BurgerIngredients setModalVisibility={handleIngredientDetailsOpen}/>
-						<BurgerConstructor setModalVisibility={handleOrderDetailsOpen}/>
-					</IngredientsContext.Provider>
-				}
-			</main>
-			{isOrderDetailsOpen && !orderDetails.isLoading && !orderDetails.hasError &&
-				<Modal title="" handleClose={closeAllModals} >
-					<OrderDetails orderId={orderDetails.number}/>
+			<AppHeader/>
+			<DndProvider backend={HTML5Backend}>
+				<main className={styles.main}>
+					{ingredientsIsLoading && <span className="text text_type_main-large pt-10 pb-5">Загрузка...</span>}
+					{ingredientsHasError && <span className="text text_type_main-large pt-10 pb-5">Упс, произошла ошибка. Пожалуйста, перезагрузите страницу.</span>}
+					{!ingredientsIsLoading && !ingredientsHasError && ingredients.length &&
+						<>
+							<BurgerIngredients setModalVisibility={handleIngredientDetailsOpen}/>
+							<BurgerConstructor setModalVisibility={handleOrderDetailsOpen}/>
+						</>
+					}
+				</main>
+			</DndProvider>
+			{isOrderDetailsOpen && !orderIsLoading && !orderHasError &&
+				<Modal title="" handleClose={handleCloseOrderModal}>
+					<OrderDetails orderID={orderNumber}/>
 				</Modal>
 			}
 			{isIngredientDetailsOpen &&
-				<Modal title="Детали ингредиента" handleClose={closeAllModals} >
-					<IngredientDetails ingredient={ingredients.data.find(ingredient => ingredient._id === ingredientId)}/>
+				<Modal title="Детали ингредиента" handleClose={handleCloseIngredientModal}>
+					<IngredientDetails ingredient={ingredientDetails}/>
 				</Modal>
 			}
 		</>
-	)
+	);
 }
 
 export default App;

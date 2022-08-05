@@ -1,16 +1,29 @@
-import styles from './burger-ingredient.module.css';
-import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {ingredientPropTypes} from '../../types/ingredient';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+
+import styles from './burger-ingredient.module.css';
+import {ingredientPropTypes} from '../../types/ingredient';
+import {useDrag} from 'react-dnd';
 
 const BurgerIngredient = React.memo(({ ingredient, setModalVisibility }) => {
-	const count = Math.floor(Math.random() * 2);
-	const handleClick = () => setModalVisibility(ingredient._id);
+	const handleClick = () => {setModalVisibility(ingredient)};
+
+	const [{ isDragging }, dragRef] = useDrag({
+		type: 'ingredient',
+		item: ingredient,
+		collect: monitor => ({
+			isDragging: monitor.isDragging()
+		})
+	});
+
 	return (
-		<li key={ingredient._id} className={`${styles.item}`} onClick={handleClick}>
+		<li ref={dragRef} key={ingredient._id}
+				style={{cursor: isDragging ? 'grabbing' : 'grab'}}
+				className={`${styles.item}`}
+				onClick={handleClick}>
 			<img src={ingredient.image} alt={ingredient.name} className="pr-4 pl-4"/>
-			{count > 0 && <Counter count={count} size={'default'} />}
+			{ingredient.count > 0 && <Counter count={ingredient.count} size={'default'} />}
 			<div className={`${styles.itemCurrency} mb-1 mt-1`}>
 				<p className="text text_type_digits-default mr-2">{ingredient.price}</p>
 				<CurrencyIcon type="primary" />

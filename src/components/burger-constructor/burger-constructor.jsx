@@ -1,49 +1,51 @@
-import React, {useContext} from 'react';
+import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.css';
-import {ConstructorElement, CurrencyIcon, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientsList from '../ingredients-list/ingredients-list';
-import IngredientsContext from '../../context/ingredients-context';
+import {CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import {useSelector} from 'react-redux';
+import {ConstructorContainer} from '../constructor-container/constructor-container';
 
-const BurgerConstructor = ({ setModalVisibility }) => {
-	const ingredients = useContext(IngredientsContext).ingredients;
-
-	const bun = ingredients.find(ingredient => ingredient.type === 'bun');
-	const currentIngredients = ingredients.filter(ingredient => ingredient.type !== 'bun');
-	const orderCost = currentIngredients.reduce((prevValue, ingredient) => {return prevValue + ingredient.price}, bun.price * 2);
-
-	const handleButtonClick = () => setModalVisibility(ingredients.map(ingredient => ingredient._id));
-
+const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 	console.log('tick constructor');
+
+	const bunSelected = useSelector(state => state.constructorData.bunSelected);
+	const ingredientsSelected = useSelector(state => state.constructorData.ingredientsSelected)
+
+	const orderCost = useMemo(() => {
+		return (
+			bunSelected
+				?
+					ingredientsSelected.reduce((prevValue, ingredient) =>
+					{return prevValue + ingredient.price}, bunSelected.price * 2)
+				:
+					ingredientsSelected.reduce((prevValue, ingredient) =>
+					{return prevValue + ingredient.price}, 0)
+		)
+	}, [bunSelected, ingredientsSelected])
+
+	const handleButtonClick = () => {
+		setModalVisibility(ingredientsSelected);
+	}
 
 	return (
 		<section className={`mt-25`}>
-			<div className={`${styles.elementsContainer} ml-4`}>
-				<div className={`${styles.ingredientElement} pl-8`}>
-					<ConstructorElement type="top" isLocked={true} thumbnail={bun.image} price={bun.price}  text={`${bun.name} (верх)`}/>
-				</div>
-				<ul className={`${styles.ingredientList}`}>
-					<IngredientsList ingredients={currentIngredients} />
-				</ul>
-				<div className={`${styles.ingredientElement} pl-8`}>
-					<ConstructorElement type="bottom" isLocked={true} thumbnail={bun.image} price={bun.price}  text={`${bun.name} (низ)`}/>
-				</div>
-			</div>
+			<ConstructorContainer bunSelected={bunSelected} ingredientsSelected={ingredientsSelected}/>
 			<div className={`${styles.order} mt-10 mr-4`}>
 				<div className={`${styles.orderCost} mr-10`}>
 					<p className="text text_type_digits-medium mr-2">
-						{orderCost}
+						{orderCost ? orderCost : 0}
 					</p>
 					<CurrencyIcon type={'primary'} />
 				</div>
-				<Button type={'primary'} size={'large'} onClick={handleButtonClick}>
+				<Button type={'primary'} size={'large'} onClick={handleButtonClick}
+								{...bunSelected && ingredientsSelected.length ? {disabled: false} : {disabled: true}}>
 					Оформить заказ
 				</Button>
 			</div>
 		</section>
 	)
-}
+})
 
 BurgerConstructor.propTypes = {
 	setModalVisibility: PropTypes.func.isRequired

@@ -2,6 +2,7 @@
 	list-style-type: none;
 	position: relative;
 	cursor: grab;
+	transition: ease-in-out, transform .5s, opacity .5s;
 }
 
 .itemCurrency {
@@ -12,4 +13,19 @@
 
 .itemCaption {
 	text-align: center;
+}
+
+.item:hover {
+	transform: scale(.95);
+	opacity: .5;
+}
+
+@keyframes scale {
+	from  {
+		transform: scale(1.05);
+	}
+	to {
+		transform: scale(0.95);
+	}
+
 }
