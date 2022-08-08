@@ -10,26 +10,26 @@ const AppHeader = React.memo(() => {
       <nav className={`${styles.menu} pt-4 pb-4`}>
         <ul className={`${styles.menuList}`}>
           <li>
-            <a href="/" className={`${styles.menuLink} ${styles.menuItem} pl-5 pr-2`}>
+            <a href="./" className={`${styles.menuLink} ${styles.menuItem} pl-5 pr-2`}>
               <BurgerIcon type={"primary"} />
               <p className="text text_type_main-default pl-2 pt-4 pb-4 pr-5">Конструктор</p>
             </a>
           </li>
           <li>
-            <a href="/" className={`${styles.menuLink} ${styles.menuItem} pl-5`}>
+            <a href="./" className={`${styles.menuLink} ${styles.menuItem} pl-5`}>
               <ListIcon type={"secondary"} />
               <p className="text text_type_main-default text_color_inactive pl-2 pt-4 pb-4 pr-5">Лента заказов</p>
             </a>
           </li>
         </ul>
           <div className={`${styles.logo}`}>
-            <a href="/" className={`${styles.menuLink}`}>
+            <a href="./" className={`${styles.menuLink}`}>
               <Logo />
             </a>
           </div>
         <ul className={`${styles.menuList} ${styles.profile}`}>
           <li>
-            <a href="/" className={`${styles.menuLink} ${styles.menuItem}`}>
+            <a href="./" className={`${styles.menuLink} ${styles.menuItem}`}>
               <ProfileIcon type={"secondary"} />
               <p className="text text_type_main-default text_color_inactive pl-2 pt-4 pb-4 pr-5">Личный кабинет</p>
             </a>
