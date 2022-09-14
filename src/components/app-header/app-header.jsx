@@ -4,7 +4,7 @@ import styles from './app-header.module.css';
 import {BurgerIcon, Logo, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const AppHeader = React.memo(() => {
-  console.log('appheader');
+
   return (
     <header className={styles.header}>
       <nav className={`${styles.menu} pt-4 pb-4`}>
