@@ -20,6 +20,7 @@ import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-det
 import {RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/ingredient-details';
 import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
 import Login from '../../pages/login/login';
+import Register from '../../pages/register/register';
 
 const App = () => {
 	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
@@ -84,7 +85,7 @@ const App = () => {
 	return (
 		<>
 			<AppHeader/>
-			<Login />
+			<Register />
 			{/*<DndProvider backend={HTML5Backend}>
 				<main className={styles.main}>
 					{ingredientsIsLoading && <span className="text text_type_main-large pt-10 pb-5">Загрузка...</span>}

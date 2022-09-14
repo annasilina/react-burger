@@ -6,8 +6,8 @@ import { legacy_createStore as createStore, compose, applyMiddleware} from "redu
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 
-import './index.css';
 import App from "./components/app/app";
+import './index.css';
 import {rootReducer} from "./services/reducers";
 
 declare global {
