@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import React from 'react';
+import {Link, NavLink, useLocation} from 'react-router-dom';
 import styles from './app-header.module.css';
 
 import {BurgerIcon, Logo, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 const AppHeader = () => {
-  const [burgerIconType, setBurgerIconType] = useState('secondary');
-  const [listIconType, setListIconType] = useState('secondary');
-  const [profileIconType, setProfileIconType] = useState('secondary');
+  const location = useLocation();
 
   return (
     <>
@@ -16,13 +14,13 @@ const AppHeader = () => {
         <ul className={`${styles.menuList}`}>
           <li>
             <NavLink to="/" exact={true} className={`${styles.menuLink} text text_type_main-default pl-2 pt-4 pb-4 pr-5`} activeClassName={styles.menuLinkActive}>
-              <BurgerIcon type={burgerIconType} />
+              <BurgerIcon type={location.pathname === "/" ? 'primary' : 'secondary'} />
               Конструктор
             </NavLink>
           </li>
           <li>
             <NavLink to="/order-list" exact={true} className={`${styles.menuLink} text text_type_main-default pl-2 pt-4 pb-4 pr-5`} activeClassName={styles.menuLinkActive}>
-              <ListIcon type={listIconType} />
+              <ListIcon type={location.pathname === "/order-list" ? 'primary' : 'secondary'} />
               Лента заказов
             </NavLink>
           </li>
@@ -35,7 +33,7 @@ const AppHeader = () => {
         <ul className={`${styles.menuList} ${styles.profile}`}>
           <li>
             <NavLink to="/profile" className={`${styles.menuLink} text text_type_main-default pl-2 pt-4 pb-4 pr-5`} activeClassName={styles.menuLinkActive}>
-              <ProfileIcon type={profileIconType} />
+              <ProfileIcon type={location.pathname === "/profile" ? 'primary' : 'secondary'} />
               Личный кабинет
             </NavLink>
           </li>
