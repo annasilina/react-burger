@@ -15,10 +15,10 @@
 
 .link {
 	text-decoration: none;
+	transition: opacity .4s ease-out;
 	color: #4C4CFF;
 }
 
 .link:hover {
-	opacity: .3;
+	opacity: .6;
 }
-

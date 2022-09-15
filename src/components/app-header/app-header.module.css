@@ -17,18 +17,24 @@
 	display: flex;
 }
 
-.menuItem {
-	display: flex;
-	align-items: center;
-}
-
 .profile {
 	justify-self: self-end;
 }
 
 .menuLink {
 	text-decoration: none;
-	color: unset;
+	color: #8585ad;
+	display: flex;
+	gap: 8px;
+	transition: opacity .4s ease-out;
+}
+
+.menuLink:hover {
+	opacity: .6;
+}
+
+.menuLinkActive {
+	color: #f2f2f3;
 }
 
 .logo {

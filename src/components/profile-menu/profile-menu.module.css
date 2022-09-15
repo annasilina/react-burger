@@ -16,5 +16,14 @@
 	display: flex;
 	align-items: center;
 	text-decoration: none;
-	color: unset;
+	color: #8585ad;
+	transition: opacity .4s ease-out;
+}
+
+.menuLinkActive {
+	color: #f2f2f3;
+}
+
+.menuLink:hover {
+	opacity: .6;
 }

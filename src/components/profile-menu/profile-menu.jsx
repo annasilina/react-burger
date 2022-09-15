@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import styles from './profile-menu.module.css';
 
 
@@ -8,19 +8,19 @@ const ProfileMenu = () => {
 		<nav className={`${styles.menu} pl-5`}>
 			<ul className={styles.menuList}>
 				<li>
-					<Link to="/profile" className={`${styles.menuLink} `}>
-						<p className={'text text_type_main-medium'}>Профиль</p>
-					</Link>
+					<NavLink to="/profile" className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+						Профиль
+					</NavLink>
 				</li>
 				<li>
-					<Link to="/" className={`${styles.menuLink} `}>
-						<p className={'text text_type_main-medium text_color_inactive'}>История заказов</p>
-					</Link>
+					<NavLink to="/order-history" exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+						История заказов
+					</NavLink>
 				</li>
 				<li>
-					<Link to="/" className={`${styles.menuLink} `}>
-						<p className={'text text_type_main-medium text_color_inactive'}>Выход</p>
-					</Link>
+					<NavLink to="/logout" exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+						Выход
+					</NavLink>
 				</li>
 			</ul>
 			<p className={"text text_type_main-default text_color_inactive mt-20"}>В этом разделе вы можете
