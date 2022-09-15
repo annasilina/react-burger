@@ -4,7 +4,7 @@ import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger
 
 const Register = () => {
 	const [emailValue, setEmailValue] = React.useState('');
-	const [usernameValue, setUsernameValue] = React.useState('');
+	const [nameValue, setNameValue] = React.useState('');
 	const [passwordValue, setPasswordValue] = React.useState('');
 
 	return (
@@ -14,11 +14,11 @@ const Register = () => {
 				<Input
 					type={'text'}
 					placeholder={'Имя'}
-					value={usernameValue}
+					value={nameValue}
 					name={'username'}
 					icon={undefined}
 					size={'default'}
-					onChange={(e) => setUsernameValue(e.target.value)}
+					onChange={(e) => setNameValue(e.target.value)}
 				/>
 				<Input
 					type={'email'}
