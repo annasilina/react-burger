@@ -1,7 +1,6 @@
 {
   "name": "react-burger",
   "version": "0.1.0",
-  "homepage": "./",
   "private": true,
   "dependencies": {
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",

@@ -1,6 +1,7 @@
 import React from 'react';
 import {PasswordInput, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
+import {Link} from 'react-router-dom';
 
 const Login = () => {
 	const [emailValue, setEmailValue] = React.useState('');
@@ -37,11 +38,14 @@ const Login = () => {
 					</Button>
 				</span>
 			</form>
-			<p className={"text text_type_main-default text_color_inactive pb-4"}>Вы — новый пользователь? <a href="/react-burger/" className={styles.link}>Зарегистрироваться</a></p>
-			<p className={"text text_type_main-default text_color_inactive"}>Забыли пароль? <a href="/react-burger/" className={styles.link}>Восстановить пароль</a></p>
+			<p className={"text text_type_main-default text_color_inactive pb-4"}>
+				Вы — новый пользователь? <Link to="/register" className={styles.link}>Зарегистрироваться</Link>
+			</p>
+			<p className={"text text_type_main-default text_color_inactive"}>
+				Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
+			</p>
 		</main>
 	)
-
 }
 
 export default Login;

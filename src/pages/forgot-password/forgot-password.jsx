@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './forgot-password.module.css';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Link} from 'react-router-dom';
 
 const ForgotPassword = () => {
 	const [emailValue, setEmailValue] = React.useState('');
@@ -28,7 +29,8 @@ const ForgotPassword = () => {
 					</Button>
 				</span>
 			</form>
-			<p className={"text text_type_main-default text_color_inactive"}>Вспомнили пароль? <a href="/react-burger/" className={styles.link}>Войти</a></p>
+			<p className={"text text_type_main-default text_color_inactive"}>
+				Вспомнили пароль? <Link to="/login" className={styles.link}>Войти</Link></p>
 		</main>
 	)
 }

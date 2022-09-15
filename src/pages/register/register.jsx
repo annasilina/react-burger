@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Link} from 'react-router-dom';
 
 const Register = () => {
 	const [emailValue, setEmailValue] = React.useState('');
@@ -44,7 +45,9 @@ const Register = () => {
 					</Button>
 				</span>
 			</form>
-			<p className={"text text_type_main-default text_color_inactive"}>Уже зарегистрированы? <a href="/react-burger/" className={styles.link}>Войти</a></p>
+			<p className={"text text_type_main-default text_color_inactive"}>
+				Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link>
+			</p>
 		</main>
 	)
 }
