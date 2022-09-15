@@ -19,6 +19,7 @@ import {
 import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-details';
 import {RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/ingredient-details';
 import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
+// import Profile from '../../pages/profile/profile';
 /*import Login from '../../pages/login/login';
 import Register from '../../pages/register/register';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
