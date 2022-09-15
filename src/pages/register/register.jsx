@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from 'react-router-dom';
+import {links} from '../../utils/links';
 
-const Register = () => {
+const RegisterPage = () => {
 	const [emailValue, setEmailValue] = React.useState('');
 	const [nameValue, setNameValue] = React.useState('');
 	const [passwordValue, setPasswordValue] = React.useState('');
@@ -46,10 +47,10 @@ const Register = () => {
 				</span>
 			</form>
 			<p className={"text text_type_main-default text_color_inactive"}>
-				Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link>
+				Уже зарегистрированы? <Link to={links.login} className={styles.link}>Войти</Link>
 			</p>
 		</main>
 	)
 }
 
-export default Register;
+export default RegisterPage;

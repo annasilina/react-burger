@@ -1,24 +1,24 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import styles from './profile-menu.module.css';
-
+import {links} from '../../utils/links';
 
 const ProfileMenu = () => {
 	return (
 		<nav className={`${styles.menu} pl-5`}>
 			<ul className={styles.menuList}>
 				<li>
-					<NavLink to="/profile" className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+					<NavLink to={links.profile} exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
 						Профиль
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to="/order-history" exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+					<NavLink to={links.orderHistory} exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
 						История заказов
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to="/login" exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+					<NavLink to={links.login} exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
 						Выход
 					</NavLink>
 				</li>
