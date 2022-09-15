@@ -1,5 +1,6 @@
 import React from 'react';
-import {Input} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Link} from 'react-router-dom';
+import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile-form.module.css';
 
 const ProfileForm = () => {
@@ -36,6 +37,15 @@ const ProfileForm = () => {
 				size={'default'}
 				onChange={(e) => setPasswordValue(e.target.value)}
 			/>
+			<div className={styles.buttonsContainer}>
+				<Link to="/profile" className={`${styles.link} text text_type_main-default pr-5`}>Отмена</Link>
+				<Button
+					type={'primary'}
+					size={'medium'}
+					htmlType={'submit'}>
+					Сохранить
+				</Button>
+			</div>
 		</form>
 	)
 }

@@ -11,23 +11,19 @@ const Login = () => {
 		<main className={styles.main}>
 			<form className={styles.form}>
 				<h1 className={'text text_type_main-medium'}>Вход</h1>
-				<span>
-						<Input
-							type={'email'}
-							placeholder={'E-mail'}
-							value={emailValue}
-							name={'email'}
-							icon={undefined}
-							onChange={(e) => setEmailValue(e.target.value)}
-						/>
-					</span>
-				<span>
-					<PasswordInput
-						value={passwordValue}
-						name={'password'}
-						onChange={(e) => setPasswordValue(e.target.value)}
-					/>
-				</span>
+				<Input
+					type={'email'}
+					placeholder={'E-mail'}
+					value={emailValue}
+					name={'email'}
+					icon={undefined}
+					onChange={(e) => setEmailValue(e.target.value)}
+				/>
+				<PasswordInput
+					value={passwordValue}
+					name={'password'}
+					onChange={(e) => setPasswordValue(e.target.value)}
+				/>
 				<span className={'mb-20'}>
 					<Button
 						type={'primary'}

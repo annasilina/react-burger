@@ -1,5 +1,22 @@
 .form {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	gap: 24px;
+}
+
+.buttonsContainer {
+	align-self: flex-end;
+	display: flex;
+	align-items: center;
+}
+
+.link {
+	text-decoration: none;
+	transition: opacity .4s ease-out;
+	color: #4C4CFF;
+}
+
+.link:hover {
+	opacity: .6;
 }

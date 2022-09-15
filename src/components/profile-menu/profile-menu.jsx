@@ -18,12 +18,12 @@ const ProfileMenu = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to="/logout" exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+					<NavLink to="/login" exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
 						Выход
 					</NavLink>
 				</li>
 			</ul>
-			<p className={"text text_type_main-default text_color_inactive mt-20"}>В этом разделе вы можете
+			<p className={"text text_type_main-default text_color_inactive"}>В этом разделе вы можете
 				изменить свои персональные данные</p>
 		</nav>
 	)
