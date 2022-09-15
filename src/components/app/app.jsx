@@ -19,10 +19,10 @@ import {
 import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-details';
 import {RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/ingredient-details';
 import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
-import Login from '../../pages/login/login';
+/*import Login from '../../pages/login/login';
 import Register from '../../pages/register/register';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
-import ResetPassword from '../../pages/reset-password/reset-password';
+import ResetPassword from '../../pages/reset-password/reset-password';*/
 
 const App = () => {
 	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
@@ -87,8 +87,7 @@ const App = () => {
 	return (
 		<>
 			<AppHeader/>
-			<ResetPassword />
-			{/*<DndProvider backend={HTML5Backend}>
+			<DndProvider backend={HTML5Backend}>
 				<main className={styles.main}>
 					{ingredientsIsLoading && <span className="text text_type_main-large pt-10 pb-5">Загрузка...</span>}
 					{ingredientsHasError && <span className="text text_type_main-large pt-10 pb-5">Упс, произошла ошибка. Пожалуйста, перезагрузите страницу.</span>}
@@ -109,7 +108,7 @@ const App = () => {
 				<Modal title="Детали ингредиента" handleClose={handleCloseIngredientModal}>
 					<IngredientDetails ingredient={ingredientDetails}/>
 				</Modal>
-			}*/}
+			}
 		</>
 	);
 }
