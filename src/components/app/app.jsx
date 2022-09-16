@@ -8,6 +8,7 @@ import Profile from '../../pages/profile/profile';
 import RegisterPage from '../../pages/register/register';
 import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
 import ResetPasswordPage from '../../pages/reset-password/reset-password';
+import Page404 from '../../pages/page-404/page-404';
 
 const App = () => {
 
@@ -32,6 +33,9 @@ const App = () => {
 				</Route>
 				<Route path="/reset-password">
 					<ResetPasswordPage />
+				</Route>
+				<Route>
+					<Page404 />
 				</Route>
 			</Switch>
 		</Router>
