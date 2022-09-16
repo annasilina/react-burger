@@ -1,13 +1,11 @@
 import React, {useCallback, useRef, useState} from 'react';
-import PropTypes from 'prop-types';
 import {useSelector} from 'react-redux';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 
-const BurgerIngredients = React.memo(({ setModalVisibility }) => {
-	console.log('tick ingredients');
+const BurgerIngredients = (() => {
 	const ingredients = useSelector(state => state.ingredientsData.ingredients);
 
 	const [current, setCurrent] = useState('bun');
@@ -69,28 +67,21 @@ const BurgerIngredients = React.memo(({ setModalVisibility }) => {
 					title='Булки'
 					ref={bunListRef}
 					ingredients={ingredientFilter(ingredients, 'bun')}
-					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type='sauce'
 					title='Соусы'
 					ref={sauceListRef}
 					ingredients={ingredientFilter(ingredients, 'sauce')}
-					setModalVisibility={setModalVisibility}
 				/>
 				<IngredientsCategory
 					type='main'
 					title='Начинки'
 					ingredients={ingredientFilter(ingredients, 'main')}
-					setModalVisibility={setModalVisibility}
 				/>
 			</div>
 		</section>
 	)
 });
-
-BurgerIngredients.propTypes = {
-	setModalVisibility: PropTypes.func.isRequired
-}
 
 export default BurgerIngredients;

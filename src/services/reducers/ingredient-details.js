@@ -1,3 +1,4 @@
+/*
 import {
 	SET_INGREDIENT_DETAILS,
 	RESET_INGREDIENT_DETAILS
@@ -21,4 +22,4 @@ export const ingredientDetailsReducer = (state = initialState, action) => {
 		default:
 			return state
 	}
-}
+}*/

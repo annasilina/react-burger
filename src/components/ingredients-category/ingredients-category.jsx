@@ -6,7 +6,7 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 
 
-const IngredientsCategory = React.forwardRef(({ title, ingredients, setModalVisibility, type}, ref) => {
+const IngredientsCategory = React.forwardRef(({ title, ingredients, type}, ref) => {
 	return (
 		<div ref={ref}>
 			<h2 className="text text_type_main-medium" id={type}>
@@ -15,7 +15,7 @@ const IngredientsCategory = React.forwardRef(({ title, ingredients, setModalVisi
 			<ul className={`${styles.typeList} mt-6 mr-2 mb-10 ml-4`}>
 				{ingredients.map((ingredient) =>
 					(
-						<BurgerIngredient key={ingredient._id} ingredient={ingredient} setModalVisibility={setModalVisibility} />)
+						<BurgerIngredient key={ingredient._id} ingredient={ingredient} />)
 					)
 				}
 			</ul>
@@ -27,7 +27,6 @@ const IngredientsCategory = React.forwardRef(({ title, ingredients, setModalVisi
 IngredientsCategory.propTypes = {
 	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
 	title: PropTypes.string.isRequired,
-	setModalVisibility: PropTypes.func.isRequired
 }
 
 export default IngredientsCategory

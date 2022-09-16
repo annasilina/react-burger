@@ -9,7 +9,7 @@ const Page404 = () => {
 		<main className={styles.main}>
 			<h1 className='text text_type_main-medium'>Упс... Страница не найдена</h1>
 			<img src={page404} alt={'page not found'} className={styles.img}/>
-			<Link to={links.home} className={`${styles.link} text text_type_main-medium`}>Может, бургер поможет?</Link>
+			<p className='text text_type_main-medium text_color_inactive'>Может, <Link to={links.home} className={`${styles.link} text text_type_main-medium`}>бургер </Link>поможет?</p>
 		</main>
 	)
 }
