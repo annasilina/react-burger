@@ -26,8 +26,6 @@ const Home = () => {
 		orderHasError: state.orderData.orderHasError
 	}));
 
-	const ingredientDetails = useSelector(state => state.detailsData.ingredientDetails)
-
 	const dispatch = useDispatch();
 
 	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
@@ -50,7 +48,7 @@ const Home = () => {
 			type: SET_INGREDIENT_DETAILS,
 			payload: ingredient
 		})
-		setIsIngredientDetailsOpened(true)
+		setIsIngredientDetailsOpened(true);
 	}, [dispatch]);
 
 	const handleCloseIngredientModal = useCallback(() => {
@@ -94,7 +92,7 @@ const Home = () => {
 			}
 			{isIngredientDetailsOpen &&
 				<Modal title="Детали ингредиента" handleClose={handleCloseIngredientModal}>
-					<IngredientDetails ingredient={ingredientDetails}/>
+					<IngredientDetails />
 				</Modal>
 			}
 		</>
