@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './forgot-password.module.css';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from 'react-router-dom';
-import {links} from '../../utils/links';
+import {links} from '../../utils/constants';
 
 const ForgotPasswordPage = () => {
 	const [emailValue, setEmailValue] = React.useState('');

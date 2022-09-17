@@ -14,7 +14,7 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch} from 'react-redux';
 import {getIngredients} from '../../services/actions/burger-ingredients';
-import {links} from '../../utils/links';
+import {links} from '../../utils/constants';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -62,7 +62,7 @@ const App = () => {
 				</Switch>
 				{background &&
 					<Route path={`${links.ingredients}/:id`}>
-						<Modal title='' handleClose={handleClose}>
+						<Modal title='Детали ингредиента' handleClose={handleClose}>
 							<IngredientDetails />
 						</Modal>
 					</Route>

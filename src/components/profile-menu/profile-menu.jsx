@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import styles from './profile-menu.module.css';
-import {links} from '../../utils/links';
+import {links} from '../../utils/constants';
 
 const ProfileMenu = () => {
 	return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {links} from '../../utils/links';
+import {links} from '../../utils/constants';
 import styles from './page-404.module.css';
 import page404 from '../../images/page-404.png';
 

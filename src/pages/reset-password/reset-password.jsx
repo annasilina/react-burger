@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './reset-password.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link} from 'react-router-dom';
-import {links} from '../../utils/links';
+import {links} from '../../utils/constants';
 
 const ResetPasswordPage = () => {
 	const [passwordValue, setPasswordValue] = React.useState('');
