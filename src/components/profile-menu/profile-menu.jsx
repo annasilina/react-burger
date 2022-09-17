@@ -13,7 +13,7 @@ const ProfileMenu = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to={links.orderHistory} exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+					<NavLink to={links.userOrdersFeed} exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
 						История заказов
 					</NavLink>
 				</li>

@@ -20,8 +20,8 @@ const AppHeader = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to={links.orderList} exact={true} className={`${styles.menuLink} text text_type_main-default pl-2 pt-4 pb-4 pr-5`} activeClassName={styles.menuLinkActive}>
-              <ListIcon type={pathname === links.orderList ? 'primary' : 'secondary'} />
+            <NavLink to={links.ordersFeed} exact={true} className={`${styles.menuLink} text text_type_main-default pl-2 pt-4 pb-4 pr-5`} activeClassName={styles.menuLinkActive}>
+              <ListIcon type={pathname.includes(links.ordersFeed) ? 'primary' : 'secondary'} />
               Лента заказов
             </NavLink>
           </li>
@@ -34,7 +34,7 @@ const AppHeader = () => {
         <ul className={`${styles.menuList} ${styles.profile}`}>
           <li>
             <NavLink to={links.profile} className={`${styles.menuLink} text text_type_main-default pl-2 pt-4 pb-4 pr-5`} activeClassName={styles.menuLinkActive}>
-              <ProfileIcon type={pathname === links.profile ? 'primary' : 'secondary'} />
+              <ProfileIcon type={pathname.includes(links.profile) ? 'primary' : 'secondary'} />
               Личный кабинет
             </NavLink>
           </li>

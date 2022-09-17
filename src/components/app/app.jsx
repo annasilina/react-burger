@@ -14,6 +14,7 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch} from 'react-redux';
 import {getIngredients} from '../../services/actions/burger-ingredients';
+import {links} from '../../utils/links';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -34,25 +35,25 @@ const App = () => {
 		<>
 			<AppHeader/>
 				<Switch location={background || location}>
-					<Route path="/" exact={true}>
+					<Route path={links.home} exact={true}>
 						<Home />
 					</Route>
-					<Route path="/login">
+					<Route path={links.login}>
 						<Login />
 					</Route>
-					<Route path="/profile">
+					<Route path={links.profile} exact={true}>
 						<Profile />
 					</Route>
-					<Route path="/register">
+					<Route path={links.register}>
 						<RegisterPage />
 					</Route>
-					<Route path="/forgot-password">
+					<Route path={links.forgotPassword}>
 						<ForgotPasswordPage />
 					</Route>
-					<Route path="/reset-password">
+					<Route path={links.resetPassword}>
 						<ResetPasswordPage />
 					</Route>
-					<Route path="/ingredients/:id">
+					<Route path={`${links.ingredients}/:id`}>
 						<IngredientsPage />
 					</Route>
 					<Route>
@@ -60,7 +61,7 @@ const App = () => {
 					</Route>
 				</Switch>
 				{background &&
-					<Route path="/ingredients/:id">
+					<Route path={`${links.ingredients}/:id`}>
 						<Modal title='' handleClose={handleClose}>
 							<IngredientDetails />
 						</Modal>

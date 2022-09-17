@@ -2,6 +2,10 @@ export const links = {
 	home: "/",
 	profile: "/profile",
 	login: "/login",
-	orderList: "/order-list",
-	orderHistory: "/order-history",
+	register: "/register",
+	forgotPassword: "/forgot-password",
+	resetPassword: "/reset-password",
+	ingredients: "/ingredients",
+	ordersFeed: "/feed",
+	userOrdersFeed: "/profile/orders",
 }
