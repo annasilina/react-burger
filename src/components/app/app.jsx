@@ -15,6 +15,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch} from 'react-redux';
 import {getIngredients} from '../../services/actions/burger-ingredients';
 import {links} from '../../utils/constants';
+import {ProtectedRoute} from '../protected-route/protected-route';
 
 const App = () => {
 	/*const authData = useSelector(state => state.authData)*/
@@ -39,11 +40,11 @@ const App = () => {
 					<Route path={links.home} exact={true}>
 						<Home />
 					</Route>
+					<ProtectedRoute path={links.profile} >
+						<Profile />
+					</ProtectedRoute>
 					<Route path={links.login}>
 						<Login />
-					</Route>
-					<Route path={links.profile} >
-						<Profile />
 					</Route>
 					<Route path={links.register}>
 						<RegisterPage />
