@@ -7,8 +7,6 @@ import {useSelector} from 'react-redux';
 import {ConstructorContainer} from '../constructor-container/constructor-container';
 
 const BurgerConstructor = React.memo(({ setModalVisibility }) => {
-	console.log('tick constructor');
-
 	const bunSelected = useSelector(state => state.constructorData.bunSelected);
 	const ingredientsSelected = useSelector(state => state.constructorData.ingredientsSelected)
 

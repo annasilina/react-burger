@@ -18,6 +18,7 @@ export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
 export const LOGOUT_REQUEST_SUCCESS = 'LOGOUT_REQUEST_SUCCESS';
 export const LOGOUT_REQUEST_FAILED = 'LOGOUT_REQUEST_FAILED';
 
+
 export const registration = (formData) => {
 	return function(dispatch) {
 		dispatch({

@@ -31,8 +31,8 @@ const Home = () => {
 	}));
 
 	const handleOrderDetailsOpen = useCallback((orderDetails) => {
-		dispatch(createOrder(orderDetails))
 		setIsOrderDetailsOpened(true);
+		dispatch(createOrder(orderDetails))
 	}, [dispatch]);
 
 	const handleCloseOrderModal = useCallback(() => {
@@ -62,10 +62,10 @@ const Home = () => {
 					}
 				</main>
 			</DndProvider>
-			{isOrderDetailsOpen && !orderIsLoading && !orderHasError &&
-				<Modal title="" handleClose={handleCloseOrderModal}>
-					<OrderDetails orderID={orderNumber}/>
-				</Modal>
+			{isOrderDetailsOpen && !orderHasError &&
+				<Modal title="" handleClose={handleCloseOrderModal}
+					{...orderIsLoading ? {children: '', title: 'Загружаем заказ...'} : {children: <OrderDetails orderID={orderNumber}/>}}
+				/>
 			}
 		</>
 	)

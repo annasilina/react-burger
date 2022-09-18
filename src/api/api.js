@@ -13,11 +13,12 @@ class Api {
 	}
 
 	// функция проверки ответа на запрос
-	_checkResponse(res) {
+	_checkResponse = (res) => {
 		if (res.ok) {
 			return res.json();
 		}
-		return Promise.reject(`ошибка: ${res.status}`);
+
+		return res.json().then(data => Promise.reject(data));
 	}
 
 	registerRequest = (formData) => {
@@ -89,11 +90,12 @@ class Api {
 		return fetch(`${this._baseURL}/ingredients`).then((res) => this._checkResponse(res));
 	}
 
-	sendNewOrderRequest = (idArray) => {
+	sendNewOrderRequest = (idArray, token) => {
 		return fetch(`${this._baseURL}/orders`, {
 			method: 'POST',
 			headers: {
 				...this._headers,
+				'Authorization': `Bearer ${token}`
 			},
 			body: JSON.stringify({
 				ingredients: idArray,
