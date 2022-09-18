@@ -27,7 +27,18 @@ export const register = (registerData) => {
 		api.registerRequest(registerData)
 			.then((res => {
 				if (res.success) {
-					dispatch(getAuthStatusLoaded())
+					let accessToken = res.accessToken.split('Bearer ')[1];
+					let refreshToken = res.refreshToken;
+
+					if (accessToken) {
+						setCookie('accessToken', accessToken, {expires: 1200})
+					}
+
+					if (refreshToken) {
+						setCookie('refreshToken', refreshToken)
+					}
+					dispatch(getAuthStatusLoaded());
+					dispatch(setUserData(res.user))
 				}
 			}))
 			.catch((err) => {

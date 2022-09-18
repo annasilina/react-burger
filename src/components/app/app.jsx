@@ -12,11 +12,14 @@ import Page404 from '../../pages/page-404/page-404';
 import IngredientsPage from '../../pages/ingredients/ingredients';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getIngredients} from '../../services/actions/burger-ingredients';
 import {links} from '../../utils/constants';
+import {getUserStatus} from '../../services/actions/auth';
+import {ProtectedRoute} from '../protected-route/protected-route';
 
 const App = () => {
+	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
@@ -24,6 +27,7 @@ const App = () => {
 
 	useEffect(() => {
 		dispatch(getIngredients())
+		dispatch(getUserStatus());
 		history.replace({ state: null })
 	}, [dispatch, history]);
 
@@ -41,9 +45,9 @@ const App = () => {
 					<Route path={links.login}>
 						<Login />
 					</Route>
-					<Route path={links.profile} exact={true}>
+					<ProtectedRoute path={links.profile} exact={true}>
 						<Profile />
-					</Route>
+					</ProtectedRoute>
 					<Route path={links.register}>
 						<RegisterPage />
 					</Route>

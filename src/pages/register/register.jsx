@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 const RegisterPage = () => {
 	const dispatch = useDispatch();
-	const { authData } = useSelector(state => state.authData);
+	const authData = useSelector(state => state.authData);
 	const [formValues, setFormValues] = useState({
 		name: '',
 		email: '',
@@ -28,10 +28,10 @@ const RegisterPage = () => {
 		[dispatch, formValues]
 	)
 
-	/*if (authData.user) {
-		return <Redirect to={constants.home} />
+	if (authData.userData) {
+		return <Redirect to={links.home} />
 	}
-	*/
+
 	return (
 		<main className={styles.main}>
 			<form className={styles.form} onSubmit={handleFormSubmit}>

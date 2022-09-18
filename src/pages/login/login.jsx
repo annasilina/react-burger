@@ -1,28 +1,54 @@
 import React from 'react';
 import {PasswordInput, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import {Link} from 'react-router-dom';
+import {Link, Redirect, useLocation} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {useCallback, useState} from 'react';
+import {login} from '../../services/actions/auth';
+import {links} from '../../utils/constants';
 
 const Login = () => {
-	const [emailValue, setEmailValue] = React.useState('');
-	const [passwordValue, setPasswordValue] = React.useState('');
+	const authData = useSelector(state => state.authData);
+	const dispatch = useDispatch();
+	const location = useLocation();
+	const [formValues, setFormValues] = useState({
+		email: '',
+		password: ''
+	});
+
+	const handleFormChange = (evt) => {
+		evt.preventDefault();
+		setFormValues({...formValues, [evt.target.name]: evt.target.value})
+	}
+
+	const handleFormSubmit = useCallback(
+		evt => {
+			evt.preventDefault();
+			dispatch(login(formValues))
+		},
+		[dispatch, formValues]
+	)
+
+	if (authData.userData) {
+		return <Redirect to={location?.state?.from || links.home} />
+	}
 
 	return (
 		<main className={styles.main}>
-			<form className={styles.form}>
+			<form className={styles.form} onSubmit={handleFormSubmit}>
 				<h1 className={'text text_type_main-medium'}>Вход</h1>
 				<Input
 					type={'email'}
 					placeholder={'E-mail'}
-					value={emailValue}
+					value={formValues.email}
 					name={'email'}
 					icon={undefined}
-					onChange={(e) => setEmailValue(e.target.value)}
+					onChange={handleFormChange}
 				/>
 				<PasswordInput
-					value={passwordValue}
+					value={formValues.password}
 					name={'password'}
-					onChange={(e) => setPasswordValue(e.target.value)}
+					onChange={handleFormChange}
 				/>
 				<span className={'mb-20'}>
 					<Button
