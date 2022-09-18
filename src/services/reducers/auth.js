@@ -11,6 +11,8 @@ const initialState = {
 	isLoading: false,
 	isSuccess: false,
 	isAuth: false,
+	errorMessage: '',
+	hasError: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -35,7 +37,9 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isSuccess: false,
 				isAuth: false,
-				isLoading: false
+				isLoading: false,
+				hasError: true,
+				errorMessage: action.payload
 			}
 		}
 		case GET_AUTH_SUCCESS: {
@@ -44,7 +48,9 @@ export const authReducer = (state = initialState, action) => {
 				user: action.user,
 				isSuccess: true,
 				isAuth: true,
-				isLoading: false
+				isLoading: false,
+				hasError: false,
+				errorMessage: ''
 			}
 		}
 		case GET_AUTH_FAILED: {

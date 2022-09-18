@@ -6,8 +6,10 @@ import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAuth} from '../../services/actions/auth';
+import {getCookie} from '../../utils/cookies';
 
 const Login = () => {
+	const cookie = getCookie('accessToken');
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -28,8 +30,7 @@ const Login = () => {
 		}, [dispatch, setValues]
 	)
 
-	if (authData.isAuth) {
-		console.log(authData);
+	if (cookie) {
 		return (
 			<Redirect to={location.state?.from || './'} />
 		);

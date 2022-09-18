@@ -18,7 +18,7 @@ class Api {
 			return res.json();
 		}
 
-		return res.json().then(data => Promise.reject(data));
+		return res.json().then((data) => Promise.reject(data))
 	}
 
 	registerRequest = (formData) => {

@@ -6,11 +6,13 @@ import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {registration} from '../../services/actions/auth';
+import {getCookie} from '../../utils/cookies';
 
 const RegisterPage = () => {
+	const cookie = getCookie('accessToken');
+	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const authData = useSelector(state => state.authData);
 	const { values, setValues, handleFormChange } = useForm({
 		name: '',
 		email: '',
@@ -25,10 +27,12 @@ const RegisterPage = () => {
 				email: '',
 				password: ''
 			});
-		}, [dispatch, setValues]
+
+			console.log(authData);
+		}, [dispatch, setValues, authData]
 	)
 
-	if (authData.isAuth) {
+	if (cookie) {
 		return (
 			<Redirect to={location.state?.from || '/'} />
 		);
@@ -36,45 +40,50 @@ const RegisterPage = () => {
 
 	return (
 		<main className={styles.main}>
-			<form className={styles.form} onSubmit={(evt) => newUser(evt, values)}>
-				<h1 className={'text text_type_main-medium'}>Регистрация</h1>
-				<Input
-					type={'text'}
-					placeholder={'Имя'}
-					value={values.name}
-					name={'name'}
-					icon={undefined}
-					size={'default'}
-					onChange={handleFormChange}
-				/>
-				<Input
-					type={'email'}
-					placeholder={'E-mail'}
-					value={values.email}
-					name={'email'}
-					icon={undefined}
-					size={'default'}
-					onChange={handleFormChange}
-				/>
-				<PasswordInput
-					value={values.password}
-					name={'password'}
-					onChange={handleFormChange}
-				/>
-				<span className={'mb-20'}>
+		<form className={styles.form}
+					onSubmit={(evt) => newUser(evt, values)}>
+			<h1 className={'text text_type_main-medium'}>Регистрация</h1>
+			<Input
+				type={'text'}
+				placeholder={'Имя'}
+				value={values.name}
+				name={'name'}
+				icon={undefined}
+				size={'default'}
+				onChange={handleFormChange}
+			/>
+			<Input
+				type={'email'}
+				placeholder={'E-mail'}
+				value={values.email}
+				name={'email'}
+				icon={undefined}
+				size={'default'}
+				onChange={handleFormChange}
+			/>
+			<PasswordInput
+				value={values.password}
+				name={'password'}
+				onChange={handleFormChange}
+			/>
+			<span className={'mb-20'}>
 					<Button
 						type={'primary'}
 						size={'medium'}
 						htmlType={'submit'}
-						{...!authData.isLoading ? {disabled: false, children: 'Зарегистрироваться'} : {disabled: true, children: 'Регистрация...'}}
+						{...!authData.isLoading ? {disabled: false, children: 'Зарегистрироваться'} : {
+							disabled: true,
+							children: 'Регистрация...'
+						}}
 					>
 					</Button>
 				</span>
-			</form>
-			<p className={"text text_type_main-default text_color_inactive"}>
-				Уже зарегистрированы? <Link to={links.login} className={styles.link}>Войти</Link>
-			</p>
-		</main>
+		</form>
+		<p className={'text text_type_main-default text_color_inactive'}>
+			Уже зарегистрированы? <Link to={links.login}
+																	className={styles.link}>Войти</Link>
+		</p>
+	</main>
 	)
 }
 

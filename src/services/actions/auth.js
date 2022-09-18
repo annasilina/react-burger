@@ -2,6 +2,7 @@ import {api} from '../../api/api';
 import {setCookie} from '../../utils/cookies';
 
 export const REQUEST_LOADING = 'REQUEST_LOADING'; // общий лоадер для всех запросов
+export const ERROR_MESSAGE_SHOWED = 'ERROR_MESSAGE_SHOWED'
 
 export const REGISTRATION_REQUEST_SUCCESS = 'REGISTRATION_REQUEST_SUCCESS';
 export const REGISTRATION_REQUEST_FAILED = 'REGISTRATION_REQUEST_FAILED';
@@ -42,8 +43,9 @@ export const registration = (formData) => {
 			.catch((err) => {
 				dispatch({
 					type: REGISTRATION_REQUEST_FAILED,
+					payload: err.message
 				})
-				console.log(err)
+				console.log(err.message)
 			})
 	}
 }
