@@ -1,29 +1,47 @@
-import React, {useState} from 'react';
+import React, {useCallback} from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link} from 'react-router-dom';
+import {Link, Redirect, useLocation} from 'react-router-dom';
 import {links} from '../../utils/constants';
+import {useForm} from '../../utils/hooks';
+import {useDispatch, useSelector} from 'react-redux';
+import {registration} from '../../services/actions/auth';
 
 const RegisterPage = () => {
-	const [formValues, setFormValues] = useState({
+	const dispatch = useDispatch();
+	const location = useLocation();
+	const authData = useSelector(state => state.authData);
+	const { values, setValues, handleFormChange } = useForm({
 		name: '',
 		email: '',
 		password: ''
 	})
 
-	const handleFormChange = (evt) => {
-		evt.preventDefault();
-		setFormValues({...formValues, [evt.target.name]: evt.target.value})
+	const newUser = useCallback((evt, formValues) => {
+			evt.preventDefault();
+			dispatch(registration(formValues));
+			setValues({
+				name: '',
+				email: '',
+				password: ''
+			});
+		}, [dispatch, setValues]
+	)
+
+	if (authData.isAuth) {
+		return (
+			<Redirect to={location.state?.from || '/'} />
+		);
 	}
 
 	return (
 		<main className={styles.main}>
-			<form className={styles.form}>
+			<form className={styles.form} onSubmit={(evt) => newUser(evt, values)}>
 				<h1 className={'text text_type_main-medium'}>Регистрация</h1>
 				<Input
 					type={'text'}
 					placeholder={'Имя'}
-					value={formValues.name}
+					value={values.name}
 					name={'name'}
 					icon={undefined}
 					size={'default'}
@@ -32,14 +50,14 @@ const RegisterPage = () => {
 				<Input
 					type={'email'}
 					placeholder={'E-mail'}
-					value={formValues.email}
+					value={values.email}
 					name={'email'}
 					icon={undefined}
 					size={'default'}
 					onChange={handleFormChange}
 				/>
 				<PasswordInput
-					value={formValues.password}
+					value={values.password}
 					name={'password'}
 					onChange={handleFormChange}
 				/>
@@ -48,8 +66,8 @@ const RegisterPage = () => {
 						type={'primary'}
 						size={'medium'}
 						htmlType={'submit'}
+						{...!authData.isLoading ? {disabled: false, children: 'Зарегистрироваться'} : {disabled: true, children: 'Регистрация...'}}
 					>
-						Зарегистрироваться
 					</Button>
 				</span>
 			</form>

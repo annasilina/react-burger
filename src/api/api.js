@@ -17,23 +17,17 @@ class Api {
 		if (res.ok) {
 			return res.json();
 		}
-
 		return Promise.reject(`ошибка: ${res.status}`);
 	}
 
-	_getCookie(name) {
-		const matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
-		return matches ? decodeURIComponent(matches[1]) : undefined;
-	}
-
-	registerRequest = (registerData) => {
+	registerRequest = (formData) => {
 		return fetch(`${this._authURL}/register`, {
 			method: 'POST',
 			headers: this._headers,
 			body: JSON.stringify({
-				email: registerData.email,
-				password: registerData.password,
-				name: registerData.name
+				email: formData.email,
+				password: formData.password,
+				name: formData.name
 			})
 		}).then((res) => this._checkResponse(res));
 	}
@@ -49,43 +43,43 @@ class Api {
 		}).then((res) => this._checkResponse(res));
 	}
 
-	getUserRequest = () => {
+	getUserRequest = (token) => {
 		return fetch(`${this._authURL}/user`, {
 			method: 'GET',
 			headers: {
 				...this._headers,
-				'Authorization': `Bearer ${this._getCookie('accessToken')}`,
+				'Authorization': `Bearer ${token}`,
 			}
 		}).then(res => this._checkResponse(res));
 	}
 
-	updateUserDataRequest = (userData) => {
+	updateUserDataRequest = (userData, token) => {
 		return fetch(`${this._authURL}/user`, {
 			method: 'PATCH',
 			headers: {
 				...this._headers,
-				'Authorization': `Bearer ${this._getCookie('accessToken')}`,
+				'Authorization': `Bearer ${token}`,
 			},
 			body: JSON.stringify(userData)
 		})
 	}
 
-	updateTokenRequest = () => {
+	updateTokenRequest = (token) => {
 		return fetch(`${this._authURL}/token`, {
 			method: 'POST',
 			headers: this._headers,
 			body: JSON.stringify({
-				token: this._getCookie('refreshToken')
+				token: token
 			})
 		}).then(res => this._checkResponse(res));
 	}
 
-	logoutRequest = () => {
+	logoutRequest = (token) => {
 		return fetch(`${this._authURL}/logout`, {
 			method: 'POST',
 			headers: this._headers,
 			body: JSON.stringify({
-				token: this._getCookie('refreshToken')
+				token: token
 			})
 		}).then(res => this._checkResponse(res));
 	}
@@ -95,12 +89,12 @@ class Api {
 		return fetch(`${this._baseURL}/ingredients`).then((res) => this._checkResponse(res));
 	}
 
-	sendNewOrderRequest = (idArray) => {
+	sendNewOrderRequest = (idArray, token) => {
 		return fetch(`${this._baseURL}/orders`, {
 			method: 'POST',
 			headers: {
 				...this._headers,
-				'Authorization': `Bearer ${this._getCookie('accessToken')}`
+				'Authorization': `Bearer ${token}`
 			},
 			body: JSON.stringify({
 				ingredients: idArray,

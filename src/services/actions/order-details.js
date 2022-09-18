@@ -1,4 +1,5 @@
 import { api } from '../../api/api'
+import {getCookie} from '../../utils/cookies';
 
 export const CREATE_ORDER_LOADING = 'CREATE_ORDER_LOADING';
 export const CREATE_ORDER_LOADED = 'CREATE_ORDER_LOADED';
@@ -12,7 +13,7 @@ export const createOrder = (orderDetails) => {
 		dispatch({
 			type: CREATE_ORDER_LOADING
 		})
-		api.sendNewOrderRequest(idArray)
+		api.sendNewOrderRequest(idArray, getCookie('accessToken'))
 			.then((res) => {
 				dispatch({
 					type: CREATE_ORDER_LOADED,
