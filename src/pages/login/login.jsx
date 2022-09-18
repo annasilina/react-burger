@@ -1,34 +1,54 @@
-import React, {useState} from 'react';
+import React, {useCallback} from 'react';
 import {PasswordInput, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import {Link} from 'react-router-dom';
+import {Link, Redirect, useLocation} from 'react-router-dom';
 import {links} from '../../utils/constants';
+import {useForm} from '../../utils/hooks';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAuth} from '../../services/actions/auth';
 
 const Login = () => {
-	const [formValues, setFormValues] = useState({
-		email: '',
-		password: ''
-	});
+	const authData = useSelector(state => state.authData);
+	const dispatch = useDispatch();
+	const location = useLocation();
 
-	const handleFormChange = (evt) => {
-		evt.preventDefault();
-		setFormValues({...formValues, [evt.target.name]: evt.target.value})
+	const { values, setValues, handleFormChange } = useForm({
+		email: authData.user.email || '',
+		password: authData.user.password || ''
+	})
+
+	const newLogin = useCallback((evt, formValues) => {
+			evt.preventDefault();
+
+			dispatch(getAuth(formValues));
+			setValues({
+				email: '',
+				password: ''
+			})
+		}, [dispatch, setValues]
+	)
+
+	if (authData.isAuth) {
+		console.log(authData);
+		return (
+			<Redirect to={location.state?.from || './'} />
+		);
 	}
 
 	return (
 		<main className={styles.main}>
-			<form className={styles.form} >
+			<form className={styles.form} onSubmit={(evt) => newLogin(evt, values)} >
 				<h1 className={'text text_type_main-medium'}>Вход</h1>
 				<Input
 					type={'email'}
 					placeholder={'E-mail'}
-					value={formValues.email}
+					value={values.email}
 					name={'email'}
 					icon={undefined}
 					onChange={handleFormChange}
 				/>
 				<PasswordInput
-					value={formValues.password}
+					value={values.password}
 					name={'password'}
 					onChange={handleFormChange}
 				/>
@@ -37,9 +57,11 @@ const Login = () => {
 						type={'primary'}
 						size={'medium'}
 						htmlType={'submit'}
-					>
-						Войти
-					</Button>
+						{...!authData.isLoading
+							? {disabled: false, children: 'Войти'}
+							: {disabled: true, children: 'Загрузка...'}
+						}
+					/>
 				</span>
 			</form>
 			<p className={"text text_type_main-default text_color_inactive pb-4"}>

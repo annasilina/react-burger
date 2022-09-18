@@ -89,12 +89,11 @@ class Api {
 		return fetch(`${this._baseURL}/ingredients`).then((res) => this._checkResponse(res));
 	}
 
-	sendNewOrderRequest = (idArray, token) => {
+	sendNewOrderRequest = (idArray) => {
 		return fetch(`${this._baseURL}/orders`, {
 			method: 'POST',
 			headers: {
 				...this._headers,
-				'Authorization': `Bearer ${token}`
 			},
 			body: JSON.stringify({
 				ingredients: idArray,

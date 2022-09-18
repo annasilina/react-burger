@@ -17,6 +17,7 @@ import {getIngredients} from '../../services/actions/burger-ingredients';
 import {links} from '../../utils/constants';
 
 const App = () => {
+	/*const authData = useSelector(state => state.authData)*/
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
@@ -41,7 +42,7 @@ const App = () => {
 					<Route path={links.login}>
 						<Login />
 					</Route>
-					<Route path={links.profile} exact={true}>
+					<Route path={links.profile} >
 						<Profile />
 					</Route>
 					<Route path={links.register}>

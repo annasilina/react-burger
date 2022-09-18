@@ -48,24 +48,29 @@ export const registration = (formData) => {
 }
 
 export const getAuth = (formData) => {
-	return function (dispatch) {
+	return function(dispatch) {
 		dispatch({
 			type: REQUEST_LOADING
 		})
 
 		api.loginRequest(formData)
-			.then((res) => {
-				if (res.success) {
-					const accessToken = res.accessToken.split('Bearer ')[1];
-					const refreshToken = res.refreshToken;
-					setCookie('accessToken', accessToken, {expires: 1200, path: '/'} )
-					localStorage.setItem('refreshToken', refreshToken);
+			.then((data) => {
+				dispatch({
+					type: GET_AUTH_SUCCESS,
+					user: data.user
+				})
 
-					dispatch({
-						type: GET_AUTH_SUCCESS,
-						user: res.user
-					})
-				}
+				const accessToken = data.accessToken.split('Bearer ')[1];
+				const refreshToken = data.refreshToken;
+				setCookie('accessToken', accessToken, {expires: 1200, path: '/'} )
+				localStorage.setItem('refreshToken', refreshToken);
+
+			})
+			.catch((err) => {
+				dispatch({
+					type: GET_AUTH_FAILED
+				})
+				console.log(err);
 			})
 	}
 }

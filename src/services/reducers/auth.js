@@ -14,7 +14,7 @@ const initialState = {
 }
 
 export const authReducer = (state = initialState, action) => {
-	switch (action) {
+	switch (action.type) {
 		case REQUEST_LOADING: {
 			return {
 				...state,
@@ -41,7 +41,7 @@ export const authReducer = (state = initialState, action) => {
 		case GET_AUTH_SUCCESS: {
 			return {
 				...state,
-				user: {email: action.user.email, name: action.user.name},
+				user: action.user,
 				isSuccess: true,
 				isAuth: true,
 				isLoading: false
@@ -55,6 +55,7 @@ export const authReducer = (state = initialState, action) => {
 				isAuth: false
 			}
 		}
-		default: return state
+		default:
+			return state
 	}
 }
