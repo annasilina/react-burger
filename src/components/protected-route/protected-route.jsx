@@ -1,17 +1,23 @@
 import {useSelector} from 'react-redux';
-import {Redirect, Route, useLocation} from 'react-router-dom';
-import {getCookie} from '../../utils/cookies';
+import {Redirect, Route} from 'react-router-dom';
+import {links} from '../../utils/constants';
 
 export const ProtectedRoute = ({children, ...rest}) => {
 	const authData  = useSelector(state => state.authData);
-	const location = useLocation();
-	const cookie = getCookie('accessToken') !== undefined;
 
 	return (
 		<Route
 			{...rest}
-			exact={true}
-			render={() => (cookie ? children : <Redirect to={{pathname: '/login', state: {from: location}}} />)}
+			render={({location}) =>
+				authData.userData ? (
+					children
+				) : (
+					<Redirect to={{
+						pathname: links.login,
+						state: {from: location}
+					}}
+					/>
+				)}
 		/>
 	)
 }

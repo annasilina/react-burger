@@ -15,7 +15,6 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import {useDispatch, useSelector} from 'react-redux';
 import {getIngredients} from '../../services/actions/burger-ingredients';
 import {links} from '../../utils/constants';
-import {getUserStatus} from '../../services/actions/auth';
 import {ProtectedRoute} from '../protected-route/protected-route';
 
 const App = () => {
@@ -26,8 +25,7 @@ const App = () => {
 	const background = location.state?.background;
 
 	useEffect(() => {
-		dispatch(getIngredients())
-		dispatch(getUserStatus());
+		dispatch(getIngredients());
 		history.replace({ state: null })
 	}, [dispatch, history]);
 
@@ -45,7 +43,7 @@ const App = () => {
 					<Route path={links.login}>
 						<Login />
 					</Route>
-					<ProtectedRoute path={links.profile} exact={true}>
+					<ProtectedRoute path={links.profile}>
 						<Profile />
 					</ProtectedRoute>
 					<Route path={links.register}>

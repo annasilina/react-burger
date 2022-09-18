@@ -80,20 +80,15 @@ class Api {
 		}).then(res => this._checkResponse(res));
 	}
 
-	logoutRequest = () => {
+	/*logoutRequest = () => {
 		return fetch(`${this._authURL}/logout`, {
 			method: 'POST',
-			mode: 'cors',
-			cache: 'no-cache',
-			credentials: 'same-origin',
 			headers: this._headers,
-			redirect: 'follow',
-			referrerPolicy: 'no-referrer',
 			body: JSON.stringify({
 				token: this._getCookie('refreshToken')
 			})
 		}).then(res => this._checkResponse(res));
-	}
+	}*/
 
 	// функция получения данных по ингредиентам
 	getIngredientsRequest = () => {

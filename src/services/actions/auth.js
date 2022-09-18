@@ -37,6 +37,7 @@ export const register = (registerData) => {
 					if (refreshToken) {
 						setCookie('refreshToken', refreshToken)
 					}
+					dispatch(loggedIn());
 					dispatch(getAuthStatusLoaded());
 					dispatch(setUserData(res.user))
 				}
