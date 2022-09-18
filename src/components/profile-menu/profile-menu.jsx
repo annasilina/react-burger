@@ -2,15 +2,8 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import styles from './profile-menu.module.css';
 import {links} from '../../utils/constants';
-import {useDispatch} from 'react-redux';
-import {logout} from '../../services/actions/auth';
 
 const ProfileMenu = () => {
-	const dispatch = useDispatch();
-
-	const signOut = () => {
-		dispatch(logout())
-	}
 
 	return (
 		<nav className={`${styles.menu} pl-5`}>
@@ -26,7 +19,7 @@ const ProfileMenu = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to='' onClick={signOut} className={`${styles.menuLink} text text_type_main-medium`} >
+					<NavLink to='' className={`${styles.menuLink} text text_type_main-medium`} >
 						Выход
 					</NavLink>
 				</li>

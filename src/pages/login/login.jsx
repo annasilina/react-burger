@@ -1,16 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {PasswordInput, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import {Link, Redirect, useLocation} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {useCallback, useState} from 'react';
-import {login} from '../../services/actions/auth';
+import {Link} from 'react-router-dom';
 import {links} from '../../utils/constants';
 
 const Login = () => {
-	const authData = useSelector(state => state.authData);
-	const dispatch = useDispatch();
-	const location = useLocation();
 	const [formValues, setFormValues] = useState({
 		email: '',
 		password: ''
@@ -21,21 +15,9 @@ const Login = () => {
 		setFormValues({...formValues, [evt.target.name]: evt.target.value})
 	}
 
-	const handleFormSubmit = useCallback(
-		evt => {
-			evt.preventDefault();
-			dispatch(login(formValues))
-		},
-		[dispatch, formValues]
-	)
-
-	if (authData.userData) {
-		return <Redirect to={location?.state?.from || links.home} />
-	}
-
 	return (
 		<main className={styles.main}>
-			<form className={styles.form} onSubmit={handleFormSubmit}>
+			<form className={styles.form} >
 				<h1 className={'text text_type_main-medium'}>Вход</h1>
 				<Input
 					type={'email'}
@@ -61,10 +43,10 @@ const Login = () => {
 				</span>
 			</form>
 			<p className={"text text_type_main-default text_color_inactive pb-4"}>
-				Вы — новый пользователь? <Link to="/register" className={styles.link}>Зарегистрироваться</Link>
+				Вы — новый пользователь? <Link to={links.register} className={styles.link}>Зарегистрироваться</Link>
 			</p>
 			<p className={"text text_type_main-default text_color_inactive"}>
-				Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
+				Забыли пароль? <Link to={links.forgotPassword} className={styles.link}>Восстановить пароль</Link>
 			</p>
 		</main>
 	)

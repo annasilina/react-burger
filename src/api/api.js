@@ -80,7 +80,7 @@ class Api {
 		}).then(res => this._checkResponse(res));
 	}
 
-	/*logoutRequest = () => {
+	logoutRequest = () => {
 		return fetch(`${this._authURL}/logout`, {
 			method: 'POST',
 			headers: this._headers,
@@ -88,7 +88,7 @@ class Api {
 				token: this._getCookie('refreshToken')
 			})
 		}).then(res => this._checkResponse(res));
-	}*/
+	}
 
 	// функция получения данных по ингредиентам
 	getIngredientsRequest = () => {
