@@ -40,7 +40,7 @@ const App = () => {
 					<Route path={links.home} exact={true}>
 						<Home />
 					</Route>
-					<ProtectedRoute path={links.profile} >
+					<ProtectedRoute path={links.profile} exact={true} >
 						<Profile />
 					</ProtectedRoute>
 					<Route path={links.login}>
