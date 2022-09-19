@@ -1,15 +1,16 @@
-import React, {useCallback} from 'react';
+import React, {useEffect} from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link, Redirect, useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {registration} from '../../services/actions/auth';
-import {getCookie} from '../../utils/cookies';
+import {getCookie} from '../../utils/cookie';
+import { Redirect } from 'react-router-dom';
 
 const RegisterPage = () => {
-	const cookie = getCookie('accessToken');
+	const token = getCookie('accessToken');
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -19,8 +20,29 @@ const RegisterPage = () => {
 		password: ''
 	})
 
-	const newUser = useCallback((evt, formValues) => {
+	if (authData.registerErrorMessage === 'User already exists') {
+		return (
+			<Redirect to={links.login} />
+		)
+	}
+
+	if (token) {
+		return (
+			<Redirect to={location.state?.from || links.home} />
+		)
+	}
+
+	const handleFormSubmit = (
+		(evt) => {
 			evt.preventDefault();
+
+			const form = evt.target;
+			const formValues = {
+				name: form.name.value,
+				email: form.email.value,
+				password: form.password.value
+			}
+
 			dispatch(registration(formValues));
 			setValues({
 				name: '',
@@ -28,20 +50,13 @@ const RegisterPage = () => {
 				password: ''
 			});
 
-			console.log(authData);
-		}, [dispatch, setValues, authData]
+		}
 	)
-
-	if (cookie) {
-		return (
-			<Redirect to={location.state?.from || '/'} />
-		);
-	}
 
 	return (
 		<main className={styles.main}>
 		<form className={styles.form}
-					onSubmit={(evt) => newUser(evt, values)}>
+					onSubmit={handleFormSubmit}>
 			<h1 className={'text text_type_main-medium'}>Регистрация</h1>
 			<Input
 				type={'text'}

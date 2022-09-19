@@ -1,6 +1,6 @@
 import {
 	GET_AUTH_FAILED,
-	GET_AUTH_SUCCESS,
+	GET_AUTH_SUCCESS, GET_USER_REQUEST_FAILED, GET_USER_REQUEST_SUCCESS,
 	REGISTRATION_REQUEST_FAILED,
 	REGISTRATION_REQUEST_SUCCESS,
 	REQUEST_LOADING
@@ -9,10 +9,7 @@ import {
 const initialState = {
 	user: {},
 	isLoading: false,
-	isSuccess: false,
-	isAuth: false,
-	errorMessage: '',
-	hasError: false
+	isRegisterFailed: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -20,47 +17,26 @@ export const authReducer = (state = initialState, action) => {
 		case REQUEST_LOADING: {
 			return {
 				...state,
-				isLoading: true,
+				isLoading: true
 			}
 		}
 		case REGISTRATION_REQUEST_SUCCESS: {
 			return {
 				...state,
-				user: action.user,
-				isSuccess: true,
-				isAuth: true,
-				isLoading: false
+				isLoading: false,
+				isRegisterFailed: false,
+				registerErrorMessage: ''
 			}
 		}
 		case REGISTRATION_REQUEST_FAILED: {
-			return  {
-				...state,
-				isSuccess: false,
-				isAuth: false,
-				isLoading: false,
-				hasError: true,
-				errorMessage: action.payload
-			}
-		}
-		case GET_AUTH_SUCCESS: {
 			return {
 				...state,
-				user: action.user,
-				isSuccess: true,
-				isAuth: true,
 				isLoading: false,
-				hasError: false,
-				errorMessage: ''
+				isRegisterFailed: true,
+				registerErrorMessage: action.payload
 			}
 		}
-		case GET_AUTH_FAILED: {
-			return  {
-				...state,
-				isLoading: false,
-				isSuccess: false,
-				isAuth: false
-			}
-		}
+
 		default:
 			return state
 	}

@@ -54,7 +54,7 @@ class Api {
 		}).then(res => this._checkResponse(res));
 	}
 
-	updateUserDataRequest = (userData, token) => {
+	setUserDataRequest = (userData, token) => {
 		return fetch(`${this._authURL}/user`, {
 			method: 'PATCH',
 			headers: {

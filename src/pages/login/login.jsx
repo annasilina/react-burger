@@ -6,7 +6,7 @@ import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAuth} from '../../services/actions/auth';
-import {getCookie} from '../../utils/cookies';
+import {getCookie} from '../../utils/cookie';
 
 const Login = () => {
 	const cookie = getCookie('accessToken');
