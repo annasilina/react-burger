@@ -84,7 +84,6 @@ export const getUser = () => {
 				} else {
 					dispatch(updateToken(refreshToken));
 				}
-
 			})
 			.catch((err) => {
 				dispatch({
@@ -140,7 +139,7 @@ export const logout = (token) => {
 
 export const updateToken = (token) => {
 	return function (dispatch) {
-		api.updateTokenRequest(token)
+		return api.updateTokenRequest(token)
 			.then((data) => {
 				if (data.success) {
 					setTokenData(data);

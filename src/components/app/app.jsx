@@ -20,7 +20,6 @@ import {getUser, updateToken} from '../../services/actions/auth';
 import {getCookie} from '../../utils/cookie';
 
 const App = () => {
-	/*const authData = useSelector(state => state.authData)*/
 	const accessToken = getCookie('accessToken');
 	const refreshToken = localStorage.getItem('refreshToken');
 	const dispatch = useDispatch();
@@ -30,15 +29,12 @@ const App = () => {
 
 	useEffect(() => {
 		dispatch(getIngredients());
-		dispatch(getUser());
-		history.replace({ state: null })
-	}, [dispatch, history]);
-
-	useEffect(() => {
+		history.replace({state: null})
 		if (!accessToken && refreshToken) {
-			dispatch(updateToken(refreshToken));
+			dispatch(updateToken(refreshToken))
+				.then(() => dispatch(getUser()));
 		}
-	})
+	}, [dispatch, history]);
 
 	const handleClose = () => {
 		history.goBack();
@@ -47,39 +43,42 @@ const App = () => {
 	return (
 		<>
 			<AppHeader/>
-				<Switch location={background || location}>
-					<Route path={links.home} exact={true}>
-						<Home />
-					</Route>
-					<ProtectedRoute path={links.profile} exact={true} >
-						<Profile />
-					</ProtectedRoute>
-					<Route path={links.login}>
-						<Login />
-					</Route>
-					<Route path={links.register}>
-						<RegisterPage />
-					</Route>
-					<Route path={links.forgotPassword}>
-						<ForgotPasswordPage />
-					</Route>
-					<Route path={links.resetPassword}>
-						<ResetPasswordPage />
-					</Route>
-					<Route path={`${links.ingredients}/:id`}>
-						<IngredientsPage />
-					</Route>
-					<Route>
-						<Page404 />
-					</Route>
-				</Switch>
-				{background &&
-					<Route path={`${links.ingredients}/:id`}>
-						<Modal title='Детали ингредиента' handleClose={handleClose}>
-							<IngredientDetails />
-						</Modal>
-					</Route>
-				}
+			<Switch location={background || location}>
+				<Route path={links.home}
+							 exact={true}>
+					<Home/>
+				</Route>
+				<ProtectedRoute path={links.profile}
+												exact={true}>
+					<Profile/>
+				</ProtectedRoute>
+				<Route path={links.login}>
+					<Login/>
+				</Route>
+				<Route path={links.register}>
+					<RegisterPage/>
+				</Route>
+				<Route path={links.forgotPassword}>
+					<ForgotPasswordPage/>
+				</Route>
+				<Route path={links.resetPassword}>
+					<ResetPasswordPage/>
+				</Route>
+				<Route path={`${links.ingredients}/:id`}>
+					<IngredientsPage/>
+				</Route>
+				<Route>
+					<Page404/>
+				</Route>
+			</Switch>
+			{background &&
+				<Route path={`${links.ingredients}/:id`}>
+					<Modal title="Детали ингредиента"
+								 handleClose={handleClose}>
+						<IngredientDetails/>
+					</Modal>
+				</Route>
+			}
 		</>
 	);
 }
