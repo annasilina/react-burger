@@ -6,11 +6,9 @@ import {errors, links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {registration} from '../../services/actions/auth';
-import {getCookie} from '../../utils/cookie';
 import { Redirect } from 'react-router-dom';
 
 const RegisterPage = () => {
-	const token = getCookie('accessToken');
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -26,7 +24,7 @@ const RegisterPage = () => {
 		)
 	}
 
-	if (token) {
+	if (authData.user.email) {
 		return (
 			<Redirect to={location.state?.from || links.home} />
 		)

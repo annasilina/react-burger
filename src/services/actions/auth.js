@@ -1,5 +1,6 @@
 import {api} from '../../api/api';
 import {setTokenData} from '../../utils/token';
+import {deleteCookie, getCookie} from '../../utils/cookie';
 
 export const GET_REGISTRATION_LOADING = 'GET_REGISTRATION_LOADING';
 export const GET_REGISTRATION_LOADED = 'GET_REGISTRATION_LOADED';
@@ -12,8 +13,9 @@ export const GET_AUTH_LOADING = 'GET_AUTH_SUCCESS';
 export const GET_AUTH_LOADED = 'GET_AUTH_SUCCESS';
 export const GET_AUTH_FAILED = 'GET_AUTH_FAILED';
 
-export const GET_USER_REQUEST_SUCCESS = 'GET_USER_REQUEST_SUCCESS';
-export const GET_USER_REQUEST_FAILED = 'GET_USER_REQUEST_FAILED';
+export const GET_USER_LOADING = 'GET_USER_LOADING';
+export const GET_USER_LOADED = 'GET_USER_LOADED';
+export const GET_USER_FAILED = 'GET_USER_FAILED';
 
 export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
@@ -68,11 +70,10 @@ export const login = (formData) => {
 	}
 }
 
-/*
 // получение данных о пользователе в профиле
 export const getUser = () => {
 	return function(dispatch) {
-		dispatch(requestStatusCheck(true))
+		dispatch(getUserLoading())
 
 		let accessToken = getCookie('accessToken');
 		let refreshToken = localStorage.getItem('refreshToken');
@@ -84,14 +85,15 @@ export const getUser = () => {
 						type: SET_USER_DATA,
 						payload: data.user
 					})
+					dispatch(getUserLoaded());
 				} else {
 					dispatch(updateToken(refreshToken));
 				}
-				dispatch(requestStatusCheck(false))
+
 			})
 			.catch((err) => {
 				dispatch({
-					type: GET_USER_REQUEST_FAILED,
+					type: GET_USER_FAILED,
 					payload: err.message
 				})
 				console.log(err.message)
@@ -99,6 +101,7 @@ export const getUser = () => {
 	}
 }
 
+/*
 export const setUserData = (formData) => {
 	return function(dispatch) {
 		dispatch(requestStatusCheck(true))
@@ -126,6 +129,19 @@ export const setUserData = (formData) => {
 	}
 }
 */
+
+export const logout = (token) => {
+	return function(dispatch) {
+		api.logoutRequest(token)
+			.then((data) => {
+				if (data.success) {
+					dispatch(setLoggedOut());
+					deleteCookie('accessToken');
+					localStorage.clear();
+				}
+			})
+	}
+}
 
 export const updateToken = (token) => {
 	return function (dispatch) {
@@ -175,5 +191,17 @@ const setLoggedIn = () => {
 const setLoggedOut = () => {
 	return {
 		type: LOGGED_OUT
+	}
+}
+
+const getUserLoading = () => {
+	return {
+		type: GET_USER_LOADING
+	}
+}
+
+const getUserLoaded = () => {
+	return {
+		type: GET_USER_LOADED
 	}
 }

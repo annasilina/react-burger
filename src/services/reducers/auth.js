@@ -1,9 +1,13 @@
 import {
-	GET_AUTH_FAILED, GET_AUTH_LOADED,
+	GET_AUTH_FAILED,
+	GET_AUTH_LOADED,
 	GET_AUTH_LOADING,
 	GET_REGISTRATION_FAILED,
 	GET_REGISTRATION_LOADED,
-	GET_REGISTRATION_LOADING, LOGGED_IN, LOGGED_OUT, SET_USER_DATA
+	GET_REGISTRATION_LOADING, GET_USER_FAILED, GET_USER_LOADED, GET_USER_LOADING,
+	LOGGED_IN,
+	LOGGED_OUT,
+	SET_USER_DATA
 
 } from '../actions/auth';
 
@@ -15,7 +19,10 @@ const initialState = {
 	registerErrorMessage: '',
 	isAuthLoading: false,
 	isAuthFailed: false,
-	authErrorMessage: ''
+	authErrorMessage: '',
+	isUserLoading: false,
+	isUserFailed: false,
+	userErrorMessage: ''
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -73,6 +80,26 @@ export const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: action.payload,
+			}
+		}
+		case GET_USER_LOADING: {
+			return {
+				...state,
+				isUserLoading: true,
+			}
+		}
+		case GET_USER_LOADED: {
+			return {
+				...state,
+				isUserLoading: false,
+			}
+		}
+		case GET_USER_FAILED: {
+			return {
+				...state,
+				isUserLoading: false,
+				isUserFailed: true,
+				userErrorMessage: action.payload
 			}
 		}
 		case LOGGED_OUT: {

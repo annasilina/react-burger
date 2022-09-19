@@ -1,11 +1,30 @@
 import React from 'react';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile-form.module.css';
+import {useForm} from '../../utils/hooks';
+import {useSelector} from 'react-redux';
 
 const ProfileForm = () => {
-	const [nameValue, setNameValue] = React.useState('');
+	/*const [nameValue, setNameValue] = React.useState('');
 	const [emailValue, setEmailValue] = React.useState('');
-	const [passwordValue, setPasswordValue] = React.useState('');
+	const [passwordValue, setPasswordValue] = React.useState('');*/
+	const authData = useSelector(state => state.authData);
+	/*const dispatch = useDispatch();*/
+	const {values, setValues, handleFormChange } = useForm({
+		name: authData.user.name,
+		email: authData.user.email,
+		password: ''
+	})
+
+	const handleFormSubmit = (evt) => {
+		evt.preventDefault();
+
+	}
+
+	const handleFormReset = (evt) => {
+		evt.preventDefault();
+
+	}
 
 	return (
 		<form className={styles.form}>
@@ -13,28 +32,28 @@ const ProfileForm = () => {
 				type={'text'}
 				name={'name'}
 				placeholder={'Имя'}
-				value={nameValue}
+				value={values.name}
 				icon={'EditIcon'}
 				size={'default'}
-				onChange={(e) => setNameValue(e.target.value)}
+				onChange={handleFormChange}
 			/>
 			<Input
 				type={'email'}
 				name={'email'}
 				placeholder={'Логин'}
-				value={emailValue}
+				value={values.email}
 				icon={'EditIcon'}
 				size={'default'}
-				onChange={(e) => setEmailValue(e.target.value)}
+				onChange={handleFormChange}
 			/>
 			<Input
 				type={'password'}
 				name={'password'}
 				placeholder={'Пароль'}
-				value={passwordValue}
+				value={values.password}
 				icon={'EditIcon'}
 				size={'default'}
-				onChange={(e) => setPasswordValue(e.target.value)}
+				onChange={handleFormChange}
 			/>
 			<div className={styles.buttonsContainer}>
 				<Button

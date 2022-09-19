@@ -1,7 +1,7 @@
 import React from 'react';
 import {PasswordInput, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import {Link} from 'react-router-dom';
+import {Link, Redirect, useLocation} from 'react-router-dom';
 import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,6 +9,7 @@ import {login} from '../../services/actions/auth';
 
 const Login = () => {
 	const authData = useSelector(state => state.authData);
+	const location = useLocation();
 	const dispatch = useDispatch();
 	const { values, setValues, handleFormChange } = useForm({
 		email: '',
@@ -28,6 +29,13 @@ const Login = () => {
 			email: '',
 			password: ''
 		});
+	}
+	
+	if (authData.user.email) {
+		return (
+			<Redirect to={location.state?.from || links.home} />
+		)
+		
 	}
 
 	return (

@@ -2,8 +2,16 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import styles from './profile-menu.module.css';
 import {links} from '../../utils/constants';
+import {logout} from '../../services/actions/auth';
+import {useDispatch} from 'react-redux';
 
 const ProfileMenu = () => {
+	const dispatch = useDispatch();
+
+	const handleLogout = (evt) => {
+		evt.preventDefault();
+		dispatch(logout(localStorage.getItem('refreshToken')));
+	}
 
 	return (
 		<nav className={`${styles.menu} pl-5`}>
@@ -19,9 +27,9 @@ const ProfileMenu = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to='' className={`${styles.menuLink} text text_type_main-medium`} >
+					<button onClick={handleLogout} className={`${styles.menuLink} ${styles.menuButton} text text_type_main-medium`} >
 						Выход
-					</NavLink>
+					</button>
 				</li>
 			</ul>
 			<p className={"text text_type_main-default text_color_inactive"}>В этом разделе вы можете

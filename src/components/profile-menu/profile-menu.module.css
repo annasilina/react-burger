@@ -27,3 +27,9 @@
 .menuLink:hover {
 	opacity: .6;
 }
+
+.menuButton {
+	border: none;
+	background-color: inherit;
+	cursor: pointer;
+}

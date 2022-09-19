@@ -16,9 +16,13 @@ import {useDispatch} from 'react-redux';
 import {getIngredients} from '../../services/actions/burger-ingredients';
 import {links} from '../../utils/constants';
 import {ProtectedRoute} from '../protected-route/protected-route';
+import {getUser, updateToken} from '../../services/actions/auth';
+import {getCookie} from '../../utils/cookie';
 
 const App = () => {
 	/*const authData = useSelector(state => state.authData)*/
+	const accessToken = getCookie('accessToken');
+	const refreshToken = localStorage.getItem('refreshToken');
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
@@ -26,8 +30,16 @@ const App = () => {
 
 	useEffect(() => {
 		dispatch(getIngredients());
+		dispatch(getUser());
 		history.replace({ state: null })
-	}, [dispatch, history]);
+	}, []);
+
+	useEffect(() => {
+		if (!accessToken && refreshToken) {
+			dispatch(updateToken(refreshToken));
+		}
+	})
+
 
 	const handleClose = () => {
 		history.goBack();

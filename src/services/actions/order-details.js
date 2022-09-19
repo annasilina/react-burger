@@ -1,5 +1,6 @@
 import { api } from '../../api/api'
 import {getCookie} from '../../utils/cookie';
+import {updateToken} from './auth';
 
 export const CREATE_ORDER_LOADING = 'CREATE_ORDER_LOADING';
 export const CREATE_ORDER_LOADED = 'CREATE_ORDER_LOADED';
@@ -15,10 +16,14 @@ export const createOrder = (orderDetails) => {
 		})
 		api.sendNewOrderRequest(idArray, getCookie('accessToken'))
 			.then((res) => {
-				dispatch({
-					type: CREATE_ORDER_LOADED,
-					number: res.order.number
-				})
+				if (res.success) {
+					dispatch({
+						type: CREATE_ORDER_LOADED,
+						number: res.order.number
+					})
+				} else {
+					dispatch(updateToken(localStorage.getItem('refreshToken')))
+				}
 			})
 			.catch((err) => {
 				dispatch({
