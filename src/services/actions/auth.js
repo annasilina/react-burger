@@ -18,7 +18,7 @@ export const GET_USER_LOADED = 'GET_USER_LOADED';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
 
 export const SET_USER_DATA = 'SET_USER_DATA';
-export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
+/*export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';*/
 
 
 export const registration = (formData) => {
@@ -29,12 +29,6 @@ export const registration = (formData) => {
 			.then((data) => {
 				if (data.success) {
 					dispatch(getRegistrationLoaded());
-					dispatch({
-						type: SET_USER_DATA,
-						payload: data.user
-					})
-					setTokenData(data);
-					dispatch(setLoggedIn());
 				}
 			})
 			.catch((err) => {

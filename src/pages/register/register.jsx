@@ -12,7 +12,6 @@ const RegisterPage = () => {
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const history = useHistory();
-	/*const location = useLocation();*/
 	const { values, handleFormChange } = useForm({
 		name: '',
 		email: '',
@@ -24,7 +23,6 @@ const RegisterPage = () => {
 			<Redirect to={links.login} />
 		)
 	}
-
 
 	const handleFormSubmit = (evt) => {
 		evt.preventDefault();
@@ -38,7 +36,7 @@ const RegisterPage = () => {
 
 		dispatch(registration(formValues)).finally(() => {
 			if (!authData.isRegisterFailed) {
-				history.push(links.home);
+				history.push(links.login);
 			}
 		})
 	}
