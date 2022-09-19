@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, useLocation} from 'react-router-dom';
-import {links} from '../../utils/constants';
+import {errors, links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {registration} from '../../services/actions/auth';
@@ -20,7 +20,7 @@ const RegisterPage = () => {
 		password: ''
 	})
 
-	if (authData.registerErrorMessage === 'User already exists') {
+	if (authData.registerErrorMessage === errors.userExists) {
 		return (
 			<Redirect to={links.login} />
 		)
@@ -32,26 +32,17 @@ const RegisterPage = () => {
 		)
 	}
 
-	const handleFormSubmit = (
-		(evt) => {
-			evt.preventDefault();
+	const handleFormSubmit = (evt) => {
+		evt.preventDefault();
 
-			const form = evt.target;
-			const formValues = {
-				name: form.name.value,
-				email: form.email.value,
-				password: form.password.value
-			}
-
-			dispatch(registration(formValues));
-			setValues({
-				name: '',
-				email: '',
-				password: ''
-			});
-
+		const form = evt.target;
+		const formValues = {
+			name: form.name.value,
+			email: form.email.value,
+			password: form.password.value
 		}
-	)
+		dispatch(registration(formValues));
+	}
 
 	return (
 		<main className={styles.main}>
@@ -86,7 +77,7 @@ const RegisterPage = () => {
 						type={'primary'}
 						size={'medium'}
 						htmlType={'submit'}
-						{...!authData.isLoading ? {disabled: false, children: 'Зарегистрироваться'} : {
+						{...!authData.isRegisterLoading ? {disabled: false, children: 'Зарегистрироваться'} : {
 							disabled: true,
 							children: 'Регистрация...'
 						}}

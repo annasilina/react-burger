@@ -1,44 +1,38 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {PasswordInput, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import {Link, Redirect, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAuth} from '../../services/actions/auth';
-import {getCookie} from '../../utils/cookie';
+import {login} from '../../services/actions/auth';
 
 const Login = () => {
-	const cookie = getCookie('accessToken');
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
-	const location = useLocation();
-
 	const { values, setValues, handleFormChange } = useForm({
-		email: authData.user.email || '',
-		password: authData.user.password || ''
+		email: '',
+		password: ''
 	})
 
-	const newLogin = useCallback((evt, formValues) => {
-			evt.preventDefault();
+	const handleFormSubmit = (evt) => {
+		evt.preventDefault();
+		const form = evt.target;
+		const formValues = {
+			email: form.email.value,
+			password: form.password.value
+		}
 
-			dispatch(getAuth(formValues));
-			setValues({
-				email: '',
-				password: ''
-			})
-		}, [dispatch, setValues]
-	)
-
-	if (cookie) {
-		return (
-			<Redirect to={location.state?.from || './'} />
-		);
+		dispatch(login(formValues));
+		setValues({
+			email: '',
+			password: ''
+		});
 	}
 
 	return (
 		<main className={styles.main}>
-			<form className={styles.form} onSubmit={(evt) => newLogin(evt, values)} >
+			<form className={styles.form} onSubmit={handleFormSubmit} >
 				<h1 className={'text text_type_main-medium'}>Вход</h1>
 				<Input
 					type={'email'}
@@ -58,7 +52,7 @@ const Login = () => {
 						type={'primary'}
 						size={'medium'}
 						htmlType={'submit'}
-						{...!authData.isLoading
+						{...!authData.isAuthLoading
 							? {disabled: false, children: 'Войти'}
 							: {disabled: true, children: 'Загрузка...'}
 						}

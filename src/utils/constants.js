@@ -9,3 +9,7 @@ export const links = {
 	ordersFeed: "/feed",
 	userOrdersFeed: "/profile/orders",
 }
+
+export const errors = {
+	userExists: 'User already exists'
+}

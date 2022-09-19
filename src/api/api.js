@@ -14,14 +14,10 @@ class Api {
 
 	// функция проверки ответа на запрос
 	_checkResponse = (res) => {
-		if (res.ok) {
-			return res.json();
-		}
-
-		return res.json().then((data) => Promise.reject(data))
+		return res.ok ? res.json() : res.json().then((data) => Promise.reject(data))
 	}
 
-	registerRequest = (formData) => {
+	registerRequest(formData) {
 		return fetch(`${this._authURL}/register`, {
 			method: 'POST',
 			headers: this._headers,
