@@ -9,7 +9,7 @@ export const ProtectedRoute = ({children, ...rest}) => {
 		<Route
 			{...rest}
 			render={({location}) =>
-				authData.user.email ? (
+				authData.isLoggedIn ? (
 					children
 				) : (
 					<Redirect

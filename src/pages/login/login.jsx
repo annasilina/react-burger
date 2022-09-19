@@ -31,7 +31,7 @@ const Login = () => {
 		});
 	}
 	
-	if (authData.user.email) {
+	if (authData.isLoggedIn) {
 		return (
 			<Redirect to={location.state?.from || links.home} />
 		)
