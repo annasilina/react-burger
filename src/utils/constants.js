@@ -11,5 +11,7 @@ export const links = {
 }
 
 export const errors = {
-	userExists: 'User already exists'
+	userExists: 'User already exists',
+	incorrectValues: 'email or password are incorrect',
+	incorrectToken: ['jwt malformed']
 }

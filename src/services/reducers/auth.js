@@ -66,7 +66,8 @@ export const authReducer = (state = initialState, action) => {
 		case GET_AUTH_FAILED: {
 			return {
 				...state,
-				isGetAuthFailed: true,
+				isAuthLoading: false,
+				isAuthFailed: true,
 				authErrorMessage: action.payload
 			}
 		}

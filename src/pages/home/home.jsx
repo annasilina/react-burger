@@ -13,6 +13,7 @@ import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-det
 import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
 
 import styles from './home.module.css';
+import Preloader from '../../components/preloader/preloader';
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const Home = () => {
 			</DndProvider>
 			{isOrderDetailsOpen && !orderHasError &&
 				<Modal title="" handleClose={handleCloseOrderModal}
-					{...orderIsLoading ? {children: '', title: 'Загружаем заказ...'} : {children: <OrderDetails orderID={orderNumber}/>}}
+							 {...orderIsLoading ? {children: <Preloader />, title: 'Загружаем заказ...'} : {children: <OrderDetails orderID={orderNumber}/>}}
 				/>
 			}
 		</>
@@ -72,3 +73,5 @@ const Home = () => {
 }
 
 export default Home;
+
+

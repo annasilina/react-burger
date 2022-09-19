@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {errors, links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
@@ -11,8 +11,9 @@ import { Redirect } from 'react-router-dom';
 const RegisterPage = () => {
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
-	const location = useLocation();
-	const { values, setValues, handleFormChange } = useForm({
+	const history = useHistory();
+	/*const location = useLocation();*/
+	const { values, handleFormChange } = useForm({
 		name: '',
 		email: '',
 		password: ''
@@ -24,11 +25,6 @@ const RegisterPage = () => {
 		)
 	}
 
-	if (authData.user.email) {
-		return (
-			<Redirect to={location.state?.from || links.home} />
-		)
-	}
 
 	const handleFormSubmit = (evt) => {
 		evt.preventDefault();
@@ -39,38 +35,43 @@ const RegisterPage = () => {
 			email: form.email.value,
 			password: form.password.value
 		}
-		dispatch(registration(formValues));
+
+		dispatch(registration(formValues)).finally(() => {
+			if (!authData.isRegisterFailed) {
+				history.push(links.home);
+			}
+		})
 	}
 
 	return (
 		<main className={styles.main}>
-		<form className={styles.form}
-					onSubmit={handleFormSubmit}>
-			<h1 className={'text text_type_main-medium'}>Регистрация</h1>
-			<Input
-				type={'text'}
-				placeholder={'Имя'}
-				value={values.name}
-				name={'name'}
-				icon={undefined}
-				size={'default'}
-				onChange={handleFormChange}
-			/>
-			<Input
-				type={'email'}
-				placeholder={'E-mail'}
-				value={values.email}
-				name={'email'}
-				icon={undefined}
-				size={'default'}
-				onChange={handleFormChange}
-			/>
-			<PasswordInput
-				value={values.password}
-				name={'password'}
-				onChange={handleFormChange}
-			/>
-			<span className={'mb-20'}>
+			<form className={styles.form}
+						onSubmit={handleFormSubmit}>
+				<h1 className={'text text_type_main-medium'}>Регистрация</h1>
+				<Input
+					type={'text'}
+					placeholder={'Имя'}
+					value={values.name}
+					name={'name'}
+					icon={undefined}
+					size={'default'}
+					onChange={handleFormChange}
+				/>
+				<Input
+					type={'email'}
+					placeholder={'E-mail'}
+					value={values.email}
+					name={'email'}
+					icon={undefined}
+					size={'default'}
+					onChange={handleFormChange}
+				/>
+				<PasswordInput
+					value={values.password}
+					name={'password'}
+					onChange={handleFormChange}
+				/>
+				<span className={'mb-20'}>
 					<Button
 						type={'primary'}
 						size={'medium'}
@@ -82,12 +83,12 @@ const RegisterPage = () => {
 					>
 					</Button>
 				</span>
-		</form>
-		<p className={'text text_type_main-default text_color_inactive'}>
-			Уже зарегистрированы? <Link to={links.login}
-																	className={styles.link}>Войти</Link>
-		</p>
-	</main>
+			</form>
+			<p className={'text text_type_main-default text_color_inactive'}>
+				Уже зарегистрированы? <Link to={links.login}
+																		className={styles.link}>Войти</Link>
+			</p>
+		</main>
 	)
 }
 

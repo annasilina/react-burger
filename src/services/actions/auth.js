@@ -9,8 +9,8 @@ export const GET_REGISTRATION_FAILED = 'GET_REGISTRATION_FAILED';
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGGED_OUT = 'LOGGED_OUT';
 
-export const GET_AUTH_LOADING = 'GET_AUTH_SUCCESS';
-export const GET_AUTH_LOADED = 'GET_AUTH_SUCCESS';
+export const GET_AUTH_LOADING = 'GET_AUTH_LOADING';
+export const GET_AUTH_LOADED = 'GET_AUTH_LOADED';
 export const GET_AUTH_FAILED = 'GET_AUTH_FAILED';
 
 export const GET_USER_LOADING = 'GET_USER_LOADING';
@@ -34,6 +34,7 @@ export const registration = (formData) => {
 						payload: data.user
 					})
 					setTokenData(data);
+					dispatch(setLoggedIn());
 				}
 			})
 			.catch((err) => {
@@ -57,8 +58,8 @@ export const login = (formData) => {
 					type: SET_USER_DATA,
 					payload: data.user
 				})
-				dispatch(setLoggedIn())
-				dispatch(getAuthLoaded())
+				dispatch(getAuthLoaded());
+				dispatch(setLoggedIn());
 			})
 			.catch((err) => {
 				dispatch({
@@ -149,7 +150,7 @@ export const updateToken = (token) => {
 			.then((data) => {
 				if (data.success) {
 					setTokenData(data);
-					dispatch(setLoggedIn);
+					dispatch(setLoggedIn());
 				}
 			})
 			.catch((err) => {

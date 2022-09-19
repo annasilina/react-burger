@@ -32,14 +32,13 @@ const App = () => {
 		dispatch(getIngredients());
 		dispatch(getUser());
 		history.replace({ state: null })
-	}, []);
+	}, [dispatch, history]);
 
 	useEffect(() => {
 		if (!accessToken && refreshToken) {
 			dispatch(updateToken(refreshToken));
 		}
 	})
-
 
 	const handleClose = () => {
 		history.goBack();

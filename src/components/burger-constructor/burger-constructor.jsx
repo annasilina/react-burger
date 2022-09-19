@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 import {ConstructorContainer} from '../constructor-container/constructor-container';
 
 const BurgerConstructor = React.memo(({ setModalVisibility }) => {
+	const orderIsLoading = useSelector(state => state.orderData.orderIsLoading);
 	const bunSelected = useSelector(state => state.constructorData.bunSelected);
 	const ingredientsSelected = useSelector(state => state.constructorData.ingredientsSelected)
 
@@ -37,7 +38,7 @@ const BurgerConstructor = React.memo(({ setModalVisibility }) => {
 					<CurrencyIcon type={'primary'} />
 				</div>
 				<Button type={'primary'} size={'large'} onClick={handleButtonClick}
-								{...bunSelected && ingredientsSelected.length ? {disabled: false} : {disabled: true}}>
+								{...bunSelected && ingredientsSelected.length && !orderIsLoading  ? {disabled: false} : {disabled: true}}>
 					Оформить заказ
 				</Button>
 			</div>

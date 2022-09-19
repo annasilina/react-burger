@@ -35,7 +35,7 @@ const Login = () => {
 		return (
 			<Redirect to={location.state?.from || links.home} />
 		)
-		
+
 	}
 
 	return (
