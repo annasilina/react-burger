@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link, Redirect, useHistory} from 'react-router-dom';
-import {errors, links} from '../../utils/constants';
+import {Link, useHistory} from 'react-router-dom';
+import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {registration} from '../../services/actions/auth';
+import ErrorMessage from '../../components/error-message/error-message';
 
 const RegisterPage = () => {
 	const authData = useSelector(state => state.authData);
@@ -16,12 +17,6 @@ const RegisterPage = () => {
 		email: '',
 		password: ''
 	})
-
-	if (authData.registerErrorMessage === errors.userExists) {
-		return (
-			<Redirect to={links.login}/>
-		)
-	}
 
 	const handleFormSubmit = (evt) => {
 		evt.preventDefault();
@@ -68,6 +63,7 @@ const RegisterPage = () => {
 					name={'password'}
 					onChange={handleFormChange}
 				/>
+				{authData.isRegisterFailed && <ErrorMessage errorMessage={authData.registerErrorMessage} />}
 				<span className={'mb-20'}>
 					<Button
 						type={'primary'}

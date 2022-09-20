@@ -44,12 +44,6 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case PENDING_REQUEST: {
-			return {
-				...state,
-				isRequestPEnding: action.payload
-			}
-		}
 		case GET_REGISTRATION_LOADING: {
 			return {
 				...state,
