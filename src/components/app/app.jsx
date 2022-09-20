@@ -33,6 +33,8 @@ const App = () => {
 		if (!accessToken && refreshToken) {
 			dispatch(updateToken(refreshToken))
 				.then(() => dispatch(getUser()));
+		} else if (accessToken) {
+			dispatch(getUser());
 		}
 	}, [dispatch, history]);
 

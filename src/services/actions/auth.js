@@ -71,7 +71,6 @@ export const getUser = () => {
 		dispatch(getUserLoading())
 
 		let accessToken = getCookie('accessToken');
-		let refreshToken = localStorage.getItem('refreshToken');
 
 		api.getUserRequest(accessToken)
 			.then((data) => {
@@ -81,8 +80,7 @@ export const getUser = () => {
 						payload: data.user
 					})
 					dispatch(getUserLoaded());
-				} else {
-					dispatch(updateToken(refreshToken));
+					dispatch(setLoggedIn());
 				}
 			})
 			.catch((err) => {
