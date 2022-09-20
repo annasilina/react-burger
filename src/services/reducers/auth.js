@@ -9,7 +9,7 @@ import {
 	GET_USER_LOADED,
 	GET_USER_LOADING,
 	LOGGED_IN,
-	LOGGED_OUT,
+	LOGGED_OUT, RESET_PASSWORD_FAILED, RESET_PASSWORD_LOADING,
 	SET_USER_DATA, SET_USER_DATA_FAILED, SET_USER_DATA_LOADING
 } from '../actions/auth';
 
@@ -30,7 +30,10 @@ const initialState = {
 	userDataErrorMessage: '',
 	isForgotPasswordLoading: false,
 	isForgotPasswordFailed: false,
-	forgotPasswordErrorMessage: ''
+	forgotPasswordErrorMessage: '',
+	isResetPasswordLoading: false,
+	isResetPasswordFailed: false,
+	resetPasswordErrorMessage: ''
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -137,7 +140,22 @@ export const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isForgotPasswordLoading: false,
+				isForgotPasswordFailed: true,
 				forgotPasswordErrorMessage: action.payload,
+			}
+		}
+		case RESET_PASSWORD_LOADING: {
+			return {
+				...state,
+				isResetPasswordLoading: action.payload
+			}
+		}
+		case RESET_PASSWORD_FAILED: {
+			return {
+				...state,
+				isResetPasswordLoading: false,
+				isResetPasswordFailed: true,
+				resetPasswordErrorMessage: action.payload
 			}
 		}
 		default:

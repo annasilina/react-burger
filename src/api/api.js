@@ -92,7 +92,7 @@ class Api {
 			.then(res => this._checkResponse(res));
 	}
 
-	/*resetPasswordRequest = (passwordData) => {
+	resetPasswordRequest = (passwordData) => {
 		return fetch(`${this._baseURL}/password-reset/reset`, {
 			method: 'POST',
 			headers: this._headers,
@@ -102,7 +102,7 @@ class Api {
 			})
 		})
 			.then(res => this._checkResponse(res));
-	}*/
+	}
 
 	// функция получения данных по ингредиентам
 	getIngredientsRequest = () => {

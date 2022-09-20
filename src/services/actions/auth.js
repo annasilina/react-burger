@@ -24,6 +24,9 @@ export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
 export const GET_FORGOT_PASSWORD_LOADING = 'GET_FORGOT_PASSWORD_LOADING';
 export const GET_FORGOT_PASSWORD_FAILED = 'GET_FORGOT_PASSWORD_FAILED';
 
+export const RESET_PASSWORD_LOADING = 'RESET_PASSWORD_LOADING'
+export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED'
+
 export const registration = (formData) => {
 	return (dispatch) => {
 		dispatch(getRegistrationLoading());
@@ -169,11 +172,31 @@ export const forgotPasswordAction = (email) => {
 	}
 }
 
-/*
-export const resetPassword = (passwordData) => {
+export const resetPasswordAction = (passwordData) => {
+	return function (dispatch) {
+		dispatch(resetPasswordLoading(true))
 
+		return api.resetPasswordRequest(passwordData)
+			.then((data) => {
+				console.log(data);
+				dispatch(resetPasswordLoading(false))
+			})
+			.catch((err) => {
+				dispatch({
+					type: RESET_PASSWORD_FAILED,
+					payload: err.message
+				})
+				console.log(err);
+			})
+	}
 }
-*/
+
+export const resetPasswordLoading = (payload) => {
+	return {
+		type: RESET_PASSWORD_LOADING,
+		payload
+	}
+}
 
 const getRegistrationLoading = () => {
 	return {
