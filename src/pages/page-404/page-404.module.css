@@ -1,5 +1,5 @@
 .main {
-	max-width: calc(1280px/3);
+	max-width: calc(1280px / 3);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -13,7 +13,7 @@
 .link {
 	text-decoration: none;
 	transition: opacity .4s ease-out;
-	color: #4C4CFF;
+	color: #4c4cff;
 }
 
 .link:hover {

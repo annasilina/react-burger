@@ -12,16 +12,18 @@ import Page404 from '../../pages/page-404/page-404';
 import IngredientsPage from '../../pages/ingredients/ingredients';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getIngredients} from '../../services/actions/burger-ingredients';
 import {links} from '../../utils/constants';
 import {ProtectedRoute} from '../protected-route/protected-route';
 import {getUser, updateToken} from '../../services/actions/auth';
 import {getCookie} from '../../utils/cookie';
+import Preloader from '../preloader/preloader';
 
 const App = () => {
 	const accessToken = getCookie('accessToken');
 	const refreshToken = localStorage.getItem('refreshToken');
+	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
@@ -30,12 +32,14 @@ const App = () => {
 	useEffect(() => {
 		dispatch(getIngredients());
 		history.replace({state: null})
+
 		if (!accessToken && refreshToken) {
 			dispatch(updateToken(refreshToken))
 				.then(() => dispatch(getUser()));
 		} else if (accessToken) {
 			dispatch(getUser());
 		}
+
 	}, [dispatch, history]);
 
 	const handleClose = () => {
@@ -43,45 +47,49 @@ const App = () => {
 	}
 
 	return (
-		<>
-			<AppHeader/>
-			<Switch location={background || location}>
-				<Route path={links.home}
-							 exact={true}>
-					<Home/>
-				</Route>
-				<ProtectedRoute path={links.profile}
-												exact={true}>
-					<Profile/>
-				</ProtectedRoute>
-				<Route path={links.login}>
-					<Login/>
-				</Route>
-				<Route path={links.register}>
-					<RegisterPage/>
-				</Route>
-				<Route path={links.forgotPassword}>
-					<ForgotPasswordPage/>
-				</Route>
-				<Route path={links.resetPassword}>
-					<ResetPasswordPage/>
-				</Route>
-				<Route path={`${links.ingredients}/:id`}>
-					<IngredientsPage/>
-				</Route>
-				<Route>
-					<Page404/>
-				</Route>
-			</Switch>
-			{background &&
-				<Route path={`${links.ingredients}/:id`}>
-					<Modal title="Детали ингредиента"
-								 handleClose={handleClose}>
-						<IngredientDetails/>
-					</Modal>
-				</Route>
-			}
-		</>
+		{
+			...authData.isUserLoading
+				? <Preloader/> :
+				<>
+					<AppHeader/>
+					<Switch location={background || location}>
+						<Route path={links.home}
+									 exact={true}>
+							<Home/>
+						</Route>
+						<ProtectedRoute path={links.profile}
+														exact={true}>
+							<Profile/>
+						</ProtectedRoute>
+						<Route path={links.login}>
+							<Login/>
+						</Route>
+						<Route path={links.register}>
+							<RegisterPage/>
+						</Route>
+						<Route path={links.forgotPassword}>
+							<ForgotPasswordPage/>
+						</Route>
+						<Route path={links.resetPassword}>
+							<ResetPasswordPage/>
+						</Route>
+						<Route path={`${links.ingredients}/:id`}>
+							<IngredientsPage/>
+						</Route>
+						<Route>
+							<Page404/>
+						</Route>
+					</Switch>
+					{background &&
+						<Route path={`${links.ingredients}/:id`}>
+							<Modal title="Детали ингредиента"
+										 handleClose={handleClose}>
+								<IngredientDetails/>
+							</Modal>
+						</Route>
+					}
+				</>
+		}
 	);
 }
 

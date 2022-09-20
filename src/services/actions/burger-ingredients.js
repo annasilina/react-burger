@@ -1,4 +1,4 @@
-import { api } from '../../api/api';
+import {api} from '../../api/api';
 
 export const GET_INGREDIENTS_LOADING = 'GET_INGREDIENTS_LOADING';
 export const GET_INGREDIENTS_LOADED = 'GET_INGREDIENTS_LOADED';
@@ -17,7 +17,7 @@ const getIngredientsLoaded = (ingredients) => {
 }
 
 export function getIngredients() {
-	return function(dispatch) {
+	return function (dispatch) {
 		dispatch({
 			type: GET_INGREDIENTS_LOADING
 		});

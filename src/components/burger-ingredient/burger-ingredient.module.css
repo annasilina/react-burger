@@ -26,7 +26,7 @@
 }
 
 @keyframes scale {
-	from  {
+	from {
 		transform: scale(1.05);
 	}
 	to {

@@ -20,7 +20,6 @@ export const GET_USER_FAILED = 'GET_USER_FAILED';
 export const SET_USER_DATA = 'SET_USER_DATA';
 /*export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';*/
 
-
 export const registration = (formData) => {
 	return (dispatch) => {
 		dispatch(getRegistrationLoading());
@@ -42,7 +41,7 @@ export const registration = (formData) => {
 }
 
 export const login = (formData) => {
-	return function(dispatch) {
+	return function (dispatch) {
 		dispatch(getAuthLoading())
 
 		api.loginRequest(formData)
@@ -67,8 +66,8 @@ export const login = (formData) => {
 
 // получение данных о пользователе в профиле
 export const getUser = () => {
-	return function(dispatch) {
-		dispatch(getUserLoading())
+	return function (dispatch) {
+		dispatch(getUserLoading());
 
 		let accessToken = getCookie('accessToken');
 
@@ -123,7 +122,7 @@ export const setUserData = (formData) => {
 */
 
 export const logout = (token) => {
-	return function(dispatch) {
+	return function (dispatch) {
 		api.logoutRequest(token)
 			.then((data) => {
 				if (data.success) {

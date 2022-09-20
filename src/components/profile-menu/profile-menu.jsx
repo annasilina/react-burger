@@ -17,22 +17,29 @@ const ProfileMenu = () => {
 		<nav className={`${styles.menu} pl-5`}>
 			<ul className={styles.menuList}>
 				<li>
-					<NavLink to={links.profile} exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+					<NavLink to={links.profile}
+									 exact={true}
+									 className={`${styles.menuLink} text text_type_main-medium`}
+									 activeClassName={styles.menuLinkActive}>
 						Профиль
 					</NavLink>
 				</li>
 				<li>
-					<NavLink to={links.userOrdersFeed} exact={true} className={`${styles.menuLink} text text_type_main-medium`} activeClassName={styles.menuLinkActive}>
+					<NavLink to={links.userOrdersFeed}
+									 exact={true}
+									 className={`${styles.menuLink} text text_type_main-medium`}
+									 activeClassName={styles.menuLinkActive}>
 						История заказов
 					</NavLink>
 				</li>
 				<li>
-					<button onClick={handleLogout} className={`${styles.menuLink} ${styles.menuButton} text text_type_main-medium`} >
+					<button onClick={handleLogout}
+									className={`${styles.menuLink} ${styles.menuButton} text text_type_main-medium`}>
 						Выход
 					</button>
 				</li>
 			</ul>
-			<p className={"text text_type_main-default text_color_inactive"}>В этом разделе вы можете
+			<p className={'text text_type_main-default text_color_inactive'}>В этом разделе вы можете
 				изменить свои персональные данные</p>
 		</nav>
 	)

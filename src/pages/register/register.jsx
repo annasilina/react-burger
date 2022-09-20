@@ -1,18 +1,17 @@
 import React from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, Redirect, useHistory} from 'react-router-dom';
 import {errors, links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {registration} from '../../services/actions/auth';
-import { Redirect } from 'react-router-dom';
 
 const RegisterPage = () => {
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const { values, handleFormChange } = useForm({
+	const {values, handleFormChange} = useForm({
 		name: '',
 		email: '',
 		password: ''
@@ -20,7 +19,7 @@ const RegisterPage = () => {
 
 	if (authData.registerErrorMessage === errors.userExists) {
 		return (
-			<Redirect to={links.login} />
+			<Redirect to={links.login}/>
 		)
 	}
 

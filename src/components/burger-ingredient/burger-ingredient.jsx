@@ -6,10 +6,10 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import {useDrag} from 'react-dnd';
 import {Link, useLocation} from 'react-router-dom';
 
-const BurgerIngredient = React.memo(({ ingredient }) => {
+const BurgerIngredient = React.memo(({ingredient}) => {
 	const location = useLocation();
 
-	const [{ isDragging }, dragRef] = useDrag({
+	const [{isDragging}, dragRef] = useDrag({
 		type: 'ingredient',
 		item: ingredient,
 		collect: monitor => ({
@@ -18,21 +18,25 @@ const BurgerIngredient = React.memo(({ ingredient }) => {
 	});
 
 	return (
-		<li ref={dragRef} key={ingredient._id}
+		<li ref={dragRef}
+				key={ingredient._id}
 				style={{cursor: isDragging ? 'grabbing' : 'grab'}}
 				className={`${styles.item}`}>
 			<Link
 				to={{
 					pathname: `/ingredients/${ingredient._id}`,
-					state: { background: location }
+					state: {background: location}
 				}}
 				className={styles.link}
 			>
-				<img src={ingredient.image} alt={ingredient.name} className="pr-4 pl-4"/>
-				{ingredient.count > 0 && <Counter count={ingredient.count} size={'default'} />}
+				<img src={ingredient.image}
+						 alt={ingredient.name}
+						 className="pr-4 pl-4"/>
+				{ingredient.count > 0 && <Counter count={ingredient.count}
+																					size={'default'}/>}
 				<div className={`${styles.itemCurrency} mb-1 mt-1`}>
 					<p className="text text_type_digits-default mr-2">{ingredient.price}</p>
-					<CurrencyIcon type="primary" />
+					<CurrencyIcon type="primary"/>
 				</div>
 				<p className={`${styles.itemCaption} text text_type_main-default pt-1`}>
 					{ingredient.name}

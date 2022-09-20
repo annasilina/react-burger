@@ -6,8 +6,8 @@ import ProfileForm from '../../components/profile-form/profile-form';
 const Profile = () => {
 	return (
 		<main className={styles.main}>
-			<ProfileMenu />
-			<ProfileForm />
+			<ProfileMenu/>
+			<ProfileForm/>
 		</main>
 	)
 }

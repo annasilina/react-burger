@@ -5,26 +5,22 @@ import {useForm} from '../../utils/hooks';
 import {useSelector} from 'react-redux';
 
 const ProfileForm = () => {
-	/*const [nameValue, setNameValue] = React.useState('');
-	const [emailValue, setEmailValue] = React.useState('');
-	const [passwordValue, setPasswordValue] = React.useState('');*/
 	const authData = useSelector(state => state.authData);
-	/*const dispatch = useDispatch();*/
-	const {values, setValues, handleFormChange } = useForm({
-		name: authData.user.name,
-		email: authData.user.email,
+	const {values, handleFormChange} = useForm({
+		name: authData.user.name || '',
+		email: authData.user.email || '',
 		password: ''
 	})
 
-	const handleFormSubmit = (evt) => {
-		evt.preventDefault();
-
-	}
-
-	const handleFormReset = (evt) => {
-		evt.preventDefault();
-
-	}
+	// const handleFormSubmit = (evt) => {
+	// 	evt.preventDefault();
+	//
+	// }
+	//
+	// const handleFormReset = (evt) => {
+	// 	evt.preventDefault();
+	//
+	// }
 
 	return (
 		<form className={styles.form}>

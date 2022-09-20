@@ -19,13 +19,13 @@ const Home = () => {
 	const dispatch = useDispatch();
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
 
-	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
+	const {ingredients, ingredientsIsLoading, ingredientsHasError} = useSelector((state) => ({
 		ingredients: state.ingredientsData.ingredients,
 		ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
 		ingredientsHasError: state.ingredientsData.ingredientsHasError,
 	}));
 
-	const { orderNumber, orderIsLoading, orderHasError } = useSelector((state) => ({
+	const {orderNumber, orderIsLoading, orderHasError} = useSelector((state) => ({
 		orderNumber: state.orderData.orderNumber,
 		orderIsLoading: state.orderData.orderIsLoading,
 		orderHasError: state.orderData.orderHasError
@@ -54,18 +54,22 @@ const Home = () => {
 			<DndProvider backend={HTML5Backend}>
 				<main className={styles.main}>
 					{ingredientsIsLoading && <span className="text text_type_main-large pt-10 pb-5">Загрузка...</span>}
-					{ingredientsHasError && <span className="text text_type_main-large pt-10 pb-5">Упс, произошла ошибка. Пожалуйста, перезагрузите страницу.</span>}
+					{ingredientsHasError &&
+						<span className="text text_type_main-large pt-10 pb-5">Упс, произошла ошибка. Пожалуйста, перезагрузите страницу.</span>}
 					{!ingredientsIsLoading && !ingredientsHasError && ingredients.length &&
 						<>
-							<BurgerIngredients />
+							<BurgerIngredients/>
 							<BurgerConstructor setModalVisibility={handleOrderDetailsOpen}/>
 						</>
 					}
 				</main>
 			</DndProvider>
 			{isOrderDetailsOpen && !orderHasError &&
-				<Modal title="" handleClose={handleCloseOrderModal}
-							 {...orderIsLoading ? {children: <Preloader />, title: 'Загружаем заказ...'} : {children: <OrderDetails orderID={orderNumber}/>}}
+				<Modal title=""
+							 handleClose={handleCloseOrderModal}
+							 {...orderIsLoading ? {children: <Preloader/>, title: 'Загружаем заказ...'} : {
+								 children: <OrderDetails orderID={orderNumber}/>
+							 }}
 				/>
 			}
 		</>

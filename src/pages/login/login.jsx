@@ -1,5 +1,5 @@
 import React from 'react';
-import {PasswordInput, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
 import {Link, Redirect, useLocation} from 'react-router-dom';
 import {links} from '../../utils/constants';
@@ -9,9 +9,10 @@ import {login} from '../../services/actions/auth';
 
 const Login = () => {
 	const authData = useSelector(state => state.authData);
+	const refreshToken = localStorage.getItem('refreshToken');
 	const location = useLocation();
 	const dispatch = useDispatch();
-	const { values, setValues, handleFormChange } = useForm({
+	const {values, setValues, handleFormChange} = useForm({
 		email: '',
 		password: ''
 	})
@@ -30,17 +31,17 @@ const Login = () => {
 			password: ''
 		});
 	}
-	
-	if (authData.isLoggedIn) {
-		return (
-			<Redirect to={location.state?.from || links.home} />
-		)
 
+	if (refreshToken) {
+		return (
+			<Redirect to={location.state?.from || links.home}/>
+		)
 	}
 
 	return (
 		<main className={styles.main}>
-			<form className={styles.form} onSubmit={handleFormSubmit} >
+			<form className={styles.form}
+						onSubmit={handleFormSubmit}>
 				<h1 className={'text text_type_main-medium'}>Вход</h1>
 				<Input
 					type={'email'}
@@ -67,11 +68,13 @@ const Login = () => {
 					/>
 				</span>
 			</form>
-			<p className={"text text_type_main-default text_color_inactive pb-4"}>
-				Вы — новый пользователь? <Link to={links.register} className={styles.link}>Зарегистрироваться</Link>
+			<p className={'text text_type_main-default text_color_inactive pb-4'}>
+				Вы — новый пользователь? <Link to={links.register}
+																			 className={styles.link}>Зарегистрироваться</Link>
 			</p>
-			<p className={"text text_type_main-default text_color_inactive"}>
-				Забыли пароль? <Link to={links.forgotPassword} className={styles.link}>Восстановить пароль</Link>
+			<p className={'text text_type_main-default text_color_inactive'}>
+				Забыли пароль? <Link to={links.forgotPassword}
+														 className={styles.link}>Восстановить пароль</Link>
 			</p>
 		</main>
 	)

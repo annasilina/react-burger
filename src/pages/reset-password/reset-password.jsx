@@ -18,7 +18,7 @@ const ResetPasswordPage = () => {
 					name={'password'}
 					size={'default'}
 					onChange={(e) => setPasswordValue(e.target.value)}
-					/>
+				/>
 				<Input
 					type={'text'}
 					placeholder={'Введите код из письма'}
@@ -38,8 +38,9 @@ const ResetPasswordPage = () => {
 					</Button>
 				</span>
 			</form>
-			<p className={"text text_type_main-default text_color_inactive"}>
-				Вспомнили пароль? <Link to={links.login} className={styles.link}>Войти</Link>
+			<p className={'text text_type_main-default text_color_inactive'}>
+				Вспомнили пароль? <Link to={links.login}
+																className={styles.link}>Войти</Link>
 			</p>
 		</main>
 	)

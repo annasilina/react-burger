@@ -30,8 +30,9 @@ const ForgotPasswordPage = () => {
 					</Button>
 				</span>
 			</form>
-			<p className={"text text_type_main-default text_color_inactive"}>
-				Вспомнили пароль? <Link to={links.login} className={styles.link}>Войти</Link></p>
+			<p className={'text text_type_main-default text_color_inactive'}>
+				Вспомнили пароль? <Link to={links.login}
+																className={styles.link}>Войти</Link></p>
 		</main>
 	)
 }

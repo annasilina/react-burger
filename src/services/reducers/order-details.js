@@ -29,9 +29,9 @@ export const orderReducer = (state = initialState, action) => {
 		}
 		case CREATE_ORDER_FAILED: {
 			return {
-			...state,
-			orderIsLoading: false,
-			orderHasError: true,
+				...state,
+				orderIsLoading: false,
+				orderHasError: true,
 			}
 		}
 		case RESET_ORDER_DETAILS: {

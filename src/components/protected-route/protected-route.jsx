@@ -1,15 +1,15 @@
-import {useSelector} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom';
 import {links} from '../../utils/constants';
 
 export const ProtectedRoute = ({children, ...rest}) => {
-	const authData = useSelector(state => state.authData);
+	const refreshToken = localStorage.getItem('refreshToken');
+	/*const authData = useSelector(state => state.authData);*/
 
 	return (
 		<Route
 			{...rest}
 			render={({location}) =>
-				authData.isLoggedIn ? (
+				refreshToken ? (
 					children
 				) : (
 					<Redirect

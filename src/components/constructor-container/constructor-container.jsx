@@ -6,10 +6,7 @@ import ConstructorIngredient from '../constructor-ingredient/constructor-ingredi
 import {useDrop} from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import {addIngredientToConstructor} from '../../services/actions/constructor';
-import {
-	INCREASE_INGREDIENT,
-	SELECT_INGREDIENT_BUN
-} from '../../services/actions/burger-ingredients';
+import {INCREASE_INGREDIENT, SELECT_INGREDIENT_BUN} from '../../services/actions/burger-ingredients';
 
 export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 	const dispatch = useDispatch();
@@ -45,32 +42,32 @@ export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 			ref={dropTarget}
 		>
 			<div className={`${styles.ingredientElement} pl-8`}>
-					{bunSelected !== null
-						?
-							<ConstructorElement
-								type="top"
-								isLocked={true}
-								thumbnail={bunSelected.image}
-								price={bunSelected.price}
-								text={`${bunSelected.name} (верх)`}
-							/>
-						:
-							<ConstructorElement
-								type="top"
-								isLocked={true}
-								thumbnail={bunDefault}
-								price='0'
-								text='Пока тут пусто. Выберите булочку на ваш вкус.'
-							/>
-					}
+				{bunSelected !== null
+					?
+					<ConstructorElement
+						type="top"
+						isLocked={true}
+						thumbnail={bunSelected.image}
+						price={bunSelected.price}
+						text={`${bunSelected.name} (верх)`}
+					/>
+					:
+					<ConstructorElement
+						type="top"
+						isLocked={true}
+						thumbnail={bunDefault}
+						price="0"
+						text="Пока тут пусто. Выберите булочку на ваш вкус."
+					/>
+				}
 			</div>
 			{
 				ingredientsSelected.length === 0
-				?
+					?
 					<p className={`${styles.emptyContainer} text text_type_main-default text_color_inactive`}>
 						Пока здесь пусто. Перетащите ингредиенты из списка слева, чтобы собрать свой бургер.
 					</p>
-				:
+					:
 					<ul className={`${styles.ingredientList}`}>
 						{ingredientsSelected.map((ingredient, index) => (
 							<ConstructorIngredient
@@ -95,8 +92,8 @@ export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 						type="bottom"
 						isLocked={true}
 						thumbnail={bunDefault}
-						price='0'
-						text='Пока тут пусто. Выберите булочку на ваш вкус.'
+						price="0"
+						text="Пока тут пусто. Выберите булочку на ваш вкус."
 					/>
 				}
 			</div>

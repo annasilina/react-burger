@@ -2,7 +2,7 @@ import React from 'react';
 /*import ReactDOM from 'react-dom';*/
 import {createRoot} from "react-dom/client";
 /*import reportWebVitals from './reportWebVitals';*/
-import { legacy_createStore as createStore, compose, applyMiddleware} from "redux";
+import {applyMiddleware, compose, legacy_createStore as createStore} from "redux";
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 
@@ -11,7 +11,7 @@ import './index.css';
 import {rootReducer} from "./services/reducers";
 
 // @ts-ignore
-import { BrowserRouter as Router } from "react-router-dom";
+import {BrowserRouter as Router} from "react-router-dom";
 
 declare global {
 	interface Window {
@@ -29,7 +29,7 @@ const root = createRoot(container!);
 root.render(
 	<Provider store={store}>
 		<Router>
-			<App />
+			<App/>
 		</Router>
 	</Provider>
 );

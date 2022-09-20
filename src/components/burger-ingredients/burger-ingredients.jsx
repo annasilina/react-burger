@@ -23,18 +23,18 @@ const BurgerIngredients = (() => {
 
 	const handleContainerScroll = useCallback(
 		() => {
-		const bunScrollTop = bunListRef.current.getBoundingClientRect().top;
-		const bunHeight = bunListRef.current.clientHeight;
-		const sauceScrollTop = sauceListRef.current.getBoundingClientRect().top;
+			const bunScrollTop = bunListRef.current.getBoundingClientRect().top;
+			const bunHeight = bunListRef.current.clientHeight;
+			const sauceScrollTop = sauceListRef.current.getBoundingClientRect().top;
 
-		if (bunScrollTop > bunHeight / 2) {
-			setCurrent('bun');
-		} else if (sauceScrollTop < -50) {
-			setCurrent('main');
-		} else {
-			setCurrent('sauce');
-		}
-	}, [])
+			if (bunScrollTop > bunHeight / 2) {
+				setCurrent('bun');
+			} else if (sauceScrollTop < -50) {
+				setCurrent('main');
+			} else {
+				setCurrent('sauce');
+			}
+		}, [])
 
 	return (
 		<section>
@@ -61,22 +61,23 @@ const BurgerIngredients = (() => {
 					Начинки
 				</Tab>
 			</div>
-			<div className={styles.container} onScroll={handleContainerScroll}>
+			<div className={styles.container}
+					 onScroll={handleContainerScroll}>
 				<IngredientsCategory
-					type='bun'
-					title='Булки'
+					type="bun"
+					title="Булки"
 					ref={bunListRef}
 					ingredients={ingredientFilter(ingredients, 'bun')}
 				/>
 				<IngredientsCategory
-					type='sauce'
-					title='Соусы'
+					type="sauce"
+					title="Соусы"
 					ref={sauceListRef}
 					ingredients={ingredientFilter(ingredients, 'sauce')}
 				/>
 				<IngredientsCategory
-					type='main'
-					title='Начинки'
+					type="main"
+					title="Начинки"
 					ingredients={ingredientFilter(ingredients, 'main')}
 				/>
 			</div>

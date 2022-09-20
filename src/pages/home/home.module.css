@@ -1,7 +1,7 @@
 .main {
 	max-width: 1240px;
 	margin: 0 auto;
-	background:  #131316;
+	background: #131316;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	column-gap: 40px;

@@ -8,11 +8,11 @@ import {CONSTRUCTOR_DELETE_ITEM, CONSTRUCTOR_REORDER_ITEM} from '../../services/
 import {DECREASE_INGREDIENT} from '../../services/actions/burger-ingredients';
 import {useDrag, useDrop} from 'react-dnd';
 
-export default function ConstructorIngredient({ ingredient, index }) {
+export default function ConstructorIngredient({ingredient, index}) {
 	const dispatch = useDispatch();
 	const elementRef = useRef(null);
 
-	const [{ handlerId }, dropSelectedRef] = useDrop({
+	const [{handlerId}, dropSelectedRef] = useDrop({
 		accept: 'selected_ingredient',
 		collect(monitor) {
 			return {
@@ -57,7 +57,7 @@ export default function ConstructorIngredient({ ingredient, index }) {
 
 	const [{isDragging}, dragRef] = useDrag({
 		type: 'selected_ingredient',
-		item: { id: ingredient.conctructorID, index},
+		item: {id: ingredient.conctructorID, index},
 		collect: monitor => ({
 			isDragging: monitor.isDragging()
 		})
@@ -79,27 +79,27 @@ export default function ConstructorIngredient({ ingredient, index }) {
 	const cursor = isDragging ? 'grabbing' : 'grab';
 
 	return (
-			<li
-				ref={elementRef}
-				className={`${styles.ingredientItem}`}
-				style={{cursor}}
-				data-handler-id={{handlerId}}
-			> {!isDragging &&
-				<>
-					<div className="mr-2">
-						<DragIcon type="primary" />
-					</div>
-					<ConstructorElement
-						text={ingredient.name}
-						thumbnail={ingredient.image}
-						price={ingredient.price}
-						isLocked={false}
-						handleClose={() => handleDelete(ingredient)}
-					/>
-				</>
-				}
-			</li>
-		)
+		<li
+			ref={elementRef}
+			className={`${styles.ingredientItem}`}
+			style={{cursor}}
+			data-handler-id={{handlerId}}
+		> {!isDragging &&
+			<>
+				<div className="mr-2">
+					<DragIcon type="primary"/>
+				</div>
+				<ConstructorElement
+					text={ingredient.name}
+					thumbnail={ingredient.image}
+					price={ingredient.price}
+					isLocked={false}
+					handleClose={() => handleDelete(ingredient)}
+				/>
+			</>
+		}
+		</li>
+	)
 }
 
 ConstructorIngredient.propTypes = {
