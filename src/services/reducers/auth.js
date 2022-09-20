@@ -10,7 +10,7 @@ import {
 	GET_USER_LOADING,
 	LOGGED_IN,
 	LOGGED_OUT,
-	SET_USER_DATA
+	SET_USER_DATA, SET_USER_DATA_FAILED, SET_USER_DATA_LOADING
 } from '../actions/auth';
 
 const initialState = {
@@ -24,7 +24,10 @@ const initialState = {
 	authErrorMessage: '',
 	isUserLoading: false,
 	isUserFailed: false,
-	userErrorMessage: ''
+	userErrorMessage: '',
+	isUserDataLoading: false,
+	isUserDataFailed: false,
+	userDataErrorMessage: ''
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -79,10 +82,23 @@ export const authReducer = (state = initialState, action) => {
 				isLoggedIn: true,
 			}
 		}
+		case SET_USER_DATA_LOADING: {
+			return {
+				...state,
+				isUserDataLoading: action.payload
+			}
+		}
 		case SET_USER_DATA: {
 			return {
 				...state,
 				user: action.payload,
+			}
+		}
+		case SET_USER_DATA_FAILED: {
+			return {
+				...state,
+				isUserDataLoading: false,
+				userDataErrorMessage: action.payload
 			}
 		}
 		case GET_USER_LOADING: {

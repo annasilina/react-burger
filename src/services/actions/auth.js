@@ -17,8 +17,9 @@ export const GET_USER_LOADING = 'GET_USER_LOADING';
 export const GET_USER_LOADED = 'GET_USER_LOADED';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
 
+export const SET_USER_DATA_LOADING = 'SET_USER_DATA_LOADING';
 export const SET_USER_DATA = 'SET_USER_DATA';
-/*export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';*/
+export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
 
 export const registration = (formData) => {
 	return (dispatch) => {
@@ -92,12 +93,10 @@ export const getUser = () => {
 	}
 }
 
-/*
 export const setUserData = (formData) => {
 	return function(dispatch) {
-		dispatch(requestStatusCheck(true))
+		dispatch(setUserDataLoading(true));
 		let accessToken = getCookie('accessToken');
-		let refreshToken = localStorage.getItem('refreshToken');
 
 		api.setUserDataRequest(formData, accessToken)
 			.then((data) => {
@@ -106,20 +105,18 @@ export const setUserData = (formData) => {
 						type: SET_USER_DATA,
 						payload: data.user
 					})
-				} else {
-					dispatch(updateToken(refreshToken));
 				}
 			})
 			.catch((err) => {
 				dispatch({
-					type: GET_USER_REQUEST_FAILED,
+					type: SET_USER_DATA_FAILED,
 					payload: err.message
 				})
 				console.log(err.message);
 			})
+			.finally(() => dispatch(setUserDataLoading(false)))
 	}
 }
-*/
 
 export const logout = (token) => {
 	return function (dispatch) {
@@ -194,5 +191,12 @@ const getUserLoading = () => {
 const getUserLoaded = () => {
 	return {
 		type: GET_USER_LOADED
+	}
+}
+
+const setUserDataLoading = (payload) => {
+	return {
+		type: SET_USER_DATA_LOADING,
+		payload
 	}
 }
