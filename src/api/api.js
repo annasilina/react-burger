@@ -81,6 +81,29 @@ class Api {
 		}).then(res => this._checkResponse(res));
 	}
 
+	forgotPasswordRequest = (email) => {
+		return fetch(`${this._baseURL}/password-reset`, {
+			method: 'POST',
+			headers: this._headers,
+			body: JSON.stringify({
+				email: email
+			})
+		})
+			.then(res => this._checkResponse(res));
+	}
+
+	/*resetPasswordRequest = (passwordData) => {
+		return fetch(`${this._baseURL}/password-reset/reset`, {
+			method: 'POST',
+			headers: this._headers,
+			body: JSON.stringify({
+				password: passwordData.password,
+				token: passwordData.token
+			})
+		})
+			.then(res => this._checkResponse(res));
+	}*/
+
 	// функция получения данных по ингредиентам
 	getIngredientsRequest = () => {
 		return fetch(`${this._baseURL}/ingredients`).then((res) => this._checkResponse(res));

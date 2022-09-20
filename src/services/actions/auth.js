@@ -21,6 +21,9 @@ export const SET_USER_DATA_LOADING = 'SET_USER_DATA_LOADING';
 export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
 
+export const GET_FORGOT_PASSWORD_LOADING = 'GET_FORGOT_PASSWORD_LOADING';
+export const GET_FORGOT_PASSWORD_FAILED = 'GET_FORGOT_PASSWORD_FAILED';
+
 export const registration = (formData) => {
 	return (dispatch) => {
 		dispatch(getRegistrationLoading());
@@ -147,6 +150,31 @@ export const updateToken = (token) => {
 	}
 }
 
+export const forgotPasswordAction = (email) => {
+	return function (dispatch) {
+		dispatch(getForgotPasswordLoading(true))
+
+		return api.forgotPasswordRequest(email)
+			.then((data) => {
+				console.log(data);
+				dispatch(getForgotPasswordLoading(false))
+			})
+			.catch((err) => {
+				dispatch({
+					type: GET_FORGOT_PASSWORD_FAILED,
+					payload: err.message
+				})
+				console.log(err);
+			})
+	}
+}
+
+/*
+export const resetPassword = (passwordData) => {
+
+}
+*/
+
 const getRegistrationLoading = () => {
 	return {
 		type: GET_REGISTRATION_LOADING
@@ -200,3 +228,11 @@ const setUserDataLoading = (payload) => {
 		payload
 	}
 }
+
+const getForgotPasswordLoading = (payload) => {
+	return {
+		type: GET_FORGOT_PASSWORD_LOADING,
+		payload
+	}
+}
+
