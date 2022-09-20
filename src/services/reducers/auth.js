@@ -1,7 +1,9 @@
 import {
 	GET_AUTH_FAILED,
 	GET_AUTH_LOADED,
-	GET_AUTH_LOADING, GET_FORGOT_PASSWORD_FAILED, GET_FORGOT_PASSWORD_LOADING,
+	GET_AUTH_LOADING,
+	GET_FORGOT_PASSWORD_FAILED,
+	GET_FORGOT_PASSWORD_LOADING,
 	GET_REGISTRATION_FAILED,
 	GET_REGISTRATION_LOADED,
 	GET_REGISTRATION_LOADING,
@@ -9,8 +11,12 @@ import {
 	GET_USER_LOADED,
 	GET_USER_LOADING,
 	LOGGED_IN,
-	LOGGED_OUT, RESET_PASSWORD_FAILED, RESET_PASSWORD_LOADING,
-	SET_USER_DATA, SET_USER_DATA_FAILED, SET_USER_DATA_LOADING
+	LOGGED_OUT,
+	RESET_PASSWORD_FAILED,
+	RESET_PASSWORD_LOADING,
+	SET_USER_DATA,
+	SET_USER_DATA_FAILED,
+	SET_USER_DATA_LOADING
 } from '../actions/auth';
 
 const initialState = {
@@ -33,7 +39,7 @@ const initialState = {
 	forgotPasswordErrorMessage: '',
 	isResetPasswordLoading: false,
 	isResetPasswordFailed: false,
-	resetPasswordErrorMessage: ''
+	resetPasswordErrorMessage: '',
 }
 
 export const authReducer = (state = initialState, action) => {

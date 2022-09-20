@@ -1,13 +1,16 @@
 import React from 'react';
 import styles from './reset-password.module.css';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, Redirect, useHistory, useLocation} from 'react-router-dom';
 import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {resetPasswordAction} from '../../services/actions/auth';
 
 const ResetPasswordPage = () => {
+	const refreshToken = localStorage.getItem('refreshToken');
+	const resetPasswordStatus = localStorage.getItem('resetPasswordStatus');
+	const location = useLocation();
 	const authData = useSelector(state => state.authData)
 	const history = useHistory();
 	const dispatch = useDispatch();
@@ -15,6 +18,10 @@ const ResetPasswordPage = () => {
 		password: '',
 		token: ''
 	})
+
+	if (refreshToken || !resetPasswordStatus) {
+		return <Redirect to={location.state?.from || links.home} />
+	}
 
 	const handleFormSubmit = (evt) => {
 		evt.preventDefault();
@@ -28,6 +35,7 @@ const ResetPasswordPage = () => {
 			.finally(() => {
 				if (!authData.isResetPasswordFailed) {
 					history.push(links.login);
+					localStorage.clear();
 				}
 			})
 	}

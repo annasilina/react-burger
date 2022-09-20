@@ -155,7 +155,7 @@ export const updateToken = (token) => {
 
 export const forgotPasswordAction = (email) => {
 	return function (dispatch) {
-		dispatch(getForgotPasswordLoading(true))
+		dispatch(getForgotPasswordLoading(true));
 
 		return api.forgotPasswordRequest(email)
 			.then((data) => {
@@ -258,4 +258,3 @@ const getForgotPasswordLoading = (payload) => {
 		payload
 	}
 }
-
