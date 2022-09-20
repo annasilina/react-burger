@@ -8,7 +8,7 @@ import {setUserData} from '../../services/actions/auth';
 const ProfileForm = () => {
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
-	const {values, handleFormChange} = useForm({
+	const {values, setValues, handleFormChange} = useForm({
 		name: authData.user.name || '',
 		email: authData.user.email || '',
 		password: ''
@@ -26,14 +26,20 @@ const ProfileForm = () => {
 		dispatch(setUserData(formValues));
 	}
 
-	/*const handleFormReset = (evt) => {
+	const handleFormReset = (evt) => {
 		evt.preventDefault();
 
-	}*/
+		setValues({
+			name: authData.user.name,
+			email:authData.user.email,
+			password: ''
+		})
+	}
 
 	return (
 		<form className={styles.form}
-					onSubmit={handleFormSubmit}>
+					onSubmit={handleFormSubmit}
+					onReset={handleFormReset}>
 			<Input
 				type={'text'}
 				name={'name'}
