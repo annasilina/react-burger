@@ -27,8 +27,6 @@ export const GET_FORGOT_PASSWORD_FAILED = 'GET_FORGOT_PASSWORD_FAILED';
 export const RESET_PASSWORD_LOADING = 'RESET_PASSWORD_LOADING'
 export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED'
 
-export const PENDING_REQUEST = 'PENDING_REQUEST';
-
 export const registration = (formData) => {
 	return (dispatch) => {
 		dispatch(getRegistrationLoading());
@@ -37,6 +35,11 @@ export const registration = (formData) => {
 			.then((data) => {
 				if (data.success) {
 					dispatch(getRegistrationLoaded());
+				} else {
+					dispatch({
+						type: GET_REGISTRATION_FAILED,
+						payload: data.message
+					})
 				}
 			})
 			.catch((err) => {
@@ -257,13 +260,6 @@ const setUserDataLoading = (payload) => {
 const getForgotPasswordLoading = (payload) => {
 	return {
 		type: GET_FORGOT_PASSWORD_LOADING,
-		payload
-	}
-}
-
-export const isRequestPending = (payload) => {
-	return {
-		type: PENDING_REQUEST,
 		payload
 	}
 }
