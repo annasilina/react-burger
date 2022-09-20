@@ -4,6 +4,7 @@ import styles from './profile-form.module.css';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUserData} from '../../services/actions/auth';
+import ErrorMessage from '../error-message/error-message';
 
 const ProfileForm = () => {
 	const authData = useSelector(state => state.authData);
@@ -67,6 +68,9 @@ const ProfileForm = () => {
 				size={'default'}
 				onChange={handleFormChange}
 			/>
+			{authData.isUserDataFailed &&
+				<ErrorMessage errorMessage={authData.userDataErrorMessage} />
+			}
 			<div className={styles.buttonsContainer}>
 				<Button
 					type={'secondary'}

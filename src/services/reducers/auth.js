@@ -11,7 +11,7 @@ import {
 	GET_USER_LOADED,
 	GET_USER_LOADING,
 	LOGGED_IN,
-	LOGGED_OUT,
+	LOGGED_OUT, PENDING_REQUEST,
 	RESET_PASSWORD_FAILED,
 	RESET_PASSWORD_LOADING,
 	SET_USER_DATA,
@@ -44,6 +44,12 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
 	switch (action.type) {
+		case PENDING_REQUEST: {
+			return {
+				...state,
+				isRequestPEnding: action.payload
+			}
+		}
 		case GET_REGISTRATION_LOADING: {
 			return {
 				...state,
@@ -104,12 +110,14 @@ export const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				user: action.payload,
+				userDataErrorMessage: ''
 			}
 		}
 		case SET_USER_DATA_FAILED: {
 			return {
 				...state,
 				isUserDataLoading: false,
+				isUserDataFailed: true,
 				userDataErrorMessage: action.payload
 			}
 		}
@@ -117,12 +125,16 @@ export const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isUserLoading: true,
+				isUserDataFailed: false,
+				userDataErrorMessage: ''
 			}
 		}
 		case GET_USER_LOADED: {
 			return {
 				...state,
 				isUserLoading: false,
+				isUserDataFailed: false,
+				userDataErrorMessage: ''
 			}
 		}
 		case GET_USER_FAILED: {
