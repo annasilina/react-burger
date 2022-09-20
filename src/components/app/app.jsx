@@ -19,7 +19,6 @@ import {ProtectedRoute} from '../protected-route/protected-route';
 import {getUser, updateToken} from '../../services/actions/auth';
 import {getCookie} from '../../utils/cookie';
 import Preloader from '../preloader/preloader';
-import ProfileOrders from '../../pages/profile-orders/profile-orders';
 
 const App = () => {
 	const accessToken = getCookie('accessToken');
@@ -75,9 +74,6 @@ const App = () => {
 						</Route>
 						<Route path={`${links.ingredients}/:id`}>
 							<IngredientsPage/>
-						</Route>
-						<Route path={links.userOrdersFeed} exact>
-							<ProfileOrders />
 						</Route>
 						<Route>
 							<Page404/>
