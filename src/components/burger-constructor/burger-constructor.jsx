@@ -5,8 +5,13 @@ import styles from './burger-constructor.module.css';
 import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useSelector} from 'react-redux';
 import {ConstructorContainer} from '../constructor-container/constructor-container';
+import {links} from '../../utils/constants';
+import {useHistory, useLocation} from 'react-router-dom';
 
 const BurgerConstructor = React.memo(({setModalVisibility}) => {
+	const refreshToken = localStorage.getItem('refreshToken');
+	const location = useLocation();
+	const history = useHistory();
 	const orderIsLoading = useSelector(state => state.orderData.orderIsLoading);
 	const bunSelected = useSelector(state => state.constructorData.bunSelected);
 	const ingredientsSelected = useSelector(state => state.constructorData.ingredientsSelected)
@@ -26,7 +31,14 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 	}, [bunSelected, ingredientsSelected])
 
 	const handleButtonClick = () => {
-		setModalVisibility(ingredientsSelected);
+		if (refreshToken) {
+			setModalVisibility(ingredientsSelected);
+		} else {
+			history.replace({
+				pathname: links.login,
+				state: {from: location}
+			})
+		}
 	}
 
 	return (
