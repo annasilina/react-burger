@@ -84,6 +84,7 @@ const ProfileForm = () => {
 					type={'secondary'}
 					size={'medium'}
 					htmlType={'reset'}
+					disabled={!visible}
 				>
 					Отмена
 				</Button>
@@ -91,6 +92,7 @@ const ProfileForm = () => {
 					type={'primary'}
 					size={'medium'}
 					htmlType={'submit'}
+					disabled={!visible}
 					{...authData.isUserDataLoading ? {children: 'Сохранение...', disabled: true} : {
 						children: 'Сохранить',
 						disabled: false
