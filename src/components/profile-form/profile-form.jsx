@@ -5,6 +5,7 @@ import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUserData} from '../../services/actions/auth';
 import ErrorMessage from '../error-message/error-message';
+import Preloader from '../preloader/preloader';
 
 const ProfileForm = () => {
 	const [visible, setVisible] = useState(false);
@@ -46,62 +47,66 @@ const ProfileForm = () => {
 	}
 
 	return (
-		<form className={styles.form}
-					onSubmit={handleFormSubmit}
-					onReset={handleFormReset}>
-			<Input
-				type={'text'}
-				name={'name'}
-				placeholder={'Имя'}
-				value={values.name}
-				icon={'EditIcon'}
-				size={'default'}
-				onChange={handleFormChange}
-			/>
-			<Input
-				type={'email'}
-				name={'email'}
-				placeholder={'Логин'}
-				value={values.email}
-				icon={'EditIcon'}
-				size={'default'}
-				onChange={handleFormChange}
-			/>
-			<Input
-				type={'password'}
-				name={'password'}
-				placeholder={'Пароль'}
-				value={values.password}
-				icon={'EditIcon'}
-				size={'default'}
-				onChange={handleFormChange}
-			/>
-			{authData.isUserDataFailed &&
-				<ErrorMessage errorMessage={authData.userDataErrorMessage} />
-			}
-			<div className={styles.buttonsContainer} style={{opacity: visible ? 1 : 0}}>
-				<Button
-					type={'secondary'}
-					size={'medium'}
-					htmlType={'reset'}
-					disabled={!visible}
-				>
-					Отмена
-				</Button>
-				<Button
-					type={'primary'}
-					size={'medium'}
-					htmlType={'submit'}
-					disabled={!visible}
-					{...authData.isUserDataLoading ? {children: 'Сохранение...', disabled: true} : {
-						children: 'Сохранить',
-						disabled: false
-					}}
-				>
-				</Button>
-			</div>
-		</form>
-	)
+		{
+			...authData.isUserDataLoading
+				? <Preloader/>
+				: <form className={styles.form}
+							onSubmit={handleFormSubmit}
+							onReset={handleFormReset}>
+					<Input
+						type={'text'}
+						name={'name'}
+						placeholder={'Имя'}
+						value={values.name}
+						icon={'EditIcon'}
+						size={'default'}
+						onChange={handleFormChange}
+					/>
+					<Input
+						type={'email'}
+						name={'email'}
+						placeholder={'Логин'}
+						value={values.email}
+						icon={'EditIcon'}
+						size={'default'}
+						onChange={handleFormChange}
+					/>
+					<Input
+						type={'password'}
+						name={'password'}
+						placeholder={'Пароль'}
+						value={values.password}
+						icon={'EditIcon'}
+						size={'default'}
+						onChange={handleFormChange}
+					/>
+					{authData.isUserDataFailed &&
+						<ErrorMessage errorMessage={authData.userDataErrorMessage}/>
+					}
+					<div className={styles.buttonsContainer}
+							 style={{opacity: visible ? 1 : 0}}>
+						<Button
+							type={'secondary'}
+							size={'medium'}
+							htmlType={'reset'}
+							disabled={!visible}
+						>
+							Отмена
+						</Button>
+						<Button
+							type={'primary'}
+							size={'medium'}
+							htmlType={'submit'}
+							disabled={!visible}
+							{...authData.isUserDataLoading ? {children: 'Сохранение...', disabled: true} : {
+								children: 'Сохранить',
+								disabled: false
+							}}
+						>
+						</Button>
+					</div>
+				</form>
+		})
 }
 
 export default ProfileForm;
