@@ -80,7 +80,7 @@ const RegisterPage = () => {
         </span>
 			</form>
 			<p className='text text_type_main-default text_color_inactive'>
-				Уже зарегистрированы?' '
+				Уже зарегистрированы?&#129;
 				<Link to={links.login} className={styles.link}>
 					Войти
 				</Link>

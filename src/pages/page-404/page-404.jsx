@@ -12,12 +12,12 @@ const Page404 = () => {
 			</h1>
 			<img src={page404} alt='page not found' className={styles.img}/>
 			<p className='text text_type_main-medium text_color_inactive'>
-				Может,' '
+				Может,&#129;
 				<Link
 					to={links.home}
 					className={`${styles.link} text text_type_main-medium`}
 				>
-					бургер' '
+					бургер&#129;
 				</Link>
 				поможет?
 			</p>

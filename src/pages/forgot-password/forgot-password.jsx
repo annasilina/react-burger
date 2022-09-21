@@ -53,7 +53,7 @@ const ForgotPasswordPage = () => {
         </span>
 			</form>
 			<p className='text text_type_main-default text_color_inactive'>
-				Вспомнили пароль?' '
+				Вспомнили пароль?&#129;
 				<Link to={links.login} className={styles.link}>
 					Войти
 				</Link>
