@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {resetPasswordAction} from '../../services/actions/auth';
 
 const ResetPasswordPage = () => {
-	const refreshToken = localStorage.getItem('refreshToken');
+	/*const refreshToken = localStorage.getItem('refreshToken');*/
 	const resetPasswordStatus = localStorage.getItem('resetPasswordStatus');
 	const location = useLocation();
 	const authData = useSelector(state => state.authData)
@@ -19,7 +19,7 @@ const ResetPasswordPage = () => {
 		token: ''
 	})
 
-	if (refreshToken || !resetPasswordStatus) {
+	if (!resetPasswordStatus) {
 		return <Redirect to={location.state?.from || links.home} />
 	}
 

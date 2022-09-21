@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import {Link, Redirect, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,8 +9,9 @@ import {login} from '../../services/actions/auth';
 
 const Login = () => {
 	const authData = useSelector(state => state.authData);
-	const refreshToken = localStorage.getItem('refreshToken');
-	const location = useLocation();
+	/*const refreshToken = localStorage.getItem('refreshToken');*/
+	/*const refreshToken = getCookie('refreshToken');
+	const location = useLocation();*/
 	const dispatch = useDispatch();
 	const {values, setValues, handleFormChange} = useForm({
 		email: '',
@@ -32,12 +33,12 @@ const Login = () => {
 		});
 	}
 
-	if (refreshToken) {
-		return (
-			<Redirect to={location.state?.from || links.home}/>
-		)
-	}
-
+		/*if (refreshToken) {
+			return (
+				<Redirect to={location.state?.from || links.home}/>
+			)
+		}
+	*/
 	return (
 		<main className={styles.main}>
 			<form className={styles.form}

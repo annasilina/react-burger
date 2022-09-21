@@ -66,10 +66,10 @@ const Home = () => {
 			</DndProvider>
 			{isOrderDetailsOpen && !orderHasError &&
 				<Modal title=""
-							 handleClose={handleCloseOrderModal}
-							 {...orderIsLoading ? {children: <Preloader/>, title: 'Загружаем заказ...'} : {
-								 children: <OrderDetails orderID={orderNumber}/>
-							 }}
+					 handleClose={handleCloseOrderModal}
+					 {...orderIsLoading ? {children: <Preloader/>, title: 'Загружаем заказ...'} : {
+						 children: <OrderDetails orderID={orderNumber}/>
+					 }}
 				/>
 			}
 		</>

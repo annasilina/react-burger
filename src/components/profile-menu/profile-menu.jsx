@@ -4,13 +4,14 @@ import styles from './profile-menu.module.css';
 import {links} from '../../utils/constants';
 import {logout} from '../../services/actions/auth';
 import {useDispatch} from 'react-redux';
+import {getCookie} from '../../utils/cookie';
 
 const ProfileMenu = () => {
 	const dispatch = useDispatch();
 
 	const handleLogout = (evt) => {
 		evt.preventDefault();
-		dispatch(logout(localStorage.getItem('refreshToken')));
+		dispatch(logout(getCookie('refreshToken')));
 	}
 
 	return (

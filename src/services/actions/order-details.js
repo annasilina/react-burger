@@ -22,7 +22,7 @@ export const createOrder = (orderDetails) => {
 						number: res.order.number
 					})
 				} else {
-					dispatch(updateToken(localStorage.getItem('refreshToken')))
+					dispatch(updateToken(getCookie('refreshToken')))
 				}
 			})
 			.catch((err) => {

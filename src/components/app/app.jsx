@@ -22,7 +22,8 @@ import Preloader from '../preloader/preloader';
 
 const App = () => {
 	const accessToken = getCookie('accessToken');
-	const refreshToken = localStorage.getItem('refreshToken');
+	/*const refreshToken = localStorage.getItem('refreshToken');*/
+	const refreshToken = getCookie('refreshToken');
 	const authData = useSelector(state => state.authData);
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -57,21 +58,21 @@ const App = () => {
 									 exact={true}>
 							<Home/>
 						</Route>
-						<ProtectedRoute path={links.profile} exact>
+						<ProtectedRoute path={links.profile} anonymReject={true} exact>
 							<Profile/>
 						</ProtectedRoute>
-						<Route path={links.login}>
+						<ProtectedRoute path={links.login} anonymReject={false}>
 							<Login/>
-						</Route>
-						<Route path={links.register}>
+						</ProtectedRoute>
+						<ProtectedRoute path={links.register} anonymReject={false}>
 							<RegisterPage/>
-						</Route>
-						<Route path={links.forgotPassword}>
+						</ProtectedRoute>
+						<ProtectedRoute path={links.forgotPassword} anonymReject={false}>
 							<ForgotPasswordPage/>
-						</Route>
-						<Route path={links.resetPassword}>
+						</ProtectedRoute>
+						<ProtectedRoute path={links.resetPassword} anonymReject={false}>
 							<ResetPasswordPage/>
-						</Route>
+						</ProtectedRoute>
 						<Route path={`${links.ingredients}/:id`}>
 							<IngredientsPage/>
 						</Route>

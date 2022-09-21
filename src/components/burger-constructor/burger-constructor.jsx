@@ -7,9 +7,10 @@ import {useSelector} from 'react-redux';
 import {ConstructorContainer} from '../constructor-container/constructor-container';
 import {links} from '../../utils/constants';
 import {useHistory, useLocation} from 'react-router-dom';
+import {getCookie} from '../../utils/cookie';
 
 const BurgerConstructor = React.memo(({setModalVisibility}) => {
-	const refreshToken = localStorage.getItem('refreshToken');
+	const refreshToken = getCookie('refreshToken');
 	const location = useLocation();
 	const history = useHistory();
 	const orderIsLoading = useSelector(state => state.orderData.orderIsLoading);

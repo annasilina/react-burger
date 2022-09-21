@@ -136,7 +136,8 @@ export const logout = (token) => {
 				if (data.success) {
 					dispatch(setLoggedOut());
 					deleteCookie('accessToken');
-					localStorage.clear();
+					deleteCookie('refreshToken');
+					/*localStorage.clear();*/
 				}
 			})
 	}
