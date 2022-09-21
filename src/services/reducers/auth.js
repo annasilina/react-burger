@@ -10,7 +10,6 @@ import {
 	GET_USER_FAILED,
 	GET_USER_LOADED,
 	GET_USER_LOADING,
-	LOGGED_IN,
 	LOGGED_OUT,
 	RESET_PASSWORD_FAILED,
 	RESET_PASSWORD_LOADING,
@@ -21,7 +20,6 @@ import {
 
 const initialState = {
 	user: {},
-	isLoggedIn: false,
 	isRegisterLoading: false,
 	isRegisterFailed: false,
 	registerErrorMessage: '',
@@ -86,12 +84,6 @@ export const authReducer = (state = initialState, action) => {
 				isAuthLoading: false,
 				isAuthFailed: true,
 				authErrorMessage: action.payload,
-			};
-		}
-		case LOGGED_IN: {
-			return {
-				...state,
-				isLoggedIn: true,
 			};
 		}
 		case SET_USER_DATA_LOADING: {

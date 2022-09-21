@@ -6,7 +6,6 @@ export const GET_REGISTRATION_LOADING = 'GET_REGISTRATION_LOADING';
 export const GET_REGISTRATION_LOADED = 'GET_REGISTRATION_LOADED';
 export const GET_REGISTRATION_FAILED = 'GET_REGISTRATION_FAILED';
 
-export const LOGGED_IN = 'LOGGED_IN';
 export const LOGGED_OUT = 'LOGGED_OUT';
 
 export const GET_AUTH_LOADING = 'GET_AUTH_LOADING';
@@ -66,7 +65,6 @@ export const login = (formData) => {
 					payload: data.user,
 				});
 				dispatch(getAuthLoaded());
-				dispatch(setLoggedIn());
 			})
 			.catch((err) => {
 				dispatch({
@@ -94,7 +92,6 @@ export const getUser = () => {
 						payload: data.user,
 					});
 					dispatch(getUserLoaded());
-					dispatch(setLoggedIn());
 				}
 			})
 			.catch((err) => {
@@ -212,12 +209,6 @@ const getAuthLoading = () => {
 const getAuthLoaded = () => {
 	return {
 		type: GET_AUTH_LOADED,
-	};
-};
-
-const setLoggedIn = () => {
-	return {
-		type: LOGGED_IN,
 	};
 };
 
