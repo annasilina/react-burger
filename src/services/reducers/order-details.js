@@ -2,22 +2,22 @@ import {
 	CREATE_ORDER_FAILED,
 	CREATE_ORDER_LOADED,
 	CREATE_ORDER_LOADING,
-	RESET_ORDER_DETAILS
+	RESET_ORDER_DETAILS,
 } from '../actions/order-details';
 
 const initialState = {
 	orderNumber: 0,
 	orderIsLoading: false,
-	orderHasError: false
-}
+	orderHasError: false,
+};
 
 export const orderReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case CREATE_ORDER_LOADING: {
 			return {
 				...state,
-				orderIsLoading: true
-			}
+				orderIsLoading: true,
+			};
 		}
 		case CREATE_ORDER_LOADED: {
 			return {
@@ -25,19 +25,19 @@ export const orderReducer = (state = initialState, action) => {
 				orderIsLoading: false,
 				orderHasError: false,
 				orderNumber: action.number,
-			}
+			};
 		}
 		case CREATE_ORDER_FAILED: {
 			return {
 				...state,
 				orderIsLoading: false,
 				orderHasError: true,
-			}
+			};
 		}
 		case RESET_ORDER_DETAILS: {
-			return initialState
+			return initialState;
 		}
 		default:
-			return state
+			return state;
 	}
-}
+};

@@ -9,7 +9,7 @@ const Profile = () => {
 			<ProfileMenu/>
 			<ProfileForm/>
 		</main>
-	)
-}
+	);
+};
 
 export default Profile;

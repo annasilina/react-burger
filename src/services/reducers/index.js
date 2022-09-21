@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {ingredientsReducer} from './burger-ingredients'
+import {ingredientsReducer} from './burger-ingredients';
 import {orderReducer} from './order-details';
 import {constructorReducer} from './constructor';
 import {authReducer} from './auth';
@@ -11,4 +11,4 @@ const rootReducer = combineReducers({
 	constructorData: constructorReducer,
 });
 
-export {rootReducer}
+export {rootReducer};

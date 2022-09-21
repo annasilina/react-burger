@@ -12,24 +12,25 @@ export const RESET_SELECTED_INGREDIENTS = 'RESET_SELECTED_INGREDIENTS';
 const getIngredientsLoaded = (ingredients) => {
 	return {
 		type: GET_INGREDIENTS_LOADED,
-		payload: ingredients.map(ingredient => ({...ingredient, count: 0}))
-	}
-}
+		payload: ingredients.map((ingredient) => ({...ingredient, count: 0})),
+	};
+};
 
 export function getIngredients() {
 	return function (dispatch) {
 		dispatch({
-			type: GET_INGREDIENTS_LOADING
+			type: GET_INGREDIENTS_LOADING,
 		});
-		api.getIngredientsRequest()
+		api
+			.getIngredientsRequest()
 			.then((res) => {
 				dispatch(getIngredientsLoaded(res.data));
 			})
 			.catch((err) => {
 				dispatch({
-					type: GET_INGREDIENTS_FAILED
+					type: GET_INGREDIENTS_FAILED,
 				});
-				console.log(err)
-			})
-	}
+				console.log(err);
+			});
+	};
 }

@@ -6,7 +6,7 @@ import ConstructorIngredient from '../constructor-ingredient/constructor-ingredi
 import {useDrop} from 'react-dnd';
 import {useDispatch} from 'react-redux';
 import {addIngredientToConstructor} from '../../services/actions/constructor';
-import {INCREASE_INGREDIENT, SELECT_INGREDIENT_BUN} from '../../services/actions/burger-ingredients';
+import {INCREASE_INGREDIENT, SELECT_INGREDIENT_BUN,} from '../../services/actions/burger-ingredients';
 
 export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 	const dispatch = useDispatch();
@@ -16,87 +16,86 @@ export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
 		collect(monitor) {
 			return {
 				isHover: monitor.isOver(),
-			}
+			};
 		},
 		drop(item) {
-			dispatch(addIngredientToConstructor(item))
+			dispatch(addIngredientToConstructor(item));
 			if (item.type === 'bun') {
 				dispatch({
 					type: SELECT_INGREDIENT_BUN,
-					payload: item
-				})
+					payload: item,
+				});
 			} else {
 				dispatch({
 					type: INCREASE_INGREDIENT,
-					payload: item
-				})
+					payload: item,
+				});
 			}
-		}
-	})
+		},
+	});
 
-	const className = `${styles.elementsContainer} ml-4 ${isHover ? styles.markedContainer : ''}`;
+	const className = `${styles.elementsContainer} ml-4 ${
+		isHover ? styles.markedContainer : ''
+	}`;
 
 	return (
-		<div
-			className={className}
-			ref={dropTarget}
-		>
+		<div className={className} ref={dropTarget}>
 			<div className={`${styles.ingredientElement} pl-8`}>
-				{bunSelected !== null
-					?
+				{bunSelected !== null ? (
 					<ConstructorElement
-						type="top"
+						type='top'
 						isLocked={true}
 						thumbnail={bunSelected.image}
 						price={bunSelected.price}
 						text={`${bunSelected.name} (верх)`}
 					/>
-					:
+				) : (
 					<ConstructorElement
-						type="top"
+						type='top'
 						isLocked={true}
 						thumbnail={bunDefault}
-						price="0"
-						text="Пока тут пусто. Выберите булочку на ваш вкус."
+						price='0'
+						text='Пока тут пусто. Выберите булочку на ваш вкус.'
 					/>
-				}
+				)}
 			</div>
-			{
-				ingredientsSelected.length === 0
-					?
-					<p className={`${styles.emptyContainer} text text_type_main-default text_color_inactive`}>
-						Пока здесь пусто. Перетащите ингредиенты из списка слева, чтобы собрать свой бургер.
-					</p>
-					:
-					<ul className={`${styles.ingredientList}`}>
-						{ingredientsSelected.map((ingredient, index) => (
-							<ConstructorIngredient
-								ingredient={ingredient}
-								index={index}
-								key={ingredient.constructorID}/>
-						))}
-					</ul>
-			}
+			{ingredientsSelected.length === 0 ? (
+				<p
+					className={`${styles.emptyContainer} text text_type_main-default text_color_inactive`}
+				>
+					Пока здесь пусто. Перетащите ингредиенты из списка слева, чтобы
+					собрать свой бургер.
+				</p>
+			) : (
+				<ul className={`${styles.ingredientList}`}>
+					{ingredientsSelected.map((ingredient, index) => (
+						<ConstructorIngredient
+							ingredient={ingredient}
+							index={index}
+							key={ingredient.constructorID}
+						/>
+					))}
+				</ul>
+			)}
 			<div className={`${styles.ingredientElement} pl-8`}>
-				{bunSelected !== null
-					?
+				{bunSelected !== null ? (
 					<ConstructorElement
-						type="bottom"
+						type='bottom'
 						isLocked={true}
 						thumbnail={bunSelected.image}
 						price={bunSelected.price}
 						text={`${bunSelected.name} (низ)`}
 					/>
-					:
+				) : (
 					<ConstructorElement
-						type="bottom"
+						type='bottom'
 						isLocked={true}
 						thumbnail={bunDefault}
-						price="0"
-						text="Пока тут пусто. Выберите булочку на ваш вкус."
+						price='0'
+						text='Пока тут пусто. Выберите булочку на ваш вкус.'
 					/>
-				}
+				)}
 			</div>
 		</div>
-	)
-}
+	);
+};

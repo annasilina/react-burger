@@ -1,84 +1,77 @@
 import React from 'react';
-import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, Input, PasswordInput,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import {Link} from 'react-router-dom';
-import {links} from '../../utils/constants';
 import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../services/actions/auth';
+import {links} from '../../utils/constants';
+import {Link} from 'react-router-dom';
 
 const Login = () => {
-	const authData = useSelector(state => state.authData);
-	/*const refreshToken = localStorage.getItem('refreshToken');*/
-	/*const refreshToken = getCookie('refreshToken');
-	const location = useLocation();*/
+	const authData = useSelector((state) => state.authData);
 	const dispatch = useDispatch();
 	const {values, setValues, handleFormChange} = useForm({
 		email: '',
-		password: ''
-	})
+		password: '',
+	});
 
 	const handleFormSubmit = (evt) => {
 		evt.preventDefault();
 		const form = evt.target;
 		const formValues = {
 			email: form.email.value,
-			password: form.password.value
-		}
+			password: form.password.value,
+		};
 
 		dispatch(login(formValues));
 		setValues({
 			email: '',
-			password: ''
+			password: '',
 		});
-	}
+	};
 
-		/*if (refreshToken) {
-			return (
-				<Redirect to={location.state?.from || links.home}/>
-			)
-		}
-	*/
 	return (
 		<main className={styles.main}>
-			<form className={styles.form}
-						onSubmit={handleFormSubmit}>
-				<h1 className={'text text_type_main-medium'}>Вход</h1>
+			<form className={styles.form} onSubmit={handleFormSubmit}>
+				<h1 className='text text_type_main-medium'>Вход</h1>
 				<Input
-					type={'email'}
-					placeholder={'E-mail'}
+					type='email'
+					placeholder='E-mail'
 					value={values.email}
-					name={'email'}
+					name='email'
 					icon={undefined}
 					onChange={handleFormChange}
 				/>
 				<PasswordInput
 					value={values.password}
-					name={'password'}
+					name='password'
 					onChange={handleFormChange}
 				/>
-				<span className={'mb-20'}>
-					<Button
-						type={'primary'}
-						size={'medium'}
-						htmlType={'submit'}
+				<span className='mb-20'>
+          <Button
+						type='primary'
+						size='medium'
+						htmlType='submit'
 						{...!authData.isAuthLoading
 							? {disabled: false, children: 'Войти'}
-							: {disabled: true, children: 'Загрузка...'}
-						}
+							: {disabled: true, children: 'Загрузка...'}}
 					/>
-				</span>
+							</span>
 			</form>
-			<p className={'text text_type_main-default text_color_inactive pb-4'}>
-				Вы — новый пользователь? <Link to={links.register}
-																			 className={styles.link}>Зарегистрироваться</Link>
+			<p className='text text_type_main-default text_color_inactive pb-4'>
+				Вы — новый пользователь?
+				<Link to={links.register} className={styles.link}>
+					Зарегистрироваться
+				</Link>
 			</p>
-			<p className={'text text_type_main-default text_color_inactive'}>
-				Забыли пароль? <Link to={links.forgotPassword}
-														 className={styles.link}>Восстановить пароль</Link>
+			<p className='text text_type_main-default text_color_inactive'>
+				Забыли пароль?
+				<Link to={links.forgotPassword} className={styles.link}>
+					Восстановить пароль
+				</Link>
 			</p>
 		</main>
-	)
-}
+	);
+};
 
 export default Login;

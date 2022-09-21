@@ -16,7 +16,7 @@ import {
 	RESET_PASSWORD_LOADING,
 	SET_USER_DATA,
 	SET_USER_DATA_FAILED,
-	SET_USER_DATA_LOADING
+	SET_USER_DATA_LOADING,
 } from '../actions/auth';
 
 const initialState = {
@@ -40,113 +40,113 @@ const initialState = {
 	isResetPasswordLoading: false,
 	isResetPasswordFailed: false,
 	resetPasswordErrorMessage: '',
-}
+};
 
 export const authReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case GET_REGISTRATION_LOADING: {
 			return {
 				...state,
-				isRegisterLoading: true
-			}
+				isRegisterLoading: true,
+			};
 		}
 		case GET_REGISTRATION_LOADED: {
 			return {
 				...state,
 				isRegisterLoading: false,
 				isRegisterFailed: false,
-				registerErrorMessage: ''
-			}
+				registerErrorMessage: '',
+			};
 		}
 		case GET_REGISTRATION_FAILED: {
 			return {
 				...state,
 				isRegisterFailed: true,
 				isRegisterLoading: false,
-				registerErrorMessage: action.payload
-			}
+				registerErrorMessage: action.payload,
+			};
 		}
 		case GET_AUTH_LOADING: {
 			return {
 				...state,
-				isAuthLoading: true
-			}
+				isAuthLoading: true,
+			};
 		}
 		case GET_AUTH_LOADED: {
 			return {
 				...state,
 				isAuthLoading: false,
 				isAuthFailed: false,
-				authErrorMessage: ''
-			}
+				authErrorMessage: '',
+			};
 		}
 		case GET_AUTH_FAILED: {
 			return {
 				...state,
 				isAuthLoading: false,
 				isAuthFailed: true,
-				authErrorMessage: action.payload
-			}
+				authErrorMessage: action.payload,
+			};
 		}
 		case LOGGED_IN: {
 			return {
 				...state,
 				isLoggedIn: true,
-			}
+			};
 		}
 		case SET_USER_DATA_LOADING: {
 			return {
 				...state,
-				isUserDataLoading: action.payload
-			}
+				isUserDataLoading: action.payload,
+			};
 		}
 		case SET_USER_DATA: {
 			return {
 				...state,
 				user: action.payload,
-				userDataErrorMessage: ''
-			}
+				userDataErrorMessage: '',
+			};
 		}
 		case SET_USER_DATA_FAILED: {
 			return {
 				...state,
 				isUserDataLoading: false,
 				isUserDataFailed: true,
-				userDataErrorMessage: action.payload
-			}
+				userDataErrorMessage: action.payload,
+			};
 		}
 		case GET_USER_LOADING: {
 			return {
 				...state,
 				isUserLoading: true,
 				isUserDataFailed: false,
-				userDataErrorMessage: ''
-			}
+				userDataErrorMessage: '',
+			};
 		}
 		case GET_USER_LOADED: {
 			return {
 				...state,
 				isUserLoading: false,
 				isUserDataFailed: false,
-				userDataErrorMessage: ''
-			}
+				userDataErrorMessage: '',
+			};
 		}
 		case GET_USER_FAILED: {
 			return {
 				...state,
 				isUserLoading: false,
 				isUserFailed: true,
-				userErrorMessage: action.payload
-			}
+				userErrorMessage: action.payload,
+			};
 		}
 		case LOGGED_OUT: {
-			return initialState
+			return initialState;
 		}
 		case GET_FORGOT_PASSWORD_LOADING: {
 			return {
 				...state,
-				isForgotPasswordLoading: action.payload
-			}
+				isForgotPasswordLoading: action.payload,
+			};
 		}
 		case GET_FORGOT_PASSWORD_FAILED: {
 			return {
@@ -154,23 +154,23 @@ export const authReducer = (state = initialState, action) => {
 				isForgotPasswordLoading: false,
 				isForgotPasswordFailed: true,
 				forgotPasswordErrorMessage: action.payload,
-			}
+			};
 		}
 		case RESET_PASSWORD_LOADING: {
 			return {
 				...state,
-				isResetPasswordLoading: action.payload
-			}
+				isResetPasswordLoading: action.payload,
+			};
 		}
 		case RESET_PASSWORD_FAILED: {
 			return {
 				...state,
 				isResetPasswordLoading: false,
 				isResetPasswordFailed: true,
-				resetPasswordErrorMessage: action.payload
-			}
+				resetPasswordErrorMessage: action.payload,
+			};
 		}
 		default:
-			return state
+			return state;
 	}
-}
+};
