@@ -19,6 +19,7 @@ import {ProtectedRoute} from '../protected-route/protected-route';
 import {getUser} from '../../services/actions/auth';
 import {getCookie} from '../../utils/cookie';
 import Preloader from '../preloader/preloader';
+import FeedPage from '../../pages/feed/feed';
 
 const App = () => {
 	const refreshToken = getCookie('refreshToken');
@@ -35,7 +36,7 @@ const App = () => {
 		if (refreshToken) {
 			dispatch(getUser());
 		}
-	}, [dispatch, history]);
+	}, []);
 
 	const handleClose = () => {
 		history.goBack();
@@ -68,6 +69,9 @@ const App = () => {
 					</ProtectedRoute>
 					<Route path={links.ingredient}>
 						<IngredientsPage/>
+					</Route>
+					<Route path={links.ordersFeed}>
+						<FeedPage></FeedPage>
 					</Route>
 					<Route>
 						<Page404/>
