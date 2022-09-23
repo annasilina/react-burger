@@ -66,7 +66,7 @@ const App = () => {
 					<ProtectedRoute path={links.resetPassword} anonymReject={false}>
 						<ResetPasswordPage/>
 					</ProtectedRoute>
-					<Route path={`${links.ingredients}/:id`}>
+					<Route path={links.ingredient}>
 						<IngredientsPage/>
 					</Route>
 					<Route>

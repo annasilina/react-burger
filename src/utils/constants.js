@@ -6,6 +6,7 @@ export const links = {
 	forgotPassword: '/forgot-password',
 	resetPassword: '/reset-password',
 	ingredients: '/ingredients',
+	ingredient: '/ingredients/:id',
 	ordersFeed: '/feed',
 	userOrdersFeed: '/profile/orders',
 };
