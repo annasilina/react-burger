@@ -10,7 +10,7 @@ const FeedList = () => {
 			<div className={styles.container}>
 			<ul className={styles.cardsList}>
 				{orders.map((order) => (
-					<FeedCard key={order.id} order={order}/>
+					<FeedCard key={order.number} order={order}/>
 				))}
 			</ul>
 			</div>
