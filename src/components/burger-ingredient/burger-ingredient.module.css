@@ -20,8 +20,13 @@
 	opacity: .5;
 }
 
+.link {
+	text-decoration: none;
+	color: unset;
+}
+
 @keyframes scale {
-	from  {
+	from {
 		transform: scale(1.05);
 	}
 	to {

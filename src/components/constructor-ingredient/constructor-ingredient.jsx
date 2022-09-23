@@ -2,22 +2,22 @@ import React, {useRef} from 'react';
 
 import styles from './constructor-ingredient.module.css';
 import {ingredientPropTypes} from '../../types/ingredient';
-import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import {ConstructorElement, DragIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDispatch} from 'react-redux';
-import {CONSTRUCTOR_DELETE_ITEM, CONSTRUCTOR_REORDER_ITEM} from '../../services/actions/constructor';
+import {CONSTRUCTOR_DELETE_ITEM, CONSTRUCTOR_REORDER_ITEM,} from '../../services/actions/constructor';
 import {DECREASE_INGREDIENT} from '../../services/actions/burger-ingredients';
 import {useDrag, useDrop} from 'react-dnd';
 
-export default function ConstructorIngredient({ ingredient, index }) {
+export default function ConstructorIngredient({ingredient, index}) {
 	const dispatch = useDispatch();
 	const elementRef = useRef(null);
 
-	const [{ handlerId }, dropSelectedRef] = useDrop({
+	const [{handlerId}, dropSelectedRef] = useDrop({
 		accept: 'selected_ingredient',
 		collect(monitor) {
 			return {
 				handlerId: monitor.getHandlerId(),
-			}
+			};
 		},
 		hover(item, monitor) {
 			if (!elementRef.current) {
@@ -47,47 +47,48 @@ export default function ConstructorIngredient({ ingredient, index }) {
 				type: CONSTRUCTOR_REORDER_ITEM,
 				payload: {
 					dragItemIndex: dragItemIndex,
-					hoverItemIndex: hoverItemIndex
-				}
-			})
+					hoverItemIndex: hoverItemIndex,
+				},
+			});
 
 			item.index = hoverItemIndex;
-		}
-	})
+		},
+	});
 
 	const [{isDragging}, dragRef] = useDrag({
 		type: 'selected_ingredient',
-		item: { id: ingredient.conctructorID, index},
-		collect: monitor => ({
-			isDragging: monitor.isDragging()
-		})
-	})
+		item: {id: ingredient.conctructorID, index},
+		collect: (monitor) => ({
+			isDragging: monitor.isDragging(),
+		}),
+	});
 
 	dragRef(dropSelectedRef(elementRef));
 
 	const handleDelete = (ingredient) => {
 		dispatch({
 			type: CONSTRUCTOR_DELETE_ITEM,
-			payload: ingredient
+			payload: ingredient,
 		});
 		dispatch({
 			type: DECREASE_INGREDIENT,
-			payload: ingredient
-		})
-	}
+			payload: ingredient,
+		});
+	};
 
 	const cursor = isDragging ? 'grabbing' : 'grab';
 
 	return (
-			<li
-				ref={elementRef}
-				className={`${styles.ingredientItem}`}
-				style={{cursor}}
-				data-handler-id={{handlerId}}
-			> {!isDragging &&
+		<li
+			ref={elementRef}
+			className={`${styles.ingredientItem}`}
+			style={{cursor}}
+			data-handler-id={{handlerId}}
+		>
+			{!isDragging && (
 				<>
-					<div className="mr-2">
-						<DragIcon type="primary" />
+					<div className='mr-2'>
+						<DragIcon type='primary'/>
 					</div>
 					<ConstructorElement
 						text={ingredient.name}
@@ -97,11 +98,11 @@ export default function ConstructorIngredient({ ingredient, index }) {
 						handleClose={() => handleDelete(ingredient)}
 					/>
 				</>
-				}
-			</li>
-		)
+			)}
+		</li>
+	);
 }
 
 ConstructorIngredient.propTypes = {
-	ingredient: ingredientPropTypes.isRequired
-}
+	ingredient: ingredientPropTypes.isRequired,
+};

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
-import {useEffect} from 'react';
 
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -10,11 +9,11 @@ import PropTypes from 'prop-types';
 
 const modalsContainer = document.querySelector('#modals');
 
-const Modal = ({ title, children, handleClose }) => {
+const Modal = ({title, children, handleClose}) => {
 	useEffect(() => {
 		const handleCloseEsc = (e) => {
-			e.key === "Escape" && handleClose();
-		}
+			e.key === 'Escape' && handleClose();
+		};
 
 		document.addEventListener('keydown', handleCloseEsc);
 
@@ -26,19 +25,25 @@ const Modal = ({ title, children, handleClose }) => {
 	return ReactDOM.createPortal(
 		<div className={`${styles.popup}`}>
 			<div className={`${styles.container} pt-10 pb-15 pr-10 pl-10`}>
-				{ title && <h3 className={`${styles.title} text text_type_main-large pt-3 pb-3`}>{title}</h3> }
+				{title && (
+					<h3 className={`${styles.title} text text_type_main-large pt-3 pb-3`}>
+						{title}
+					</h3>
+				)}
 				<div className={`${styles.closeBtn}`} onClick={handleClose}>
-					<CloseIcon type="primary" />
+					<CloseIcon type='primary'/>
 				</div>
 				{children}
 			</div>
 			<ModalOverlay onClick={handleClose}/>
-		</div>, modalsContainer);
+		</div>,
+		modalsContainer
+	);
 };
 
 Modal.propTypes = {
 	title: PropTypes.string,
-	children: PropTypes.element.isRequired
-}
+	children: PropTypes.element.isRequired,
+};
 
 export default Modal;

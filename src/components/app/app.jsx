@@ -1,112 +1,88 @@
-import React, {useCallback, useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
+import React, {useEffect} from 'react';
+import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
 
-
-import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import OrderDetails from '../order-details/order-details';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import Home from '../../pages/home/home';
+import Login from '../../pages/login/login';
+import Profile from '../../pages/profile/profile';
+import RegisterPage from '../../pages/register/register';
+import ForgotPasswordPage from '../../pages/forgot-password/forgot-password';
+import ResetPasswordPage from '../../pages/reset-password/reset-password';
+import Page404 from '../../pages/page-404/page-404';
+import IngredientsPage from '../../pages/ingredients/ingredients';
 import Modal from '../modal/modal';
-
-import {
-	getIngredients,
-	RESET_SELECTED_INGREDIENTS,
-} from '../../services/actions/burger-ingredients';
-import {createOrder, RESET_ORDER_DETAILS} from '../../services/actions/order-details';
-import {RESET_INGREDIENT_DETAILS, SET_INGREDIENT_DETAILS} from '../../services/actions/ingredient-details';
-import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import {useDispatch, useSelector} from 'react-redux';
+import {getIngredients} from '../../services/actions/burger-ingredients';
+import {links} from '../../utils/constants';
+import {ProtectedRoute} from '../protected-route/protected-route';
+import {getUser} from '../../services/actions/auth';
+import {getCookie} from '../../utils/cookie';
+import Preloader from '../preloader/preloader';
 
 const App = () => {
-	const { ingredients, ingredientsIsLoading, ingredientsHasError } = useSelector((state) => ({
-		ingredients: state.ingredientsData.ingredients,
-		ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
-		ingredientsHasError: state.ingredientsData.ingredientsHasError,
-	}));
-
-	const { orderNumber, orderIsLoading, orderHasError } = useSelector((state) => ({
-		orderNumber: state.orderData.orderNumber,
-		orderIsLoading: state.orderData.orderIsLoading,
-		orderHasError: state.orderData.orderHasError
-	}));
-
-	const ingredientDetails = useSelector(state => state.detailsData.ingredientDetails)
-
+	const refreshToken = getCookie('refreshToken');
+	const authData = useSelector((state) => state.authData);
 	const dispatch = useDispatch();
+	const history = useHistory();
+	const location = useLocation();
+	const background = location.state?.background;
 
-	const [isIngredientDetailsOpen, setIsIngredientDetailsOpened] = useState(false);
-	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
+	useEffect(() => {
+		dispatch(getIngredients());
+		history.replace({state: null});
 
-	useEffect(
-		() => {
-			dispatch(getIngredients());
-		},
-		[dispatch]
-	);
+		if (refreshToken) {
+			dispatch(getUser());
+		}
+	}, [dispatch, history]);
 
-	const handleOrderDetailsOpen = useCallback((orderDetails) => {
-		dispatch(createOrder(orderDetails))
-		setIsOrderDetailsOpened(true);
-	}, [dispatch]);
+	const handleClose = () => {
+		history.goBack();
+	};
 
-	const handleIngredientDetailsOpen = useCallback((ingredient) => {
-		dispatch({
-			type: SET_INGREDIENT_DETAILS,
-			payload: ingredient
-		})
-		setIsIngredientDetailsOpened(true)
-	}, [dispatch]);
-
-	const handleCloseIngredientModal = useCallback(() => {
-		setIsIngredientDetailsOpened(false);
-		dispatch({
-			type: RESET_INGREDIENT_DETAILS
-		})
-	},[dispatch])
-
-	const handleCloseOrderModal = useCallback(() => {
-		setIsOrderDetailsOpened(false);
-		dispatch({
-			type: RESET_ORDER_DETAILS
-		});
-		dispatch({
-			type: CONSTRUCTOR_RESET
-		})
-		dispatch({
-			type: RESET_SELECTED_INGREDIENTS
-		})
-	}, [dispatch]);
-
-	return (
-		<>
-			<AppHeader/>
-			<DndProvider backend={HTML5Backend}>
-				<main className={styles.main}>
-					{ingredientsIsLoading && <span className="text text_type_main-large pt-10 pb-5">Загрузка...</span>}
-					{ingredientsHasError && <span className="text text_type_main-large pt-10 pb-5">Упс, произошла ошибка. Пожалуйста, перезагрузите страницу.</span>}
-					{!ingredientsIsLoading && !ingredientsHasError && ingredients.length &&
-						<>
-							<BurgerIngredients setModalVisibility={handleIngredientDetailsOpen}/>
-							<BurgerConstructor setModalVisibility={handleOrderDetailsOpen}/>
-						</>
-					}
-				</main>
-			</DndProvider>
-			{isOrderDetailsOpen && !orderIsLoading && !orderHasError &&
-				<Modal title="" handleClose={handleCloseOrderModal}>
-					<OrderDetails orderID={orderNumber}/>
-				</Modal>
-			}
-			{isIngredientDetailsOpen &&
-				<Modal title="Детали ингредиента" handleClose={handleCloseIngredientModal}>
-					<IngredientDetails ingredient={ingredientDetails}/>
-				</Modal>
-			}
-		</>
-	);
-}
+	return {
+		...(authData.isUserLoading ? (
+			<Preloader/>
+		) : (
+			<>
+				<AppHeader/>
+				<Switch location={background || location}>
+					<Route path={links.home} exact={true}>
+						<Home/>
+					</Route>
+					<ProtectedRoute path={links.profile} anonymReject={true} exact>
+						<Profile/>
+					</ProtectedRoute>
+					<ProtectedRoute path={links.login} anonymReject={false}>
+						<Login/>
+					</ProtectedRoute>
+					<ProtectedRoute path={links.register} anonymReject={false}>
+						<RegisterPage/>
+					</ProtectedRoute>
+					<ProtectedRoute path={links.forgotPassword} anonymReject={false}>
+						<ForgotPasswordPage/>
+					</ProtectedRoute>
+					<ProtectedRoute path={links.resetPassword} anonymReject={false}>
+						<ResetPasswordPage/>
+					</ProtectedRoute>
+					<Route path={`${links.ingredients}/:id`}>
+						<IngredientsPage/>
+					</Route>
+					<Route>
+						<Page404/>
+					</Route>
+				</Switch>
+				{background && (
+					<Route path={`${links.ingredients}/:id`}>
+						<Modal title='Детали ингредиента' handleClose={handleClose}>
+							<IngredientDetails/>
+						</Modal>
+					</Route>
+				)}
+			</>
+		)),
+	};
+};
 
 export default App;

@@ -1,14 +1,15 @@
-import React from 'react';
-/*import ReactDOM from 'react-dom';*/
+import React from "react";
 import {createRoot} from "react-dom/client";
-import reportWebVitals from './reportWebVitals';
-import { legacy_createStore as createStore, compose, applyMiddleware} from "redux";
-import thunk from 'redux-thunk';
-import {Provider} from 'react-redux';
+import {applyMiddleware, compose, legacy_createStore as createStore,} from "redux";
+import thunk from "redux-thunk";
+import {Provider} from "react-redux";
 
-import './index.css';
 import App from "./components/app/app";
+import "./index.css";
 import {rootReducer} from "./services/reducers";
+
+// @ts-ignore
+import {BrowserRouter as Router} from "react-router-dom";
 
 declare global {
 	interface Window {
@@ -16,19 +17,17 @@ declare global {
 	}
 }
 
-const composeEnhancers =
-	typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-		: compose
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(rootReducer, enhancer);
-const rootElement = document.getElementById('root');
 
-createRoot(rootElement!).render(
+const container = document.getElementById("root");
+const root = createRoot(container!);
+
+root.render(
 	<Provider store={store}>
-		<App />
+		<Router>
+			<App/>
+		</Router>
 	</Provider>
-)
-
-reportWebVitals();
+);

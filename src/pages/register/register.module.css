@@ -1,0 +1,24 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 180px auto 0;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	align-items: center;
+	max-width: 480px;
+}
+
+.link {
+	text-decoration: none;
+	transition: opacity .4s ease-out;
+	color: #4c4cff;
+}
+
+.link:hover {
+	opacity: .6;
+}

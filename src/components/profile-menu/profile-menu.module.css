@@ -1,0 +1,35 @@
+.menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	color: #f2f2f3;
+}
+
+.menuList {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.menuLink {
+	height: 64px;
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: #8585ad;
+	transition: opacity .4s ease-out;
+}
+
+.menuLinkActive {
+	color: #f2f2f3;
+}
+
+.menuLink:hover {
+	opacity: .6;
+}
+
+.menuButton {
+	border: none;
+	background-color: inherit;
+	cursor: pointer;
+}

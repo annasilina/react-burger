@@ -1,10 +1,10 @@
 .header {
-	background: #1C1C21;
+	background: #1c1c21;
 	box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
 .menu {
-	width: 1280px;
+	max-width: 1280px;
 	margin: 0 auto;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -17,18 +17,24 @@
 	display: flex;
 }
 
-.menuItem {
-	display: flex;
-	align-items: center;
-}
-
 .profile {
 	justify-self: self-end;
 }
 
 .menuLink {
 	text-decoration: none;
-	color: unset;
+	color: #8585ad;
+	display: flex;
+	gap: 8px;
+	transition: opacity .4s ease-out;
+}
+
+.menuLink:hover {
+	opacity: .6;
+}
+
+.menuLinkActive {
+	color: #f2f2f3;
 }
 
 .logo {

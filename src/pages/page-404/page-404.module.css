@@ -1,0 +1,21 @@
+.main {
+	max-width: calc(1280px / 3);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 180px auto 0;
+}
+
+.img {
+	width: 100%;
+}
+
+.link {
+	text-decoration: none;
+	transition: opacity .4s ease-out;
+	color: #4c4cff;
+}
+
+.link:hover {
+	opacity: .6;
+}

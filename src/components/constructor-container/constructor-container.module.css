@@ -20,12 +20,12 @@
 
 .ingredientList::-webkit-scrollbar {
 	width: 8px;
-	background-color: #2F2F37;
+	background-color: #2f2f37;
 }
 
 .ingredientList::-webkit-scrollbar-thumb {
-	background-color: #8585AD;
-	border: 3px solid #8585AD;
+	background-color: #8585ad;
+	border: 3px solid #8585ad;
 }
 
 .emptyContainer {
@@ -40,5 +40,5 @@
 
 .markedContainer {
 
-	border: 1px #7B61FF dashed;
+	border: 1px #7b61ff dashed;
 }
