@@ -1,8 +1,11 @@
-import FeedOrderDetails from '../../components/feed-order-details/feed-order-details';
+import OrderFullInfo from '../../components/order-full-info/order-full-info';
+import styles from './feed-details.module.css'
 
 const FeedDetailsPage = () => {
 	return (
-		<FeedOrderDetails />
+		<main className={styles.main}>
+			<OrderFullInfo />
+		</main>
 	)
 }
 

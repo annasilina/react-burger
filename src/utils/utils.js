@@ -14,7 +14,7 @@ export const calcOrderCost = (bun, other) => {
 	Object.keys(bun).length === 0 ? (bunCost = 0) : (bunCost = bun.price * 2);
 	const otherCost = other.length === 0
 		? 0
-		: other.reduce((previousValue, currentValue) => previousValue + currentValue.price, 0);
+		: other.reduce((previousValue, currentValue) => previousValue + (currentValue.price * currentValue.count), 0);
 
 	return bunCost + otherCost;
 };
@@ -24,7 +24,7 @@ export const getFullIngredientsInfo = (ingredientsList, orderIngredients) => {
 		.map((ingredient) => {
 			return (ingredient = ingredientsList.filter(({ _id}) => ingredient.includes(_id)))[0]
 		}).map((ingredient) => {
-			return {...ingredient, uniqID: uuid()}
+			return {...ingredient, uniqID: uuid(), count: 1};
 		})
 }
 

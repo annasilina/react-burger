@@ -13,14 +13,6 @@ const FeedCard = ({order}) => {
 	const maxVisibleQty = 6;
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
 
-	// const ingredientsInOrder = order.ingredients
-	// 	.map((ingredient) => {
-	// 		return (ingredient = allIngredientsList.filter(({ _id }) => ingredient.includes(_id)))[0]
-	// 	})
-	// 	.map((ingredient) => {
-	// 		return {...ingredient, uniqId: uuid()}
-	// 	})
-
 	const ingredientsInOrder = getFullIngredientsInfo(allIngredientsList, order.ingredients);
 
 	const bunInOrder = ingredientsInOrder.filter(ingredient => ingredient.type === 'bun')[0];
