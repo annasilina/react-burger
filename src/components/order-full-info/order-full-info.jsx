@@ -1,7 +1,7 @@
 import {useParams} from 'react-router-dom';
 import {ordersFeed} from '../../utils/constants';
 import {useSelector} from 'react-redux';
-import {calcOrderCost, getFormatDate, getFullIngredientsInfo} from '../../utils/utils';
+import {calcOrderCost, getFormatDate, getFullIngredientsInfo, getOrderStatus} from '../../utils/utils';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
 
@@ -30,7 +30,11 @@ const OrderFullInfo = () => {
 		<>
 			<p className={`${styles.number} text text_type_digits-default`}>{`#0${currentOrder.number}`}</p>
 			<h2 className='text text_type_main-medium pt-10 pb-3'>{ingredientsInOrder[2].name}</h2>
-			<span className='text text_type_main-small text_color_success pb-15'>Выполнен</span>
+			<p
+				className={`${currentOrder.status === 'done' ? styles.done : ''} 
+				text text_type_main-small pb-15`}>
+				{getOrderStatus(currentOrder.status)}
+			</p>
 			<h3 className='text text_type_main-medium pb-6'>Состав:</h3>
 			<ul className={`${styles.list}`}>
 				{ingredientsWithCount.map(ingredient => (

@@ -50,7 +50,7 @@ export const ordersFeed = {
 				'60d3b41abdacab0026a733cb',
 			],
 			_id: "2",
-			status: "done",
+			status: "pending",
 			number: "35445",
 			createdAt: "2022-09-23T14:44:22.587Z",
 			updatedAt: "2022-09-23T14:44:22.603Z"
@@ -117,7 +117,7 @@ export const ordersFeed = {
 				'60d3b41abdacab0026a733d3',
 			],
 			_id: "6",
-			status: "done",
+			status: "pending",
 			number: "35449",
 			createdAt: "2022-09-19T14:48:22.587Z",
 			updatedAt: "2022-09-19T14:48:22.603Z"
@@ -129,8 +129,8 @@ export const ordersFeed = {
 
 // тестовый объект для сборки экрана готовности заказов
 export const ordersBoard = {
-	orders_done: [35448, 35445, 35446, 35447, 35448, 35449],
-	orders_in_pro: [35448, 35445, 35446, 35447, 35448, 35449],
+	orders_done: [35448, 35445, 35446, 35447, 35448, 35449, 35448, 35445, 35446, 35447, 35448, 35449],
+	orders_pending: [35445, 35449],
 	total_orders: [28752],
 	total_today_orders: [6]
 }

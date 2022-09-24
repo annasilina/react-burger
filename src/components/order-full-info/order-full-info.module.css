@@ -59,3 +59,7 @@
 	box-sizing: border-box;
 	background: black;
 }
+
+.done {
+	color: #00cccc;
+}

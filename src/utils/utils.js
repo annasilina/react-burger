@@ -51,3 +51,19 @@ export const getFormatDate = (dateString) => {
 
 	return `${weekDay}, ${dateTime} i-GMT+${dateTimeZone}`;
 }
+
+export const getOrderStatus = (orderStatus) => {
+	switch (orderStatus) {
+		case 'done': {
+			return 'Выполнен'
+		}
+		case 'pending': {
+			return 'Готовится'
+		}
+		case 'created': {
+			return 'Создан'
+		}
+		default:
+			return ;
+	}
+}
