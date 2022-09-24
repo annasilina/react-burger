@@ -29,7 +29,7 @@ const ProfileMenu = () => {
 				</li>
 				<li>
 					<NavLink
-						to={links.userOrdersFeed}
+						to={links.userOrdersHistory}
 						exact={true}
 						className={`${styles.menuLink} text text_type_main-medium`}
 						activeClassName={styles.menuLinkActive}

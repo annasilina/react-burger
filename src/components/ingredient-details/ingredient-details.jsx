@@ -14,7 +14,7 @@ const IngredientDetails = () => {
 	return (
 		<>
 			<img
-				src={ingredient.image}
+				src={ingredient.image_large}
 				alt={ingredient.name}
 				className={`${styles.itemImage}`}
 			/>

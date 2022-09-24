@@ -6,8 +6,11 @@ import FeedIngredientImage from './feed-ingredient-image';
 import {useSelector} from 'react-redux';
 import {v4 as uuid} from 'uuid';
 import {calcOrderCost, getFormatDate} from '../../utils/utils';
+import {Link, useLocation} from 'react-router-dom';
+
 
 const FeedCard = ({order}) => {
+	// const location = useLocation();
 	const maxVisibleQty = 6;
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
 
@@ -24,12 +27,16 @@ const FeedCard = ({order}) => {
 
 	return (
 			<li className={styles.card}>
-				<div className={styles.orderInfo}>
+				<Link to={{
+					pathname: `/feed/${order._id}`,
+					/*state: {background: location},*/
+				}}>
+					<div className={styles.orderInfo}>
 					<h2 className='text text_type_digits-default'>{`#${order.number}`}</h2>
 					<p className='text text_type_main-default text_color_inactive'>{`${getFormatDate(order.createdAt)}`}</p>
 				</div>
-				<h3 className='text text_type_main-medium'>{ingredientsInOrder[2].name}</h3>
-				<div className={styles.orderItems}>
+					<h3 className='text text_type_main-medium'>{ingredientsInOrder[2].name}</h3>
+					<div className={styles.orderItems}>
 					<ul className={styles.imageList}>
 						{ingredientsInOrder.map((ingredient, index) => (
 							<FeedIngredientImage
@@ -47,6 +54,7 @@ const FeedCard = ({order}) => {
 						<CurrencyIcon type='primary'/>
 					</div>
 				</div>
+				</Link>
 			</li>
 	)
 }

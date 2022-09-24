@@ -29,7 +29,6 @@ const AppHeader = () => {
 						<li>
 							<NavLink
 								to={links.ordersFeed}
-								exact={true}
 								className={`${styles.menuLink} text text_type_main-default pl-2 pt-4 pb-4 pr-5`}
 								activeClassName={styles.menuLinkActive}
 							>

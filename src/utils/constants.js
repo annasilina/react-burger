@@ -9,7 +9,7 @@ export const links = {
 	ingredient: '/ingredients/:id',
 	ordersFeed: '/feed',
 	order: '/feed/:id',
-	userOrdersFeed: '/profile/orders',
+	userOrdersHistory: '/profile/orders',
 	userOrder: '/profile/orders/:id',
 };
 

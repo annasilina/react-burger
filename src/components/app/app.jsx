@@ -20,6 +20,7 @@ import {getUser} from '../../services/actions/auth';
 import {getCookie} from '../../utils/cookie';
 import Preloader from '../preloader/preloader';
 import FeedPage from '../../pages/feed/feed';
+import FeedDetailsPage from '../../pages/feed-details/feed-details';
 
 const App = () => {
 	const refreshToken = getCookie('refreshToken');
@@ -70,15 +71,18 @@ const App = () => {
 					<Route path={links.ingredient}>
 						<IngredientsPage/>
 					</Route>
-					<Route path={links.ordersFeed}>
-						<FeedPage></FeedPage>
+					<Route path={links.ordersFeed} exact>
+						<FeedPage />
+					</Route>
+					<Route path={links.order} exact>
+						<FeedDetailsPage />
 					</Route>
 					<Route>
 						<Page404/>
 					</Route>
 				</Switch>
 				{background && (
-					<Route path={`${links.ingredients}/:id`}>
+					<Route path={links.ingredient}>
 						<Modal title='Детали ингредиента' handleClose={handleClose}>
 							<IngredientDetails/>
 						</Modal>
