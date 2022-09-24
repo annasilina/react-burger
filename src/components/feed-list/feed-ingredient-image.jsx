@@ -9,7 +9,7 @@ const FeedIngredientImage = (props) => {
 	return (
 		<li className={styles.imagePreviewWrapper} style={{zIndex: maxVisibleQty - index}}>
 			{lastIngredients !== 0 && maxVisibleQty === index + 1 && (
-				<p className="text text_type_main-default" style={{ zIndex: "3" }}>
+				<p className="text text_type_main-default" style={{ zIndex: "2" }}>
 					{`+${lastIngredients}`}
 				</p>
 			)}
@@ -17,7 +17,10 @@ const FeedIngredientImage = (props) => {
 				src={ingredient.image_mobile}
 				alt={ingredient.name}
 				className={styles.imagePreview}
-				style={{ opacity: (lastIngredients !== 0 && maxVisibleQty === index + 1) || count > 1 ? "0.6" : "1", zIndex: "1" }}
+				style={{
+					opacity: (lastIngredients !== 0 && maxVisibleQty === index + 1) || count > 1 ? "0.6" : "1",
+					zIndex: "1"
+			}}
 			/>
 		</li>
 	)
