@@ -1,3 +1,5 @@
+import {v4 as uuid} from 'uuid';
+
 export const calcOrderCost = (bun, other) => {
 	let bunCost;
 
@@ -16,6 +18,15 @@ export const calcOrderCost = (bun, other) => {
 
 	return bunCost + otherCost;
 };
+
+export const getFullIngredientsInfo = (ingredientsList, orderIngredients) => {
+	return orderIngredients
+		.map((ingredient) => {
+			return (ingredient = ingredientsList.filter(({ _id}) => ingredient.includes(_id)))[0]
+		}).map((ingredient) => {
+			return {...ingredient, uniqID: uuid()}
+		})
+}
 
 export const getFormatDate = (dateString) => {
 	const dateData = new Date(Date.parse(dateString));

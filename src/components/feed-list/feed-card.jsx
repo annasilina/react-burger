@@ -4,8 +4,7 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import FeedIngredientImage from './feed-ingredient-image';
 import {useSelector} from 'react-redux';
-import {v4 as uuid} from 'uuid';
-import {calcOrderCost, getFormatDate} from '../../utils/utils';
+import {calcOrderCost, getFormatDate, getFullIngredientsInfo} from '../../utils/utils';
 import {Link, useLocation} from 'react-router-dom';
 
 
@@ -14,23 +13,26 @@ const FeedCard = ({order}) => {
 	const maxVisibleQty = 6;
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
 
-	const ingredientsInOrder = order.ingredients
-		.map((ingredient) => {
-			return (ingredient = allIngredientsList.filter(({ _id }) => ingredient.includes(_id)))[0]
-		})
-		.map((ingredient) => {
-			return {...ingredient, uniqId: uuid()}
-		})
+	// const ingredientsInOrder = order.ingredients
+	// 	.map((ingredient) => {
+	// 		return (ingredient = allIngredientsList.filter(({ _id }) => ingredient.includes(_id)))[0]
+	// 	})
+	// 	.map((ingredient) => {
+	// 		return {...ingredient, uniqId: uuid()}
+	// 	})
+
+	const ingredientsInOrder = getFullIngredientsInfo(allIngredientsList, order.ingredients);
 
 	const bunInOrder = ingredientsInOrder.filter(ingredient => ingredient.type === 'bun')[0];
 	const otherIngredients = ingredientsInOrder.filter(ingredient => ingredient.type !== 'bun');
 
 	return (
-			<li className={styles.card}>
+			<li>
 				<Link to={{
 					pathname: `/feed/${order._id}`,
 					/*state: {background: location},*/
-				}}>
+				}} className={styles.link}
+				>
 					<div className={styles.orderInfo}>
 					<h2 className='text text_type_digits-default'>{`#${order.number}`}</h2>
 					<p className='text text_type_main-default text_color_inactive'>{`${getFormatDate(order.createdAt)}`}</p>
@@ -44,7 +46,7 @@ const FeedCard = ({order}) => {
 								index={index}
 								totalQty={ingredientsInOrder.length}
 								maxVisibleQty={maxVisibleQty}
-								key={ingredient.uniqId}
+								key={ingredient.uniqID}
 							/>
 							)).slice(0, maxVisibleQty)
 						}
