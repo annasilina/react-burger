@@ -5,12 +5,12 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import FeedIngredientImage from './feed-ingredient-image';
 import {useSelector} from 'react-redux';
 import {calcOrderCost, getFormatDate, getFullIngredientsInfo, getOrderStatus} from '../../utils/utils';
-import {Link, useLocation} from 'react-router-dom';
-import {links} from '../../utils/constants';
-
+import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 
 const FeedCard = ({order}) => {
 	const location = useLocation();
+	const match = useRouteMatch();
+	console.log(match.path);
 	const maxVisibleQty = 6;
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
 
@@ -22,16 +22,17 @@ const FeedCard = ({order}) => {
 	return (
 			<li>
 				<Link to={{
-					pathname: `/feed/${order._id}`,
-					state: {background: location},
-				}} className={styles.link}
+					pathname: `${match.path}/${order._id}`,
+					state: {background: location}
+				}}
+							className={styles.link}
 				>
 					<div className={styles.orderInfo}>
 						<h2 className='text text_type_digits-default'>{`#${order.number}`}</h2>
 						<p className='text text_type_main-default text_color_inactive'>{`${getFormatDate(order.createdAt)}`}</p>
 					</div>
 					<h3 className='text text_type_main-medium pt-6'>{ingredientsInOrder[2].name}</h3>
-					{location.pathname === links.userOrdersHistory &&
+					{match.path.includes('profile') &&
 						<p
 							className={`${order.status === 'done' ? styles.done : ''}
 							text text_type_main-small pt-2`}

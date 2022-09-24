@@ -28,6 +28,7 @@ const Login = () => {
 			email: '',
 			password: '',
 		});
+		localStorage.clear();
 	};
 
 	return (

@@ -8,7 +8,7 @@ import {getCookie} from '../../utils/cookie';
 
 const ProfileMenu = () => {
 	const dispatch = useDispatch();
-	const location = useLocation()
+	const location = useLocation();
 
 	const handleLogout = (evt) => {
 		evt.preventDefault();
@@ -30,7 +30,7 @@ const ProfileMenu = () => {
 				</li>
 				<li>
 					<NavLink
-						to={links.userOrdersHistory}
+						to={links.profileOrders}
 						exact={true}
 						className={`${styles.menuLink} text text_type_main-medium`}
 						activeClassName={styles.menuLinkActive}
@@ -52,7 +52,7 @@ const ProfileMenu = () => {
 					В этом разделе вы можете изменить свои персональные данные
 				</p>
 			}
-			{location.pathname === links.userOrdersHistory &&
+			{location.pathname.includes(links.profileOrders) &&
 				<p className='text text_type_main-default text_color_inactive pt-20'>
 					В этом разделе вы можете просмотреть свою историю заказов
 				</p>

@@ -4,12 +4,19 @@ import {useSelector} from 'react-redux';
 import {calcOrderCost, getFormatDate, getFullIngredientsInfo, getOrderStatus} from '../../utils/utils';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
+import {useMemo} from 'react';
 
 const OrderFullInfo = () => {
-	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
-	const {id} = useParams();
+	console.log('tick in order-info');
 
-	const currentOrder = ordersFeed.orders.find(order => order._id === id);
+	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
+	const orders = ordersFeed.orders;
+	const { id } = useParams();
+	console.log(id);
+	const currentOrder = useMemo(
+		() => orders.find(order => order._id === id),
+		[orders, id]
+	);
 	const ingredientsInOrder = getFullIngredientsInfo(allIngredientsList, currentOrder.ingredients);
 
 	let ingredientsObj = {};

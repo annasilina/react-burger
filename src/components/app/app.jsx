@@ -54,6 +54,9 @@ const App = () => {
 					<Route path={links.home} exact={true}>
 						<Home/>
 					</Route>
+					<ProtectedRoute path='/profile/orders/:id' anonymReject={true} >
+						<FeedDetailsPage />
+					</ProtectedRoute>
 					<ProtectedRoute path={links.profile} anonymReject={true}>
 						<Profile/>
 					</ProtectedRoute>
@@ -72,10 +75,10 @@ const App = () => {
 					<Route path={links.ingredient}>
 						<IngredientsPage/>
 					</Route>
-					<Route path={links.ordersFeed} exact>
+					<Route path={links.feedOrders} exact>
 						<FeedPage />
 					</Route>
-					<Route path={links.order} exact>
+					<Route path={links.feedOrderInfo} exact>
 						<FeedDetailsPage />
 					</Route>
 					<Route>
@@ -89,7 +92,12 @@ const App = () => {
 								<IngredientDetails/>
 							</Modal>
 						</Route>
-						<Route path={links.order}>
+						<Route path={links.feedOrderInfo}>
+							<Modal title='' handleClose={handleClose}>
+								<OrderFullInfo/>
+							</Modal>
+						</Route>
+						<Route path={links.profileOrderInfo}>
 							<Modal title='' handleClose={handleClose}>
 								<OrderFullInfo/>
 							</Modal>

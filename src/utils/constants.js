@@ -7,10 +7,10 @@ export const links = {
 	resetPassword: '/reset-password',
 	ingredients: '/ingredients',
 	ingredient: '/ingredients/:id',
-	ordersFeed: '/feed',
-	order: '/feed/:id',
-	userOrdersHistory: '/profile/orders',
-	userOrder: '/profile/orders/:id',
+	feedOrders: '/feed',
+	feedOrderInfo: '/feed/:id',
+	profileOrders: '/profile/orders',
+	profileOrderInfo: '/profile/orders/:id',
 };
 
 export const errors = {
