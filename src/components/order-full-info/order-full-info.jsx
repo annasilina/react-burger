@@ -27,7 +27,7 @@ const OrderFullInfo = () => {
 	const otherIngredients = ingredientsWithCount.filter(ingredient => ingredient.type !== 'bun');
 
 	return (
-		<>
+		<main className={styles.container}>
 			<p className={`${styles.number} text text_type_digits-default`}>{`#0${currentOrder.number}`}</p>
 			<h2 className='text text_type_main-medium pt-10 pb-3'>{ingredientsInOrder[2].name}</h2>
 			<p
@@ -61,7 +61,7 @@ const OrderFullInfo = () => {
 					<CurrencyIcon type='primary' />
 				</div>
 			</div>
-		</>
+		</main>
 	)
 }
 

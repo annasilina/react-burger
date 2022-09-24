@@ -9,7 +9,7 @@ import {Link, useLocation} from 'react-router-dom';
 
 
 const FeedCard = ({order}) => {
-	// const location = useLocation();
+	const location = useLocation();
 	const maxVisibleQty = 6;
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
 
@@ -22,7 +22,7 @@ const FeedCard = ({order}) => {
 			<li>
 				<Link to={{
 					pathname: `/feed/${order._id}`,
-					/*state: {background: location},*/
+					state: {background: location},
 				}} className={styles.link}
 				>
 					<div className={styles.orderInfo}>

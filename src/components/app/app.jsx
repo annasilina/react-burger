@@ -21,6 +21,7 @@ import {getCookie} from '../../utils/cookie';
 import Preloader from '../preloader/preloader';
 import FeedPage from '../../pages/feed/feed';
 import FeedDetailsPage from '../../pages/feed-details/feed-details';
+import OrderFullInfo from '../order-full-info/order-full-info';
 
 const App = () => {
 	const refreshToken = getCookie('refreshToken');
@@ -82,11 +83,18 @@ const App = () => {
 					</Route>
 				</Switch>
 				{background && (
-					<Route path={links.ingredient}>
-						<Modal title='Детали ингредиента' handleClose={handleClose}>
-							<IngredientDetails/>
-						</Modal>
-					</Route>
+					<>
+						<Route path={links.ingredient}>
+							<Modal title='Детали ингредиента' handleClose={handleClose}>
+								<IngredientDetails/>
+							</Modal>
+						</Route>
+						<Route path={links.order}>
+							<Modal title='' handleClose={handleClose}>
+								<OrderFullInfo/>
+							</Modal>
+						</Route>
+					</>
 				)}
 			</>
 		)),
