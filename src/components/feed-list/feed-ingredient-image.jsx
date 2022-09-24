@@ -18,7 +18,7 @@ const FeedIngredientImage = (props) => {
 				alt={ingredient.name}
 				className={styles.imagePreview}
 				style={{
-					opacity: (lastIngredients !== 0 && maxVisibleQty === index + 1) || count > 1 ? "0.6" : "1",
+					opacity: (lastIngredients !== 0 && maxVisibleQty === index + 1) || count > 1 ? "0.3" : "1",
 					zIndex: "1"
 			}}
 			/>
