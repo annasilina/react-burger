@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Preloader from '../../components/preloader/preloader';
 import {useEffect} from 'react';
 import {getIngredients} from '../../services/actions/burger-ingredients';
+import FeedBoard from '../../components/feed-board/feed-board';
 
 const FeedPage = () => {
 	const ingredientsData = useSelector(state =>  state.ingredientsData);
@@ -14,9 +15,16 @@ const FeedPage = () => {
 	}, [])
 
 	return (
-		<section className={styles.container}>
-			{ingredientsData.ingredientsIsLoading ? <Preloader /> : <FeedList />}
-		</section>
+		{...ingredientsData.ingredientsIsLoading ? <Preloader />
+				:
+				<section className={styles.main}>
+					<h1 className='text text_type_main-large pt-10 pb-5'>Лента заказов</h1>
+					<section className={styles.container} >
+						<FeedList />
+						<FeedBoard />
+					</section>
+				</section>
+		}
 	)
 }
 
