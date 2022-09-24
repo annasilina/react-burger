@@ -5,7 +5,7 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import FeedIngredientImage from './feed-ingredient-image';
 import {useSelector} from 'react-redux';
 import {v4 as uuid} from 'uuid';
-import {calcOrderCost} from '../../utils/utils';
+import {calcOrderCost, getFormatDate} from '../../utils/utils';
 
 const FeedCard = ({order}) => {
 	const maxVisibleQty = 6;
@@ -26,7 +26,7 @@ const FeedCard = ({order}) => {
 			<li className={styles.card}>
 				<div className={styles.orderInfo}>
 					<h2 className='text text_type_digits-default'>{`#${order.number}`}</h2>
-					<p className='text text_type_main-default text_color_inactive'>{order.createdAt}</p>
+					<p className='text text_type_main-default text_color_inactive'>{`${getFormatDate(order.createdAt)}`}</p>
 				</div>
 				<h3 className='text text_type_main-medium'>{ingredientsInOrder[2].name}</h3>
 				<div className={styles.orderItems}>

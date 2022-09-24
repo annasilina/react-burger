@@ -4,6 +4,7 @@ import {ordersFeed} from '../../utils/constants';
 
 const FeedList = () => {
 	const orders = ordersFeed.orders;
+	console.log('tick')
 	return (
 		<section>
 			<h1 className='text text_type_main-large pt-10 pb-5'>Лента заказов</h1>
