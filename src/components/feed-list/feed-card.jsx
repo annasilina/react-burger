@@ -4,8 +4,9 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import FeedIngredientImage from './feed-ingredient-image';
 import {useSelector} from 'react-redux';
-import {calcOrderCost, getFormatDate, getFullIngredientsInfo} from '../../utils/utils';
+import {calcOrderCost, getFormatDate, getFullIngredientsInfo, getOrderStatus} from '../../utils/utils';
 import {Link, useLocation} from 'react-router-dom';
+import {links} from '../../utils/constants';
 
 
 const FeedCard = ({order}) => {
@@ -26,10 +27,18 @@ const FeedCard = ({order}) => {
 				}} className={styles.link}
 				>
 					<div className={styles.orderInfo}>
-					<h2 className='text text_type_digits-default'>{`#${order.number}`}</h2>
-					<p className='text text_type_main-default text_color_inactive'>{`${getFormatDate(order.createdAt)}`}</p>
-				</div>
-					<h3 className='text text_type_main-medium'>{ingredientsInOrder[2].name}</h3>
+						<h2 className='text text_type_digits-default'>{`#${order.number}`}</h2>
+						<p className='text text_type_main-default text_color_inactive'>{`${getFormatDate(order.createdAt)}`}</p>
+					</div>
+					<h3 className='text text_type_main-medium pt-6'>{ingredientsInOrder[2].name}</h3>
+					{location.pathname === links.userOrdersHistory &&
+						<p
+							className={`${order.status === 'done' ? styles.done : ''}
+							text text_type_main-small pt-2`}
+						>
+							{getOrderStatus(order.status)}
+						</p>
+					}
 					<div className={styles.orderItems}>
 					<ul className={styles.imageList}>
 						{ingredientsInOrder.map((ingredient, index) => (

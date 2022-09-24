@@ -22,17 +22,17 @@
 	margin: 0 8px 0 0;
 	display: flex;
 	flex-direction: column;
+	justify-items: center;
 	gap: 16px;
 }
 
 /*карточка заказа в списке*/
-
 .link {
 	text-decoration: none;
 	color: inherit;
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	/*gap: 24px;*/
 	padding: 24px;
 	margin: 0;
 	background-color: #1C1C21;
@@ -45,8 +45,8 @@
 	opacity: .4;
 }
 
-.card {
-
+.done {
+	color: #00cccc;
 }
 
 .orderInfo {
@@ -58,7 +58,7 @@
 }
 
 .orderItems {
-	padding: 0;
+	padding: 24px 0 0 0;
 	margin: 0;
 	display: flex;
 	align-items: center;

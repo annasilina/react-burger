@@ -54,7 +54,7 @@ const App = () => {
 					<Route path={links.home} exact={true}>
 						<Home/>
 					</Route>
-					<ProtectedRoute path={links.profile} anonymReject={true} exact>
+					<ProtectedRoute path={links.profile} anonymReject={true}>
 						<Profile/>
 					</ProtectedRoute>
 					<ProtectedRoute path={links.login} anonymReject={false}>
