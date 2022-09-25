@@ -11,7 +11,6 @@ import {rootReducer} from "./services/reducers";
 
 // @ts-ignore
 import { HashRouter, BrowserRouter } from "react-router-dom";
-/*import {BrowserRouter as Router} from "react-router-dom";*/
 
 declare global {
 	interface Window {
