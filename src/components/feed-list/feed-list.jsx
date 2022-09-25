@@ -2,7 +2,6 @@ import FeedCard from './feed-card';
 import styles from './feed-list.module.css'
 
 const FeedList = ({orders}) => {
-	console.log('tick')
 	return (
 		<section>
 			<div className={styles.container}>

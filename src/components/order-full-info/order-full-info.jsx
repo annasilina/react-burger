@@ -1,38 +1,33 @@
-import {useParams} from 'react-router-dom';
+import {useParams, useRouteMatch} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {calcOrderCost, getFormatDate, getFullIngredientsInfo, getOrderStatus} from '../../utils/utils';
+import {
+	calcOrderCost,
+	getFormatDate,
+	getFullIngredientsWithCount,
+	getOrderStatus
+} from '../../utils/utils';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
 import {useMemo} from 'react';
+import {links} from '../../utils/constants';
 
 const OrderFullInfo = () => {
-	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
-	const orders = useSelector(state => state.wsData.orders);
+	const match = useRouteMatch();
 	const { id } = useParams();
-	console.log(id);
+
+	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
+	const ordersAll = useSelector(state => state.wsData.orders);
+	const ordersProfile = useSelector(state => state.wsData.ordersAuth);
+	const orders = match.path === links.feedOrderInfo ? ordersAll : ordersProfile
 
 	const currentOrder = useMemo(
 		() => orders.find(order => order._id === id),
 		[orders, id]
 	);
 
-	console.log(currentOrder);
 	const currentIngredients = currentOrder.ingredients;
-	console.log(currentIngredients);
 
-	const ingredientsInOrder = getFullIngredientsInfo(allIngredientsList, currentOrder.ingredients);
-
-	let ingredientsObj = {};
-
-	ingredientsInOrder.forEach(ingredient => {
-		if (ingredientsObj[ingredient._id] === undefined) {
-			ingredientsObj[ingredient._id] = ingredient
-		} else {
-			ingredientsObj[ingredient._id].count++;
-		}
-	})
-
-	const ingredientsWithCount = Object.values(ingredientsObj);
+	const ingredientsWithCount = getFullIngredientsWithCount(allIngredientsList, currentIngredients)
 	const bunInOrder = ingredientsWithCount.filter(ingredient => ingredient.type === 'bun')[0];
 	const otherIngredients = ingredientsWithCount.filter(ingredient => ingredient.type !== 'bun');
 

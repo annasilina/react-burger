@@ -55,7 +55,7 @@ const App = () => {
 						<Home/>
 					</Route>
 					<ProtectedRoute path='/profile/orders/:id' anonymReject={true} >
-						<FeedDetailsPage />
+						<FeedDetailsPage wsAuth={true}/>
 					</ProtectedRoute>
 					<ProtectedRoute path={links.profile} anonymReject={true}>
 						<Profile/>
@@ -79,7 +79,7 @@ const App = () => {
 						<FeedPage />
 					</Route>
 					<Route path={links.feedOrderInfo} exact>
-						<FeedDetailsPage />
+						<FeedDetailsPage wsAuth={false}/>
 					</Route>
 					<Route>
 						<Page404/>

@@ -28,6 +28,22 @@ export const getFullIngredientsInfo = (ingredientsList, orderIngredients) => {
 		})
 }
 
+export const getFullIngredientsWithCount = (ingredientsList, orderIngredients) => {
+	const items = getFullIngredientsInfo(ingredientsList, orderIngredients)
+
+	let ingredientsObj = {};
+
+	items.forEach(ingredient => {
+		if (ingredientsObj[ingredient._id] === undefined) {
+			ingredientsObj[ingredient._id] = ingredient
+		} else {
+			ingredientsObj[ingredient._id].count++;
+		}
+	})
+
+	return Object.values(ingredientsObj);
+}
+
 export const getFormatDate = (dateString) => {
 	const dateData = new Date(Date.parse(dateString));
 	const dateTime = dateData.toLocaleTimeString().slice(0, 5);

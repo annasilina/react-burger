@@ -10,7 +10,6 @@ import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 const FeedCard = ({order}) => {
 	const location = useLocation();
 	const match = useRouteMatch();
-	console.log(match.path);
 	const maxVisibleQty = 6;
 
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
