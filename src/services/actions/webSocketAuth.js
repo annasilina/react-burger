@@ -6,7 +6,7 @@ export const WS_GET_MESSAGE_AUTH = 'WS_GET_MESSAGE_AUTH';
 export const WS_SEND_MESSAGE_AUTH = 'WS_SEND_MESSAGE_AUTH';
 
 
-export const wcConnectionStartAuth = () => {
+export const wsConnectionStartAuth = () => {
 	return {
 		type: WS_CONNECTION_START_AUTH
 	}
@@ -39,7 +39,7 @@ export const wsSendMessageAuth = (message) => {
 	}
 }
 
-export const wcConnectionCloseAuth = () => {
+export const wsConnectionCloseAuth = () => {
 	return {
 		type: WS_CONNECTION_CLOSED_AUTH
 	}

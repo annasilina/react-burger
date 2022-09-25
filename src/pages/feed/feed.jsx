@@ -7,7 +7,7 @@ import FeedBoard from '../../components/feed-board/feed-board';
 import {wsConnectionClose, wsConnectionStart} from '../../services/actions/webSocket';
 
 const FeedPage = () => {
-	const orderData = useSelector(state => state.wsData);
+	const feedData = useSelector(state => state.wsData);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -18,14 +18,14 @@ const FeedPage = () => {
 		}
 	}, [dispatch])
 
-	return orderData.orders.length === 0 ? (
+	return feedData.orders.length === 0 ? (
 		<Preloader type='loader' />
 		) : (
 		<>
 			<section className={styles.main}>
 				<h1 className='text text_type_main-large pt-10 pb-5'>Лента заказов</h1>
 				<section className={styles.container} >
-					<FeedList orders={orderData.orders} />
+					<FeedList orders={feedData.orders} />
 					<FeedBoard />
 				</section>
 			</section>

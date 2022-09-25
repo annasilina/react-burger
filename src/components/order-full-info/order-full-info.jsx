@@ -1,4 +1,4 @@
-import {useParams, useRouteMatch} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {
 	calcOrderCost,
@@ -8,22 +8,18 @@ import {
 } from '../../utils/utils';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
-import {useMemo} from 'react';
-import {links} from '../../utils/constants';
 
-const OrderFullInfo = () => {
-	const match = useRouteMatch();
+const OrderFullInfo = (props) => {
 	const { id } = useParams();
+	const { wsAuth } = props;
 
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
-	const ordersAll = useSelector(state => state.wsData.orders);
-	const ordersProfile = useSelector(state => state.wsData.ordersAuth);
-	const orders = match.path === links.feedOrderInfo ? ordersAll : ordersProfile
+	const feedData = useSelector((store) => store.wsData)
+	const feedAuthData = useSelector((store) => store.wsAuthData)
+	const data = wsAuth ? feedAuthData : feedData;
 
-	const currentOrder = useMemo(
-		() => orders.find(order => order._id === id),
-		[orders, id]
-	);
+	const orders = data.orders;
+	const currentOrder = orders.filter(Boolean).find(order => order._id === id);
 
 	const currentIngredients = currentOrder.ingredients;
 

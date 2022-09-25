@@ -78,7 +78,7 @@ const App = () => {
 					<Route path={links.feedOrders} exact>
 						<FeedPage />
 					</Route>
-					<Route path={links.feedOrderInfo} exact>
+					<Route path={links.feedOrderInfo}>
 						<FeedDetailsPage wsAuth={false}/>
 					</Route>
 					<Route>
@@ -94,12 +94,12 @@ const App = () => {
 						</Route>
 						<Route path={links.feedOrderInfo}>
 							<Modal title='' handleClose={handleClose}>
-								<OrderFullInfo/>
+								<OrderFullInfo wsAuth={false}/>
 							</Modal>
 						</Route>
 						<Route path={links.profileOrderInfo}>
 							<Modal title='' handleClose={handleClose}>
-								<OrderFullInfo/>
+								<OrderFullInfo wsAuth={true}/>
 							</Modal>
 						</Route>
 					</>
