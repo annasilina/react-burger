@@ -20,3 +20,13 @@
 	max-width: 100px;
 	margin: 50px auto 0;
 }
+
+.link {
+	text-decoration: none;
+	transition: opacity .4s ease-out;
+	color: #4c4cff;
+}
+
+.link:hover {
+	opacity: .6;
+}

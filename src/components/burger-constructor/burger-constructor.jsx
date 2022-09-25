@@ -29,9 +29,14 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 			}, 0);
 	}, [bunSelected, ingredientsSelected]);
 
+/*	const orderCost = useMemo(() => {
+		calcOrderCost(bunSelected, ingredientsSelected)
+	}, [calcOrderCost, bunSelected, ingredientsSelected])*/
+
 	const handleButtonClick = () => {
 		if (refreshToken) {
-			setModalVisibility(ingredientsSelected);
+			const allIngredients = ingredientsSelected.concat(bunSelected);
+			setModalVisibility(allIngredients);
 		} else {
 			history.replace({
 				pathname: links.login,

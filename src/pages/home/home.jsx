@@ -36,6 +36,7 @@ const Home = () => {
 
 	const handleOrderDetailsOpen = useCallback(
 		(orderDetails) => {
+			console.log(orderDetails);
 			setIsOrderDetailsOpened(true);
 			dispatch(createOrder(orderDetails));
 		},
@@ -84,7 +85,7 @@ const Home = () => {
 					title=''
 					handleClose={handleCloseOrderModal}
 					{...(orderIsLoading
-						? {children: <Preloader/>, title: 'Загружаем заказ...'}
+						? {children: <Preloader type='loader'/>, title: 'Загружаем заказ...'}
 						: {
 							children: <OrderDetails orderID={orderNumber}/>,
 						})}

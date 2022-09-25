@@ -31,7 +31,7 @@ const FeedCard = ({order}) => {
 						<h2 className='text text_type_digits-default'>{`#${order.number}`}</h2>
 						<p className='text text_type_main-default text_color_inactive'>{`${getFormatDate(order.createdAt)}`}</p>
 					</div>
-					<h3 className='text text_type_main-medium pt-6'>{ingredientsInOrder[2].name}</h3>
+					<h3 className='text text_type_main-medium pt-6'>{order.name}</h3>
 					{match.path.includes('profile') &&
 						<p
 							className={`${order.status === 'done' ? styles.done : ''}
