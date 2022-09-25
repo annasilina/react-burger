@@ -18,7 +18,7 @@ const OrdersHistory = () => {
 		}
 	}, [dispatch])
 
-	return !feedAuthData.wsConnected ? (
+	return !feedAuthData.orders.length ? (
 	<Preloader type='loader' />
 	) : (
 		<>

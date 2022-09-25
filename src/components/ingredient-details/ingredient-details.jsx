@@ -3,15 +3,16 @@ import React from 'react';
 import styles from './ingredient-details.module.css';
 import {useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
+import Preloader from '../preloader/preloader';
 
 const IngredientDetails = () => {
 	const ingredients = useSelector((store) => store.ingredientsData.ingredients);
 	const {id} = useParams();
 	const ingredient = ingredients.find((item) => item._id === id);
 
-	if (!ingredient) return null;
-
-	return (
+	return !ingredients.length ? (
+		<Preloader type='preloader' />
+		) : (
 		<>
 			<img
 				src={ingredient.image_large}

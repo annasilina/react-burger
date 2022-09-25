@@ -24,14 +24,18 @@ import FeedDetailsPage from '../../pages/feed-details/feed-details';
 import OrderFullInfo from '../order-full-info/order-full-info';
 
 const App = () => {
-	const refreshToken = getCookie('refreshToken');
-	const authData = useSelector((state) => state.authData);
-	const dataAll = useSelector(state => state.wsData);
-	const dataAuth = useSelector(state => state.wsAuthData);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
+
+	const refreshToken = getCookie('refreshToken');
 	const background = location.state?.background;
+
+	const authData = useSelector((state) => state.authData);
+	const dataAll = useSelector(state => state.wsData);
+	const dataAuth = useSelector(state => state.wsAuthData);
+	const ingredientsData = useSelector(state => state.ingredientsData);
+
 
 	useEffect(() => {
 		dispatch(getIngredients());
@@ -89,11 +93,15 @@ const App = () => {
 				</Switch>
 				{background && (
 					<>
-						<Route path={links.ingredient}>
-							<Modal title='Детали ингредиента' handleClose={handleClose}>
-								<IngredientDetails/>
-							</Modal>
-						</Route>
+						{!ingredientsData.ingredients.length ? (
+							<div></div>
+						) : (
+							<Route path={links.ingredient}>
+								<Modal title='Детали ингредиента' handleClose={handleClose}>
+									<IngredientDetails/>
+								</Modal>
+							</Route>
+						)}
 						{!dataAll.orders.length ? (
 							<div></div>
 						) : (

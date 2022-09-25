@@ -2,7 +2,7 @@
 .container {
 	overflow-y: auto;
 	overflow-x: hidden;
-	max-height: calc(100vh - 200px);
+	max-height: calc(100vh - 220px);
 }
 
 .container::-webkit-scrollbar {
