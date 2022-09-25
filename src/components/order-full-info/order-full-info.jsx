@@ -45,7 +45,7 @@ const OrderFullInfo = (props) => {
 							alt={ingredient.name}
 							className={styles.image}
 						/>
-						<p className='text text_type_main-small'>{ingredient.name}</p>
+						<p className='text text_type_main-default'>{ingredient.name}</p>
 						<div className={`${styles.priceContainer}`}>
 							{ingredient.type === 'bun'
 								? <p className={`${styles.price} text text_type_digits-default pr-2`}>2 x {ingredient.price}</p>
