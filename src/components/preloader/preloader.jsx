@@ -3,7 +3,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {links} from '../../utils/constants';
 
-const Preloader = (type) => {
+const Preloader = (props) => {
+	const { type } = props;
 	if (type === 'loader') {
 		return (
 			<div className={`${styles.main}`}>
