@@ -1,5 +1,4 @@
 import {useParams} from 'react-router-dom';
-import {ordersFeed} from '../../utils/constants';
 import {useSelector} from 'react-redux';
 import {calcOrderCost, getFormatDate, getFullIngredientsInfo, getOrderStatus} from '../../utils/utils';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,16 +6,20 @@ import styles from './order-full-info.module.css'
 import {useMemo} from 'react';
 
 const OrderFullInfo = () => {
-	console.log('tick in order-info');
-
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
-	const orders = ordersFeed.orders;
+	const orders = useSelector(state => state.wsData.orders);
 	const { id } = useParams();
 	console.log(id);
+
 	const currentOrder = useMemo(
 		() => orders.find(order => order._id === id),
 		[orders, id]
 	);
+
+	console.log(currentOrder);
+	const currentIngredients = currentOrder.ingredients;
+	console.log(currentIngredients);
+
 	const ingredientsInOrder = getFullIngredientsInfo(allIngredientsList, currentOrder.ingredients);
 
 	let ingredientsObj = {};
@@ -36,7 +39,7 @@ const OrderFullInfo = () => {
 	return (
 		<main className={styles.container}>
 			<p className={`${styles.number} text text_type_digits-default`}>{`#0${currentOrder.number}`}</p>
-			<h2 className='text text_type_main-medium pt-10 pb-3'>{ingredientsInOrder[2].name}</h2>
+			<h2 className='text text_type_main-medium pt-10 pb-3'>{currentOrder.name}</h2>
 			<p
 				className={`${currentOrder.status === 'done' ? styles.done : ''} 
 				text text_type_main-small pb-15`}>

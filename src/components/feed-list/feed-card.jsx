@@ -12,10 +12,9 @@ const FeedCard = ({order}) => {
 	const match = useRouteMatch();
 	console.log(match.path);
 	const maxVisibleQty = 6;
+
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
-
 	const ingredientsInOrder = getFullIngredientsInfo(allIngredientsList, order.ingredients);
-
 	const bunInOrder = ingredientsInOrder.filter(ingredient => ingredient.type === 'bun')[0];
 	const otherIngredients = ingredientsInOrder.filter(ingredient => ingredient.type !== 'bun');
 
