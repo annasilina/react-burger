@@ -12,33 +12,6 @@ export const wsConnectionStartAuth = () => {
 	}
 }
 
-export const wsConnectionSuccessAuth = () => {
-	return {
-		type: WS_CONNECTION_SUCCESS_AUTH
-	}
-}
-
-export const wsConnectionErrorAuth = (err) => {
-	return {
-		type: WS_CONNECTION_ERROR_AUTH,
-		payload: err
-	}
-}
-
-export const wsGetMessageAuth = (message) => {
-	return {
-		type: WS_GET_MESSAGE_AUTH,
-		payload: message
-	}
-}
-
-export const wsSendMessageAuth = (message) => {
-	return {
-		type: WS_SEND_MESSAGE_AUTH,
-		payload: message
-	}
-}
-
 export const wsConnectionCloseAuth = () => {
 	return {
 		type: WS_CONNECTION_CLOSED_AUTH

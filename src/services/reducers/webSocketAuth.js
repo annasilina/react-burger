@@ -32,7 +32,7 @@ export const wsAuthReducer = (state = initialState, action) => {
 				...state,
 				error: undefined,
 				wsConnected: true,
-				ordersAuth: action.payload.orders,
+				ordersAuth: action.payload.orders.reverse()
 			}
 		}
 		case WS_CONNECTION_CLOSED_AUTH: {

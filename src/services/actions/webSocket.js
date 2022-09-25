@@ -11,33 +11,6 @@ export const wsConnectionStart = () => {
 	}
 }
 
-export const wsConnectionSuccess = () => {
-	return {
-		type: WS_CONNECTION_SUCCESS
-	}
-}
-
-export const wsConnectionError = (err) => {
-	return {
-		type: WS_CONNECTION_ERROR,
-		payload: err
-	}
-}
-
-export const wsGetMessage = (message) => {
-	return {
-		type: WS_GET_MESSAGE,
-		payload: message
-	}
-}
-
-export const wsSendMessage = (message) => {
-	return {
-		type: WS_SEND_MESSAGE,
-		payload: message
-	}
-}
-
 export const wsConnectionClose = () => {
 	return {
 		type: WS_CONNECTION_CLOSED
