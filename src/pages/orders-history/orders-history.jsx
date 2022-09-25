@@ -23,7 +23,7 @@ const OrdersHistory = () => {
 	) : (
 		<>
 			<section className={styles.container}>
-				<FeedList orders={feedAuthData.ordersAuth} />
+				<FeedList orders={feedAuthData.orders} />
 			</section>
 		</>
 	)

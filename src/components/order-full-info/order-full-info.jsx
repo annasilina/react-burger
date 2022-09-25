@@ -19,7 +19,7 @@ const OrderFullInfo = (props) => {
 	const data = wsAuth ? feedAuthData : feedData;
 
 	const orders = data.orders;
-	const currentOrder = orders.filter(Boolean).find(order => order._id === id);
+	const currentOrder = orders.find(order => order._id === id);
 
 	const currentIngredients = currentOrder.ingredients;
 

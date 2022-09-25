@@ -26,6 +26,8 @@ import OrderFullInfo from '../order-full-info/order-full-info';
 const App = () => {
 	const refreshToken = getCookie('refreshToken');
 	const authData = useSelector((state) => state.authData);
+	const dataAll = useSelector(state => state.wsData);
+	const dataAuth = useSelector(state => state.wsAuthData);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
@@ -38,7 +40,7 @@ const App = () => {
 		if (refreshToken) {
 			dispatch(getUser());
 		}
-	}, []);
+	}, [dispatch]);
 
 	const handleClose = () => {
 		history.goBack();
@@ -46,7 +48,7 @@ const App = () => {
 
 	return {
 		...(authData.isUserLoading ? (
-			<Preloader/>
+			<Preloader type='loader'/>
 		) : (
 			<>
 				<AppHeader/>
@@ -54,7 +56,7 @@ const App = () => {
 					<Route path={links.home} exact={true}>
 						<Home/>
 					</Route>
-					<ProtectedRoute path='/profile/orders/:id' anonymReject={true} >
+					<ProtectedRoute path={links.profileOrderInfo} anonymReject={true} >
 						<FeedDetailsPage wsAuth={true}/>
 					</ProtectedRoute>
 					<ProtectedRoute path={links.profile} anonymReject={true}>
@@ -92,16 +94,24 @@ const App = () => {
 								<IngredientDetails/>
 							</Modal>
 						</Route>
+						{!dataAll.orders.length ? (
+							<div></div>
+						) : (
 						<Route path={links.feedOrderInfo}>
 							<Modal title='' handleClose={handleClose}>
 								<OrderFullInfo wsAuth={false}/>
 							</Modal>
 						</Route>
-						<Route path={links.profileOrderInfo}>
+						)}
+						{!dataAuth.orders.length ? (
+							<div></div>
+						) : (
+							<Route path={links.profileOrderInfo}>
 							<Modal title='' handleClose={handleClose}>
 								<OrderFullInfo wsAuth={true}/>
 							</Modal>
 						</Route>
+						)}
 					</>
 				)}
 			</>

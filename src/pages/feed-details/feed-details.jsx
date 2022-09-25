@@ -7,8 +7,7 @@ import {wsConnectionCloseAuth, wsConnectionStartAuth} from '../../services/actio
 import Preloader from '../../components/preloader/preloader';
 
 const FeedDetailsPage = (props) => {
-	const { wsAuth } = props;
-	const ingredientsData = useSelector(state => state.ingredientsData);
+	const {wsAuth} = props;
 	const dataAll = useSelector(state => state.wsData);
 	const dataAuth = useSelector(state => state.wsAuthData);
 
@@ -19,16 +18,18 @@ const FeedDetailsPage = (props) => {
 	useEffect(() => {
 		dispatch(wsAuth ? wsConnectionStartAuth() : wsConnectionStart());
 
-		return () => {dispatch(wsAuth ? wsConnectionCloseAuth() : wsConnectionClose())}
-	},[])
+		return () => {
+			dispatch(wsAuth ? wsConnectionCloseAuth() : wsConnectionClose())
+		}
+	}, [dispatch])
 
-	return (
-		<>{!data.wsConnected && ingredientsData.ingredientsIsLoading && <Preloader type='loader' />}
-			{data.wsConnected && !data.error && !!data.orders.length && !ingredientsData.ingredientsIsLoading && (
-				<main className={styles.main}>
-					<OrderFullInfo wsAuth={wsAuth} data={data}/>
-				</main>
-			)}
+	return !data.orders.length ? (
+		<Preloader type='loader'/>
+	) : (
+		<>
+			<main className={styles.main}>
+				<OrderFullInfo wsAuth={wsAuth}/>
+			</main>
 		</>
 	)
 }
