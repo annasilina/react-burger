@@ -10,12 +10,15 @@ export const socketMiddleware = (wsUrl, wsActions, auth) => {
 			const { dispatch } = store;
 			const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 			const { type, payload } = action;
-			let isConnected = false;
 			let accessToken = getCookie('accessToken');
 			let refreshToken = getCookie('refreshToken');
+			let isConnected = false;
+			let reconnectTimer;
 
 			if (type === wsInit) {
-				socket = auth && accessToken ? new WebSocket(`${wsUrl}?token=${accessToken}`) : new WebSocket(wsUrl);
+				console.log('ws connecting')
+				socket = auth ? new WebSocket(`${wsUrl}?token=${accessToken}`) : new WebSocket(wsUrl);
+				isConnected = true;
 			}
 
 			if (socket) {
@@ -37,6 +40,15 @@ export const socketMiddleware = (wsUrl, wsActions, auth) => {
 
 				socket.onclose = event => {
 					dispatch({ type: onClose, payload: event });
+					if (isConnected) {
+						console.log('try to reconnect')
+						reconnectTimer = window.setTimeout(
+							() => {
+								dispatch({
+									type: wsInit
+								});
+							}, 2000);
+					}
 				};
 
 				if (type === wsSendMessage) {
@@ -53,6 +65,12 @@ export const socketMiddleware = (wsUrl, wsActions, auth) => {
 							dispatch({ type: wsInit})
 							console.log('token updated in webSocket');
 						})
+				}
+
+				if (onClose && type === onClose && socket) {
+					clearTimeout(reconnectTimer);
+					isConnected = false;
+					socket.close();
 				}
 			}
 
