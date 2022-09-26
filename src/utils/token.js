@@ -5,5 +5,5 @@ export const setTokenData = (data) => {
 	const refreshToken = data.refreshToken;
 
 	setCookie('refreshToken', refreshToken, {path: '/'});
-	setCookie('accessToken', accessToken, {expires: 300, path: '/'});
+	setCookie('accessToken', accessToken, {expires: 30, path: '/'});
 };
