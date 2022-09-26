@@ -1,0 +1,5 @@
+.container {
+	width: 840px;
+	grid-column-start: 2;
+	grid-column-end: -1;
+}

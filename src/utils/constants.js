@@ -1,14 +1,16 @@
 export const links = {
 	home: '/',
-	profile: '/profile',
+	profile: '/profile/',
 	login: '/login',
 	register: '/register',
 	forgotPassword: '/forgot-password',
 	resetPassword: '/reset-password',
 	ingredients: '/ingredients',
 	ingredient: '/ingredients/:id',
-	ordersFeed: '/feed',
-	userOrdersFeed: '/profile/orders',
+	feedOrders: '/feed',
+	feedOrderInfo: '/feed/:id',
+	profileOrders: '/profile/orders',
+	profileOrderInfo: '/profile/orders/:id',
 };
 
 export const errors = {

@@ -1,15 +1,24 @@
-import React from 'react';
 import styles from './profile.module.css';
 import ProfileMenu from '../../components/profile-menu/profile-menu';
 import ProfileForm from '../../components/profile-form/profile-form';
+import {Route, Switch} from 'react-router-dom';
+import OrdersHistory from '../orders-history/orders-history';
+import {links} from '../../utils/constants';
 
 const Profile = () => {
 	return (
-		<main className={styles.main}>
-			<ProfileMenu/>
-			<ProfileForm/>
-		</main>
-	);
+			<main className={styles.main}>
+				<ProfileMenu/>
+				<Switch>
+					<Route path={links.profile} exact>
+						<ProfileForm />
+					</Route>
+					<Route path='/profile/orders' exact>
+						<OrdersHistory />
+					</Route>
+				</Switch>
+			</main>
+	)
 };
 
 export default Profile;

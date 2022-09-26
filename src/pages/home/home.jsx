@@ -36,6 +36,7 @@ const Home = () => {
 
 	const handleOrderDetailsOpen = useCallback(
 		(orderDetails) => {
+			console.log(orderDetails);
 			setIsOrderDetailsOpened(true);
 			dispatch(createOrder(orderDetails));
 		},
@@ -57,15 +58,13 @@ const Home = () => {
 		}
 	}, [orderIsLoading, dispatch]);
 
-	return (
+	return ingredientsIsLoading ? (
+		<Preloader type='loader'/>
+		) : (
 		<>
 			<DndProvider backend={HTML5Backend}>
 				<main className={styles.main}>
-					{ingredientsIsLoading && (
-						<span className='text text_type_main-large pt-10 pb-5'>
-              Загрузка...
-            </span>
-					)}
+					{/*{ingredientsIsLoading && (<Preloader type='loader'/>)}*/}
 					{ingredientsHasError && (
 						<span className='text text_type_main-large pt-10 pb-5'>
               Упс, произошла ошибка. Пожалуйста, перезагрузите страницу.
@@ -84,7 +83,7 @@ const Home = () => {
 					title=''
 					handleClose={handleCloseOrderModal}
 					{...(orderIsLoading
-						? {children: <Preloader/>, title: 'Загружаем заказ...'}
+						? {children: <Preloader type='loader'/>, title: 'Загружаем заказ...'}
 						: {
 							children: <OrderDetails orderID={orderNumber}/>,
 						})}

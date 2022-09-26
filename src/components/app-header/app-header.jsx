@@ -28,14 +28,13 @@ const AppHeader = () => {
 						</li>
 						<li>
 							<NavLink
-								to={links.ordersFeed}
-								exact={true}
+								to={links.feedOrders}
 								className={`${styles.menuLink} text text_type_main-default pl-2 pt-4 pb-4 pr-5`}
 								activeClassName={styles.menuLinkActive}
 							>
 								<ListIcon
 									type={
-										pathname.includes(links.ordersFeed)
+										pathname.includes(links.feedOrders)
 											? 'primary'
 											: 'secondary'
 									}

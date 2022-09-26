@@ -31,6 +31,7 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 
 	const handleButtonClick = () => {
 		if (refreshToken) {
+			ingredientsSelected.unshift(bunSelected);
 			setModalVisibility(ingredientsSelected);
 		} else {
 			history.replace({

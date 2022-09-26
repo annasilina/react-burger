@@ -7,6 +7,7 @@ import {
 
 const initialState = {
 	bunSelected: null,
+	// bunSelected: null,
 	ingredientsSelected: [],
 };
 

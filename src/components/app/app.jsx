@@ -19,14 +19,23 @@ import {ProtectedRoute} from '../protected-route/protected-route';
 import {getUser} from '../../services/actions/auth';
 import {getCookie} from '../../utils/cookie';
 import Preloader from '../preloader/preloader';
+import FeedPage from '../../pages/feed/feed';
+import FeedDetailsPage from '../../pages/feed-details/feed-details';
+import OrderFullInfo from '../order-full-info/order-full-info';
 
 const App = () => {
-	const refreshToken = getCookie('refreshToken');
-	const authData = useSelector((state) => state.authData);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const location = useLocation();
+
+	const refreshToken = getCookie('refreshToken');
 	const background = location.state?.background;
+
+	const authData = useSelector((state) => state.authData);
+	const dataAll = useSelector(state => state.wsData);
+	const dataAuth = useSelector(state => state.wsAuthData);
+	const ingredientsData = useSelector(state => state.ingredientsData);
+
 
 	useEffect(() => {
 		dispatch(getIngredients());
@@ -35,7 +44,7 @@ const App = () => {
 		if (refreshToken) {
 			dispatch(getUser());
 		}
-	}, [dispatch, history]);
+	}, [dispatch]);
 
 	const handleClose = () => {
 		history.goBack();
@@ -43,7 +52,7 @@ const App = () => {
 
 	return {
 		...(authData.isUserLoading ? (
-			<Preloader/>
+			<Preloader type='loader'/>
 		) : (
 			<>
 				<AppHeader/>
@@ -51,7 +60,10 @@ const App = () => {
 					<Route path={links.home} exact={true}>
 						<Home/>
 					</Route>
-					<ProtectedRoute path={links.profile} anonymReject={true} exact>
+					<ProtectedRoute path={links.profileOrderInfo} anonymReject={true} >
+						<FeedDetailsPage wsAuth={true}/>
+					</ProtectedRoute>
+					<ProtectedRoute path={links.profile} anonymReject={true}>
 						<Profile/>
 					</ProtectedRoute>
 					<ProtectedRoute path={links.login} anonymReject={false}>
@@ -69,16 +81,46 @@ const App = () => {
 					<Route path={links.ingredient}>
 						<IngredientsPage/>
 					</Route>
+					<Route path={links.feedOrders} exact>
+						<FeedPage />
+					</Route>
+					<Route path={links.feedOrderInfo}>
+						<FeedDetailsPage wsAuth={false}/>
+					</Route>
 					<Route>
 						<Page404/>
 					</Route>
 				</Switch>
 				{background && (
-					<Route path={`${links.ingredients}/:id`}>
-						<Modal title='Детали ингредиента' handleClose={handleClose}>
-							<IngredientDetails/>
-						</Modal>
-					</Route>
+					<>
+						{!ingredientsData.ingredients.length ? (
+							<div></div>
+						) : (
+							<Route path={links.ingredient}>
+								<Modal title='Детали ингредиента' handleClose={handleClose}>
+									<IngredientDetails/>
+								</Modal>
+							</Route>
+						)}
+						{!dataAll.orders.length ? (
+							<div></div>
+						) : (
+						<Route path={links.feedOrderInfo}>
+							<Modal title='' handleClose={handleClose}>
+								<OrderFullInfo wsAuth={false}/>
+							</Modal>
+						</Route>
+						)}
+						{!dataAuth.orders.length ? (
+							<div></div>
+						) : (
+							<Route path={links.profileOrderInfo}>
+							<Modal title='' handleClose={handleClose}>
+								<OrderFullInfo wsAuth={true}/>
+							</Modal>
+						</Route>
+						)}
+					</>
 				)}
 			</>
 		)),

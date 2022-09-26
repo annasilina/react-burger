@@ -4,6 +4,9 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mui/material": "^5.10.6",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
     "node-sass": "^7.0.1",
     "prop-types": "^15.8.1",

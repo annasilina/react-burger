@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useLocation} from 'react-router-dom';
 import styles from './profile-menu.module.css';
 import {links} from '../../utils/constants';
 import {logout} from '../../services/actions/auth';
@@ -8,6 +8,7 @@ import {getCookie} from '../../utils/cookie';
 
 const ProfileMenu = () => {
 	const dispatch = useDispatch();
+	const location = useLocation();
 
 	const handleLogout = (evt) => {
 		evt.preventDefault();
@@ -15,7 +16,7 @@ const ProfileMenu = () => {
 	};
 
 	return (
-		<nav className={`${styles.menu} pl-5`}>
+		<nav className={`${styles.menu}`}>
 			<ul className={styles.menuList}>
 				<li>
 					<NavLink
@@ -29,7 +30,7 @@ const ProfileMenu = () => {
 				</li>
 				<li>
 					<NavLink
-						to={links.userOrdersFeed}
+						to={links.profileOrders}
 						exact={true}
 						className={`${styles.menuLink} text text_type_main-medium`}
 						activeClassName={styles.menuLinkActive}
@@ -46,9 +47,16 @@ const ProfileMenu = () => {
 					</button>
 				</li>
 			</ul>
-			<p className='text text_type_main-default text_color_inactive'>
-				В этом разделе вы можете изменить свои персональные данные
-			</p>
+			{location.pathname === links.profile &&
+				<p className='text text_type_main-default text_color_inactive pt-20'>
+					В этом разделе вы можете изменить свои персональные данные
+				</p>
+			}
+			{location.pathname.includes(links.profileOrders) &&
+				<p className='text text_type_main-default text_color_inactive pt-20'>
+					В этом разделе вы можете просмотреть свою историю заказов
+				</p>
+			}
 		</nav>
 	);
 };

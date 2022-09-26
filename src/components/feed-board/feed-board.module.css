@@ -1,0 +1,26 @@
+.container {
+}
+
+.list {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 36px;
+}
+
+.statusList {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	/*display: flex;*/
+	/*flex-direction: column;*/
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 8px;
+}
+
+.counter {
+	text-shadow: 0 0 16px rgb(51 51 255 / 25%), 0 0 8px rgb(51 51 255 / 25%), 0 4px 32px rgb(51 51 255 / 50%);
+}
