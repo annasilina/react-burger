@@ -32,7 +32,6 @@
 	color: inherit;
 	display: flex;
 	flex-direction: column;
-	/*gap: 24px;*/
 	padding: 24px;
 	margin: 0;
 	background-color: #1C1C21;
@@ -78,7 +77,6 @@
 	gap: 9px;
 }
 
-
 .imagePreviewWrapper {
 	position: relative;
 	display: flex;
@@ -96,7 +94,7 @@
 }
 
 .imagePreviewWrapper::after {
-	content: "";
+	content: '';
 	position: absolute;
 	top: 2px;
 	left: 2px;

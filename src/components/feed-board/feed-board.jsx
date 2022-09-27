@@ -12,12 +12,12 @@ const FeedBoard = () => {
 	return (
 		<section className={styles.container}>
 			<ul className={styles.list}>
-				<li className={styles.listItem}>
+				<li>
 					<h2 className='text text_type_main-medium pb-6'>Готовы:</h2>
 					<ul className={styles.statusList}>
-						{ordersComplete.slice(0, 10).map((order, index) => (
+						{ordersComplete.slice(0, 14).map((order, index) => (
 							<li
-								className={`{styles.statusItem} text text_type_digits-default text_color_success`}
+								className='text text_type_digits-default text_color_success'
 								key={index}
 							>
 								{order.number}
@@ -25,7 +25,7 @@ const FeedBoard = () => {
 						))}
 					</ul>
 				</li>
-				<li className={styles.listItem}>
+				<li>
 					<h2 className='text text_type_main-medium pb-6'>В работе:</h2>
 					<ul className={styles.statusList}>
 						{ordersPending.slice(0, 10).map((order, index) => (
