@@ -1,4 +1,4 @@
-export interface ILinks {
+export type ILinks = {
 	home: string;
 	profile: string;
 	login: string;
