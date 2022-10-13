@@ -4,8 +4,10 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import FeedIngredientImage from './feed-ingredient-image';
 import {useSelector} from 'react-redux';
-import {calcOrderCost, getFormatDate, getFullIngredientsInfo, getOrderStatus} from '../../utils/utils';
+import {calcOrderCost, getFullIngredientsInfo} from '../../utils/utils';
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
+import {getFormatDate} from '../../utils/getFormatDate';
+import {getOrderStatus} from '../../utils/getOrderStatus';
 
 const FeedCard = ({order}) => {
 	const location = useLocation();

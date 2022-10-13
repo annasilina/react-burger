@@ -2,12 +2,12 @@ import {useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {
 	calcOrderCost,
-	getFormatDate,
-	getFullIngredientsWithCount,
-	getOrderStatus
+	getFullIngredientsWithCount
 } from '../../utils/utils';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
+import {getFormatDate} from '../../utils/getFormatDate';
+import {getOrderStatus} from '../../utils/getOrderStatus';
 
 const OrderFullInfo = (props) => {
 	const { id } = useParams();
