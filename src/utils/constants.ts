@@ -1,23 +1,5 @@
-interface ILinks {
-	home: string;
-	profile: string;
-	login: string;
-	register: string;
-	forgotPassword: string;
-	resetPassword: string;
-	ingredients: string;
-	ingredient: string;
-	feedOrders: string;
-	feedOrderInfo: string;
-	profileOrders: string;
-	profileOrderInfo: string;
-}
-
-interface IErrors {
-	userExists: string;
-	incorrectValues: string;
-	incorrectToken: Array<string>
-}
+import {IErrors} from "../types/IErrors";
+import {ILinks} from "../types/ILinks";
 
 export const links: ILinks = {
 	home: '/',
