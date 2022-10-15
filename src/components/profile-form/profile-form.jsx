@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button, Input,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile-form.module.css';
-import {useForm} from '../../utils/hooks';
-import {useDispatch, useSelector} from 'react-redux';
 import {setUserData} from '../../services/actions/auth';
+import {useForm} from '../../utils/useForm';
 import ErrorMessage from '../error-message/error-message';
 import Preloader from '../preloader/preloader';
 

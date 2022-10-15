@@ -1,11 +1,11 @@
 import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {Button, Input, PasswordInput,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
-import {useForm} from '../../utils/hooks';
-import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../services/actions/auth';
 import {links} from '../../utils/constants';
-import {Link} from 'react-router-dom';
+import {useForm} from '../../utils/useForm';
 
 const Login = () => {
 	const authData = useSelector((state) => state.authData);

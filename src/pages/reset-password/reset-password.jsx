@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './reset-password.module.css';
-import {Button, Input, PasswordInput,} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, Redirect, useHistory, useLocation} from 'react-router-dom';
-import {links} from '../../utils/constants';
-import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
+import {Button, Input, PasswordInput,} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './reset-password.module.css';
+import {links} from '../../utils/constants';
 import {resetPasswordAction} from '../../services/actions/auth';
+import {useForm} from '../../utils/useForm';
 
 const ResetPasswordPage = () => {
 	const resetPasswordStatus = localStorage.getItem('resetPasswordStatus');

@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './forgot-password.module.css';
-import {Button, Input,} from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, useHistory} from 'react-router-dom';
-import {links} from '../../utils/constants';
-import {useForm} from '../../utils/hooks';
 import {useDispatch, useSelector} from 'react-redux';
+import {Button, Input,} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './forgot-password.module.css';
+import {links} from '../../utils/constants';
 import {forgotPasswordAction} from '../../services/actions/auth';
+import {useForm} from '../../utils/useForm';
 
 const ForgotPasswordPage = () => {
 	const authData = useSelector((state) => state.authData);

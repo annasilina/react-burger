@@ -1,14 +1,13 @@
 import React from 'react';
-import styles from './feed-list.module.css';
-import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-
-import FeedIngredientImage from './feed-ingredient-image';
 import {useSelector} from 'react-redux';
-import {getFullIngredientsInfo} from '../../utils/ingredients-info';
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
+import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './feed-list.module.css';
 import {getFormatDate} from '../../utils/getFormatDate';
 import {getOrderStatus} from '../../utils/getOrderStatus';
 import {calcOrderCost} from '../../utils/calcOrderCost';
+import {getIngredientsInfo} from '../../utils/getIngredientsInfo';
+import FeedIngredientImage from './feed-ingredient-image';
 
 const FeedCard = ({order}) => {
 	const location = useLocation();
@@ -16,7 +15,7 @@ const FeedCard = ({order}) => {
 	const maxVisibleQty = 6;
 
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
-	const ingredientsInOrder = getFullIngredientsInfo(allIngredientsList, order.ingredients);
+	const ingredientsInOrder = getIngredientsInfo(allIngredientsList, order.ingredients);
 
 	return (
 			<li>

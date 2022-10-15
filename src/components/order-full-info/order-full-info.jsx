@@ -1,13 +1,11 @@
 import {useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {
-	getFullIngredientsWithCount
-} from '../../utils/ingredients-info';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
 import {getFormatDate} from '../../utils/getFormatDate';
 import {getOrderStatus} from '../../utils/getOrderStatus';
 import {calcOrderCost} from '../../utils/calcOrderCost';
+import {getIngredientsWithCount} from '../../utils/getIngredientsWithCount';
 
 const OrderFullInfo = (props) => {
 	const { id } = useParams();
@@ -19,7 +17,7 @@ const OrderFullInfo = (props) => {
 	const data = wsAuth ? feedAuthData : feedData;
 
 	const currentOrder = data.orders.find(order => order._id === id);
-	const ingredientsWithCount = getFullIngredientsWithCount(allIngredientsList, currentOrder.ingredients);
+	const ingredientsWithCount = getIngredientsWithCount(allIngredientsList, currentOrder.ingredients);
 
 	console.log(allIngredientsList);
 
