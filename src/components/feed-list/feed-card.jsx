@@ -4,10 +4,11 @@ import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import FeedIngredientImage from './feed-ingredient-image';
 import {useSelector} from 'react-redux';
-import {calcOrderCost, getFullIngredientsInfo} from '../../utils/utils';
+import {getFullIngredientsInfo} from '../../utils/ingredients-info';
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {getFormatDate} from '../../utils/getFormatDate';
 import {getOrderStatus} from '../../utils/getOrderStatus';
+import {calcOrderCost} from '../../utils/calcOrderCost';
 
 const FeedCard = ({order}) => {
 	const location = useLocation();
@@ -16,8 +17,6 @@ const FeedCard = ({order}) => {
 
 	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
 	const ingredientsInOrder = getFullIngredientsInfo(allIngredientsList, order.ingredients);
-	const bunInOrder = ingredientsInOrder.filter(ingredient => ingredient.type === 'bun')[0];
-	const otherIngredients = ingredientsInOrder.filter(ingredient => ingredient.type !== 'bun');
 
 	return (
 			<li>
@@ -54,7 +53,7 @@ const FeedCard = ({order}) => {
 						}
 					</ul>
 					<div className={styles.currency}>
-						<p className='text text_type_digits-default'>{`${calcOrderCost(bunInOrder, otherIngredients)}`}</p>
+						<p className='text text_type_digits-default'>{`${calcOrderCost(ingredientsInOrder)}`}</p>
 						<CurrencyIcon type='primary'/>
 					</div>
 				</div>

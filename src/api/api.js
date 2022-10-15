@@ -1,5 +1,5 @@
 import {getCookie} from '../utils/cookie';
-import {setTokenData} from '../utils/token';
+import {setTokenData} from '../utils/setTokenData';
 
 const apiConfig = {
 	baseURL: 'https://norma.nomoreparties.space/api',

@@ -6,6 +6,8 @@ const FeedIngredientImage = (props) => {
 	const lastIngredients = totalQty - maxVisibleQty;
 	const count = ingredient.count;
 
+	console.log(ingredient);
+
 	return (
 		<li className={styles.imagePreviewWrapper} style={{zIndex: maxVisibleQty - index}}>
 			{lastIngredients !== 0 && maxVisibleQty === index + 1 && (

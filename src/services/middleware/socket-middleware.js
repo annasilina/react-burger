@@ -1,6 +1,6 @@
 import {getCookie} from '../../utils/cookie';
 import {api} from '../../api/api';
-import {setTokenData} from '../../utils/token';
+import {setTokenData} from '../../utils/setTokenData';
 
 export const socketMiddleware = (wsUrl, wsActions, auth) => {
 	return store => {
@@ -62,6 +62,7 @@ export const socketMiddleware = (wsUrl, wsActions, auth) => {
 						.then((data) => {
 							setTokenData(data);
 							accessToken = getCookie('accessToken');
+							refreshToken = getCookie('accessToken');
 							dispatch({ type: wsInit})
 							console.log('token updated in webSocket');
 						})

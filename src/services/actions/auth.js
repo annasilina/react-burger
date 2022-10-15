@@ -1,5 +1,5 @@
 import {api} from '../../api/api';
-import {setTokenData} from '../../utils/token';
+import {setTokenData} from '../../utils/setTokenData';
 import {deleteCookie, getCookie} from '../../utils/cookie';
 
 export const GET_REGISTRATION_LOADING = 'GET_REGISTRATION_LOADING';
@@ -53,7 +53,7 @@ export const registration = (formData) => {
 };
 
 export const login = (formData) => {
-	return function (dispatch) {
+	return dispatch => {
 		dispatch(getAuthLoading());
 
 		api
@@ -78,10 +78,9 @@ export const login = (formData) => {
 
 // получение данных о пользователе в профиле
 export const getUser = () => {
-	return function (dispatch) {
+	return dispatch => {
 		dispatch(getUserLoading());
-
-		let accessToken = getCookie('accessToken');
+		const accessToken = getCookie('accessToken');
 
 		api
 			.getUserRequest(accessToken)
@@ -105,9 +104,9 @@ export const getUser = () => {
 };
 
 export const setUserData = (formData) => {
-	return function (dispatch) {
+	return dispatch => {
 		dispatch(setUserDataLoading(true));
-		let accessToken = getCookie('accessToken');
+		const accessToken = getCookie('accessToken');
 
 		api
 			.setUserDataRequest(formData, accessToken)
@@ -131,7 +130,7 @@ export const setUserData = (formData) => {
 };
 
 export const logout = (token) => {
-	return function (dispatch) {
+	return dispatch => {
 		api.logoutRequest(token).then((data) => {
 			if (data.success) {
 				dispatch(setLoggedOut());
@@ -143,7 +142,7 @@ export const logout = (token) => {
 };
 
 export const forgotPasswordAction = (email) => {
-	return function (dispatch) {
+	return dispatch => {
 		dispatch(getForgotPasswordLoading(true));
 
 		return api
@@ -163,7 +162,7 @@ export const forgotPasswordAction = (email) => {
 };
 
 export const resetPasswordAction = (passwordData) => {
-	return function (dispatch) {
+	return dispatch => {
 		dispatch(resetPasswordLoading(true));
 
 		return api

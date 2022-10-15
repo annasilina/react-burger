@@ -1,7 +1,7 @@
-import {IErrors} from "../types/IErrors";
-import {ILinks} from "../types/ILinks";
+import {TErrors} from "../types/TErrors";
+import {TLinks} from "../types/TLinks";
 
-export const links: ILinks = {
+export const links: TLinks = {
 	home: '/',
 	profile: '/profile/',
 	login: '/login',
@@ -16,7 +16,7 @@ export const links: ILinks = {
 	profileOrderInfo: '/profile/orders/:id',
 };
 
-export const errors: IErrors = {
+export const errors: TErrors = {
 	userExists: 'User already exists',
 	incorrectValues: 'email or password are incorrect',
 	incorrectToken: ['jwt malformed'],

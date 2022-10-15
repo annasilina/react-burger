@@ -1,4 +1,4 @@
-export type ILinks = {
+export type TLinks = {
 	home: string;
 	profile: string;
 	login: string;

@@ -1,13 +1,13 @@
 import {useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {
-	calcOrderCost,
 	getFullIngredientsWithCount
-} from '../../utils/utils';
+} from '../../utils/ingredients-info';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
 import {getFormatDate} from '../../utils/getFormatDate';
 import {getOrderStatus} from '../../utils/getOrderStatus';
+import {calcOrderCost} from '../../utils/calcOrderCost';
 
 const OrderFullInfo = (props) => {
 	const { id } = useParams();
@@ -18,14 +18,10 @@ const OrderFullInfo = (props) => {
 	const feedAuthData = useSelector((store) => store.wsAuthData)
 	const data = wsAuth ? feedAuthData : feedData;
 
-	const orders = data.orders;
-	const currentOrder = orders.find(order => order._id === id);
+	const currentOrder = data.orders.find(order => order._id === id);
+	const ingredientsWithCount = getFullIngredientsWithCount(allIngredientsList, currentOrder.ingredients);
 
-	const currentIngredients = currentOrder.ingredients;
-
-	const ingredientsWithCount = getFullIngredientsWithCount(allIngredientsList, currentIngredients)
-	const bunInOrder = ingredientsWithCount.filter(ingredient => ingredient.type === 'bun')[0];
-	const otherIngredients = ingredientsWithCount.filter(ingredient => ingredient.type !== 'bun');
+	console.log(allIngredientsList);
 
 	return (
 		<main className={styles.container}>
@@ -58,7 +54,7 @@ const OrderFullInfo = (props) => {
 			<div className={`${styles.infoContainer} pt-10`}>
 				<p className='text text_type_main-default text_color_inactive'>{`${getFormatDate(currentOrder.createdAt)}`}</p>
 				<div className={`${styles.orderCost}`}>
-					<p className='text text_type_digits-default pr-2'>{`${calcOrderCost(bunInOrder, otherIngredients)}`}</p>
+					<p className='text text_type_digits-default pr-2'>{`${calcOrderCost(ingredientsWithCount)}`}</p>
 					<CurrencyIcon type='primary' />
 				</div>
 			</div>
