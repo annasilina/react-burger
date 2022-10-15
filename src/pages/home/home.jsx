@@ -36,7 +36,6 @@ const Home = () => {
 
 	const handleOrderDetailsOpen = useCallback(
 		(orderDetails) => {
-			console.log(orderDetails);
 			setIsOrderDetailsOpened(true);
 			dispatch(createOrder(orderDetails));
 		},

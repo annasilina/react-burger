@@ -19,8 +19,6 @@ const OrderFullInfo = (props) => {
 	const currentOrder = data.orders.find(order => order._id === id);
 	const ingredientsWithCount = getIngredientsWithCount(allIngredientsList, currentOrder.ingredients);
 
-	console.log(allIngredientsList);
-
 	return (
 		<main className={styles.container}>
 			<p className={`${styles.number} text text_type_digits-default`}>{`#0${currentOrder.number}`}</p>
