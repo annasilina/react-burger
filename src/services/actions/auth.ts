@@ -1,29 +1,14 @@
 import {api} from '../../api/api';
 import {cookie} from '../../cookie/cookie';
+import {
+	GET_AUTH_FAILED, GET_AUTH_LOADED, GET_AUTH_LOADING, GET_FORGOT_PASSWORD_FAILED, GET_FORGOT_PASSWORD_LOADING,
+	GET_REGISTRATION_FAILED, GET_REGISTRATION_LOADED, GET_REGISTRATION_LOADING,
+	GET_USER_FAILED, GET_USER_LOADED, GET_USER_LOADING, LOGGED_OUT, RESET_PASSWORD_FAILED, RESET_PASSWORD_LOADING,
+	SET_USER_DATA,
+	SET_USER_DATA_FAILED, SET_USER_DATA_LOADING
+} from '../constants/auth';
 
-export const GET_REGISTRATION_LOADING = 'GET_REGISTRATION_LOADING';
-export const GET_REGISTRATION_LOADED = 'GET_REGISTRATION_LOADED';
-export const GET_REGISTRATION_FAILED = 'GET_REGISTRATION_FAILED';
 
-export const LOGGED_OUT = 'LOGGED_OUT';
-
-export const GET_AUTH_LOADING = 'GET_AUTH_LOADING';
-export const GET_AUTH_LOADED = 'GET_AUTH_LOADED';
-export const GET_AUTH_FAILED = 'GET_AUTH_FAILED';
-
-export const GET_USER_LOADING = 'GET_USER_LOADING';
-export const GET_USER_LOADED = 'GET_USER_LOADED';
-export const GET_USER_FAILED = 'GET_USER_FAILED';
-
-export const SET_USER_DATA_LOADING = 'SET_USER_DATA_LOADING';
-export const SET_USER_DATA = 'SET_USER_DATA';
-export const SET_USER_DATA_FAILED = 'SET_USER_DATA_FAILED';
-
-export const GET_FORGOT_PASSWORD_LOADING = 'GET_FORGOT_PASSWORD_LOADING';
-export const GET_FORGOT_PASSWORD_FAILED = 'GET_FORGOT_PASSWORD_FAILED';
-
-export const RESET_PASSWORD_LOADING = 'RESET_PASSWORD_LOADING';
-export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 
 export const registration = (formData) => {
 	return (dispatch) => {
@@ -182,64 +167,101 @@ export const resetPasswordAction = (passwordData) => {
 	};
 };
 
-export const resetPasswordLoading = (payload) => {
-	return {
-		type: RESET_PASSWORD_LOADING,
-		payload,
-	};
-};
+export type TResetPasswordLoadingAction = {
+	readonly type: typeof RESET_PASSWORD_LOADING;
+	readonly payload: boolean;
+}
 
-const getRegistrationLoading = () => {
-	return {
+export type TGetRegistrationLoadingAction = {
+	readonly type: typeof GET_REGISTRATION_LOADING;
+}
+
+export type TGetRegistrationLoadedAction = {
+	readonly type: typeof GET_REGISTRATION_LOADED;
+}
+
+export type TGetAuthLoadingAction = {
+	readonly type: typeof GET_AUTH_LOADING;
+}
+
+export type TGetAuthLoadedAction = {
+	readonly type: typeof GET_AUTH_LOADED;
+}
+
+export type TLoggedOutAction = {
+	readonly type: typeof LOGGED_OUT;
+}
+
+export type TGetUserLoadingAction = {
+	readonly type: typeof GET_USER_LOADING;
+}
+
+export type TGetUserLoadedAction = {
+	readonly type: typeof GET_USER_LOADED;
+}
+
+export type TSetUserDataLoadingAction = {
+	readonly type: typeof SET_USER_DATA_LOADING;
+	readonly payload: boolean;
+}
+
+export type TGetForgotPasswordLoadingAction = {
+	readonly type: typeof GET_FORGOT_PASSWORD_LOADING;
+	readonly payload: boolean;
+}
+
+export type TAuthActions =
+	| TResetPasswordLoadingAction
+	| TGetRegistrationLoadingAction
+	| TGetRegistrationLoadedAction
+	| TGetAuthLoadingAction
+	| TGetAuthLoadedAction
+	| TLoggedOutAction
+	| TGetUserLoadingAction
+	| TGetUserLoadedAction
+	| TSetUserDataLoadingAction
+	| TGetForgotPasswordLoadingAction
+
+export const resetPasswordLoading = (payload: boolean): TResetPasswordLoadingAction => ({
+	type: RESET_PASSWORD_LOADING,
+	payload
+});
+
+
+const getRegistrationLoading = (): TGetRegistrationLoadingAction => ({
 		type: GET_REGISTRATION_LOADING,
-	};
-};
-const getRegistrationLoaded = () => {
-	return {
-		type: GET_REGISTRATION_LOADED,
-	};
-};
+});
 
-const getAuthLoading = () => {
-	return {
-		type: GET_AUTH_LOADING,
-	};
-};
+const getRegistrationLoaded = (): TGetRegistrationLoadedAction => ({
+	type: GET_REGISTRATION_LOADED,
+});
 
-const getAuthLoaded = () => {
-	return {
-		type: GET_AUTH_LOADED,
-	};
-};
+const getAuthLoading = (): TGetAuthLoadingAction => ({
+	type: GET_AUTH_LOADING,
+});
 
-const setLoggedOut = () => {
-	return {
-		type: LOGGED_OUT,
-	};
-};
+const getAuthLoaded = (): TGetAuthLoadedAction => ({
+	type: GET_AUTH_LOADED,
+});
 
-const getUserLoading = () => {
-	return {
-		type: GET_USER_LOADING,
-	};
-};
+const setLoggedOut = (): TLoggedOutAction => ({
+	type: LOGGED_OUT,
+});
 
-const getUserLoaded = () => {
-	return {
-		type: GET_USER_LOADED,
-	};
-};
+const getUserLoading = (): TGetUserLoadingAction => ({
+	type: GET_USER_LOADING,
+});
 
-const setUserDataLoading = (payload) => {
-	return {
-		type: SET_USER_DATA_LOADING,
-		payload,
-	};
-};
+const getUserLoaded = (): TGetUserLoadedAction => ({
+	type: GET_USER_LOADED,
+});
 
-const getForgotPasswordLoading = (payload) => {
-	return {
-		type: GET_FORGOT_PASSWORD_LOADING,
-		payload,
-	};
-};
+const setUserDataLoading = (payload: boolean): TSetUserDataLoadingAction => ({
+	type: SET_USER_DATA_LOADING,
+	payload,
+});
+
+const getForgotPasswordLoading = (payload: boolean): TGetForgotPasswordLoadingAction => ({
+	type: GET_FORGOT_PASSWORD_LOADING,
+	payload,
+});
