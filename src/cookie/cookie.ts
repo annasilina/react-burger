@@ -1,5 +1,5 @@
 import {TCookieProps} from "../types/TCookieProps";
-import {TAuthResponse} from "../types/TAuthResponse";
+import {TApiUserDataWithTokensResponse} from "../types/api-responses";
 
 class Cookie {
 	public get = (cookieName: string): string | undefined => {
@@ -36,7 +36,7 @@ class Cookie {
 		this.set(cookieName, '', {expires: -1, path: '/'});
 	};
 
-	public setTokens = (authData: TAuthResponse) :void => {
+	public setTokens = (authData: TApiUserDataWithTokensResponse) :void => {
 		const accessToken = authData.accessToken.split('Bearer ')[1];
 		const refreshToken = authData.refreshToken;
 

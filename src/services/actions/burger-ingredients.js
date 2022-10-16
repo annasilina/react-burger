@@ -24,6 +24,7 @@ export function getIngredients() {
 		api
 			.getIngredientsRequest()
 			.then((res) => {
+				console.log(res);
 				dispatch(getIngredientsLoaded(res.data));
 			})
 			.catch((err) => {

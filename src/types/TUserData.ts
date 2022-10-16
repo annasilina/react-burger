@@ -1,5 +1,8 @@
 export type TUserData = {
-	email: string;
-	name: string;
-	password?: string;
+	user: {
+		name: string;
+		email: string;
+		password?: string;
+	}
 }
+

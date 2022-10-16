@@ -30,7 +30,7 @@ const RegisterPage = () => {
 
 		dispatch(registration(formValues)).finally(() => {
 			if (!authData.isRegisterFailed) {
-				history.push(links.login);
+				history.push(links.profile);
 			}
 		});
 	};

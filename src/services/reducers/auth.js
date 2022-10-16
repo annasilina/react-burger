@@ -16,7 +16,7 @@ import {
 	SET_USER_DATA,
 	SET_USER_DATA_FAILED,
 	SET_USER_DATA_LOADING,
-} from '../actions/auth';
+} from '../constants/auth';
 
 const initialState = {
 	user: {},
