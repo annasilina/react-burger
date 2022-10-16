@@ -4,9 +4,9 @@ import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './feed-list.module.css';
 import {getFormatDate} from '../../utils/getFormatDate';
-import {getOrderStatus} from '../../utils/getOrderStatus';
-import {calcOrderCost} from '../../utils/calcOrderCost';
-import {getIngredientsInfo} from '../../utils/getIngredientsInfo';
+import {getOrderStatus} from '../../order/getOrderStatus';
+import {calcOrderCost} from '../../order/calcOrderCost';
+import {getIngredientsInfo} from '../../ingredients/getIngredientsInfo';
 import FeedIngredientImage from './feed-ingredient-image';
 
 const FeedCard = ({order}) => {

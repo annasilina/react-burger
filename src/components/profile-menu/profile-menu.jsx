@@ -4,7 +4,7 @@ import styles from './profile-menu.module.css';
 import {links} from '../../utils/constants';
 import {logout} from '../../services/actions/auth';
 import {useDispatch} from 'react-redux';
-import {getCookie} from '../../utils/cookie';
+import {cookie} from '../../cookie/cookie';
 
 const ProfileMenu = () => {
 	const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const ProfileMenu = () => {
 
 	const handleLogout = (evt) => {
 		evt.preventDefault();
-		dispatch(logout(getCookie('refreshToken')));
+		dispatch(logout(cookie.get('refreshToken')));
 	};
 
 	return (

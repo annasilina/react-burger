@@ -1,9 +1,9 @@
 import {Redirect, Route, useLocation} from 'react-router-dom';
 import {links} from '../../utils/constants';
-import {getCookie} from '../../utils/cookie';
+import {cookie} from '../../cookie/cookie';
 
 export const ProtectedRoute = ({children, anonymReject, ...rest}) => {
-	const refreshToken = getCookie('refreshToken');
+	const refreshToken = cookie.get('refreshToken');
 	const location = useLocation();
 	const fromPage = location.state?.from?.pathname || links.home;
 

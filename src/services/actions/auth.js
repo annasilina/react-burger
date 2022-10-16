@@ -1,6 +1,5 @@
 import {api} from '../../api/api';
-import {setTokenData} from '../../utils/setTokenData';
-import {deleteCookie, getCookie} from '../../utils/cookie';
+import {cookie} from '../../cookie/cookie';
 
 export const GET_REGISTRATION_LOADING = 'GET_REGISTRATION_LOADING';
 export const GET_REGISTRATION_LOADED = 'GET_REGISTRATION_LOADED';
@@ -33,6 +32,7 @@ export const registration = (formData) => {
 		return api
 			.registerRequest(formData)
 			.then((data) => {
+				console.log(data);
 				if (data.success) {
 					dispatch(getRegistrationLoaded());
 				} else {
@@ -59,7 +59,8 @@ export const login = (formData) => {
 		api
 			.loginRequest(formData)
 			.then((data) => {
-				setTokenData(data);
+				console.log(data);
+				cookie.setTokens(data);
 				dispatch({
 					type: SET_USER_DATA,
 					payload: data.user,
@@ -80,7 +81,7 @@ export const login = (formData) => {
 export const getUser = () => {
 	return dispatch => {
 		dispatch(getUserLoading());
-		const accessToken = getCookie('accessToken');
+		const accessToken = cookie.get('accessToken');
 
 		api
 			.getUserRequest(accessToken)
@@ -106,7 +107,7 @@ export const getUser = () => {
 export const setUserData = (formData) => {
 	return dispatch => {
 		dispatch(setUserDataLoading(true));
-		const accessToken = getCookie('accessToken');
+		const accessToken = cookie.get('accessToken');
 
 		api
 			.setUserDataRequest(formData, accessToken)
@@ -134,8 +135,8 @@ export const logout = (token) => {
 		api.logoutRequest(token).then((data) => {
 			if (data.success) {
 				dispatch(setLoggedOut());
-				deleteCookie('accessToken');
-				deleteCookie('refreshToken');
+				cookie.delete('accessToken');
+				cookie.delete('refreshToken');
 			}
 		});
 	};

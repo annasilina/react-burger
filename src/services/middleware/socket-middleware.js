@@ -1,6 +1,5 @@
-import {getCookie} from '../../utils/cookie';
+import {cookie} from '../../cookie/cookie';
 import {api} from '../../api/api';
-import {setTokenData} from '../../utils/setTokenData';
 
 export const socketMiddleware = (wsUrl, wsActions, auth) => {
 	return store => {
@@ -10,8 +9,8 @@ export const socketMiddleware = (wsUrl, wsActions, auth) => {
 			const { dispatch } = store;
 			const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 			const { type, payload } = action;
-			let accessToken = getCookie('accessToken');
-			let refreshToken = getCookie('refreshToken');
+			let accessToken = cookie.get('accessToken');
+			let refreshToken = cookie.get('refreshToken');
 			let isConnected = false;
 			let reconnectTimer;
 
@@ -60,9 +59,9 @@ export const socketMiddleware = (wsUrl, wsActions, auth) => {
 					console.log('trying to refresh token in webSocket');
 					api.updateTokenRequest(refreshToken)
 						.then((data) => {
-							setTokenData(data);
-							accessToken = getCookie('accessToken');
-							refreshToken = getCookie('accessToken');
+							cookie.setTokens(data);
+							accessToken = cookie.get('accessToken');
+							refreshToken = cookie.get('accessToken');
 							dispatch({ type: wsInit})
 							console.log('token updated in webSocket');
 						})

@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react';
 import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {getIngredients} from '../../services/actions/burger-ingredients';
+import {links} from '../../utils/constants';
+import {ProtectedRoute} from '../protected-route/protected-route';
+import {getUser} from '../../services/actions/auth';
+import {cookie} from '../../cookie/cookie';
 
 import AppHeader from '../app-header/app-header';
 import Home from '../../pages/home/home';
@@ -12,12 +19,6 @@ import Page404 from '../../pages/page-404/page-404';
 import IngredientsPage from '../../pages/ingredients/ingredients';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import {useDispatch, useSelector} from 'react-redux';
-import {getIngredients} from '../../services/actions/burger-ingredients';
-import {links} from '../../utils/constants';
-import {ProtectedRoute} from '../protected-route/protected-route';
-import {getUser} from '../../services/actions/auth';
-import {getCookie} from '../../utils/cookie';
 import Preloader from '../preloader/preloader';
 import FeedPage from '../../pages/feed/feed';
 import FeedDetailsPage from '../../pages/feed-details/feed-details';
@@ -28,7 +29,7 @@ const App = () => {
 	const history = useHistory();
 	const location = useLocation();
 
-	const refreshToken = getCookie('refreshToken');
+	const refreshToken = cookie.get('refreshToken');
 	const background = location.state?.background;
 
 	const authData = useSelector((state) => state.authData);

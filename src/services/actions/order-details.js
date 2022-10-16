@@ -1,5 +1,5 @@
 import {api} from '../../api/api';
-import {getCookie} from '../../utils/cookie';
+import {cookie} from '../../cookie/cookie';
 
 export const CREATE_ORDER_LOADING = 'CREATE_ORDER_LOADING';
 export const CREATE_ORDER_LOADED = 'CREATE_ORDER_LOADED';
@@ -9,12 +9,12 @@ export const RESET_ORDER_DETAILS = 'RESET_ORDER_DETAILS';
 export const createOrder = (orderDetails) => {
 	const idArray = orderDetails.map((ingredient) => ingredient._id);
 
-	return function (dispatch) {
+	return dispatch => {
 		dispatch({
 			type: CREATE_ORDER_LOADING,
 		});
 		api
-			.sendNewOrderRequest(idArray, getCookie('accessToken'))
+			.sendNewOrderRequest(idArray, cookie.get('accessToken'))
 			.then((res) => {
 				if (res.success) {
 					dispatch({

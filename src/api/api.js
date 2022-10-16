@@ -1,5 +1,4 @@
-import {getCookie} from '../utils/cookie';
-import {setTokenData} from '../utils/setTokenData';
+import {cookie} from '../cookie/cookie';
 
 const apiConfig = {
 	baseURL: 'https://norma.nomoreparties.space/api',
@@ -31,10 +30,11 @@ class Api {
 						resolve(json);
 					} else {
 						console.log('try to refresh token');
-						const refreshToken = getCookie('refreshToken');
+						const refreshToken = cookie.get('refreshToken');
 						this.updateTokenRequest(refreshToken)
 							.then((data) => {
-								setTokenData(data);
+								console.log(data);
+								cookie.setTokens(data);
 								init.headers['Authorization'] = data.accessToken;
 								console.log('token updated');
 								fetch(input, init)

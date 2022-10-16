@@ -3,9 +3,9 @@ import {useSelector} from 'react-redux';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
 import {getFormatDate} from '../../utils/getFormatDate';
-import {getOrderStatus} from '../../utils/getOrderStatus';
-import {calcOrderCost} from '../../utils/calcOrderCost';
-import {getIngredientsWithCount} from '../../utils/getIngredientsWithCount';
+import {getOrderStatus} from '../../order/getOrderStatus';
+import {calcOrderCost} from '../../order/calcOrderCost';
+import {getIngredientsWithCount} from '../../ingredients/getIngredientsWithCount';
 
 const OrderFullInfo = (props) => {
 	const { id } = useParams();
