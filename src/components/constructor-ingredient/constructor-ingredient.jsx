@@ -5,7 +5,7 @@ import {ingredientPropTypes} from '../../types/ingredient';
 import {ConstructorElement, DragIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDispatch} from 'react-redux';
 import {CONSTRUCTOR_DELETE_ITEM, CONSTRUCTOR_REORDER_ITEM,} from '../../services/actions/constructor';
-import {DECREASE_INGREDIENT} from '../../services/actions/burger-ingredients';
+import {decreaseIngredient} from '../../services/actions/burger-ingredients';
 import {useDrag, useDrop} from 'react-dnd';
 
 export default function ConstructorIngredient({ingredient, index}) {
@@ -70,10 +70,7 @@ export default function ConstructorIngredient({ingredient, index}) {
 			type: CONSTRUCTOR_DELETE_ITEM,
 			payload: ingredient,
 		});
-		dispatch({
-			type: DECREASE_INGREDIENT,
-			payload: ingredient,
-		});
+		dispatch(decreaseIngredient(ingredient));
 	};
 
 	const cursor = isDragging ? 'grabbing' : 'grab';

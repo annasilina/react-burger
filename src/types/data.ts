@@ -1,3 +1,11 @@
+export type TUserData = {
+	user: {
+		name: string;
+		email: string;
+		password?: string;
+	}
+}
+
 export type TBun = 'bun' | 'main' | 'sauce';
 
 export type TIngredient = {

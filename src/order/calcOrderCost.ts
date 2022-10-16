@@ -1,4 +1,4 @@
-import {TIngredient} from "../types/TIngredient";
+import {TIngredient} from "../types/data";
 
 export const calcOrderCost = (ingredientsInOrder: Array<TIngredient>): number => {
 	const bunInOrder = ingredientsInOrder.filter(ingredient => ingredient.type === 'bun')[0];

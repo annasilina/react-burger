@@ -1,5 +1,5 @@
-import {TIngredient} from "../types/TIngredient";
 import {v4 as uuid} from "uuid";
+import {TIngredient} from "../types/data";
 
 export const getIngredientsInfo = (allIngredientsList: Array<TIngredient>, orderIngredients: Array<string>): Array<TIngredient> => {
 	const newIngredients: Array<TIngredient> = [];

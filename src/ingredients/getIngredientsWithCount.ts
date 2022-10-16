@@ -1,5 +1,5 @@
-import {TIngredient} from "../types/TIngredient";
 import {getIngredientsInfo} from "./getIngredientsInfo";
+import {TIngredient} from "../types/data";
 
 export const getIngredientsWithCount = (allIngredientsList: Array<TIngredient>, orderIngredients: Array<string>): Array<TIngredient> => {
 	const items: Array<TIngredient> = getIngredientsInfo(allIngredientsList, orderIngredients);

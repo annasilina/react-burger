@@ -1,5 +1,5 @@
-import {TUserData} from "./TUserData";
-import {TIngredient} from "./TIngredient";
+
+import {TIngredient, TUserData} from "./data";
 
 export type TApiBaseResponse = {
 	success: boolean;

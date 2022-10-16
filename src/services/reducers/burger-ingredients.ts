@@ -6,15 +6,23 @@ import {
 	INCREASE_INGREDIENT,
 	RESET_SELECTED_INGREDIENTS,
 	SELECT_INGREDIENT_BUN,
-} from '../actions/burger-ingredients.js';
+} from '../constants/burger-ingredients'
+import {TIngredient} from "../../types/data";
+import {TIngredientsActions} from "../actions/burger-ingredients";
 
-const initialState = {
+type TIngredientsState = {
+	ingredients: Array<TIngredient>;
+	ingredientsIsLoading: boolean;
+	ingredientsHasError: boolean;
+}
+
+const initialState: TIngredientsState = {
 	ingredients: [],
 	ingredientsIsLoading: false,
 	ingredientsHasError: false,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
 	switch (action.type) {
 		case GET_INGREDIENTS_LOADING: {
 			return {
@@ -27,7 +35,7 @@ export const ingredientsReducer = (state = initialState, action) => {
 				...state,
 				ingredientsIsLoading: false,
 				ingredientsHasError: false,
-				ingredients: action.payload,
+				ingredients: action.ingredients,
 			};
 		}
 		case GET_INGREDIENTS_FAILED: {
@@ -41,7 +49,7 @@ export const ingredientsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				ingredients: [...state.ingredients].map((ingredient) =>
-					ingredient._id === action.payload._id
+					ingredient._id === action.selectIngredient._id
 						? {
 							...ingredient,
 							count: ++ingredient.count,
@@ -54,7 +62,7 @@ export const ingredientsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				ingredients: [...state.ingredients].map((ingredient) =>
-					ingredient._id === action.payload._id
+					ingredient._id === action.selectIngredient._id
 						? {
 							...ingredient,
 							count: --ingredient.count,
@@ -68,7 +76,7 @@ export const ingredientsReducer = (state = initialState, action) => {
 				...state,
 				ingredients: [...state.ingredients].map((ingredient) => {
 					if (ingredient.type === 'bun') {
-						return ingredient._id === action.payload._id
+						return ingredient._id === action.selectIngredient._id
 							? {...ingredient, count: 2}
 							: {...ingredient, count: 0};
 					}

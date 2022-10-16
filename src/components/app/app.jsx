@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
+// import {useDispatch, useSelector} from '../../services/hooks';
+import {useTSelector, useTDispatch} from '../../services/hooks';
 
 import {getIngredients} from '../../services/actions/burger-ingredients';
 import {links} from '../../utils/constants';
@@ -25,7 +27,8 @@ import FeedDetailsPage from '../../pages/feed-details/feed-details';
 import OrderFullInfo from '../order-full-info/order-full-info';
 
 const App = () => {
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
+	const dispatch = useTDispatch();
 	const history = useHistory();
 	const location = useLocation();
 
@@ -35,7 +38,8 @@ const App = () => {
 	const authData = useSelector((state) => state.authData);
 	const dataAll = useSelector(state => state.wsData);
 	const dataAuth = useSelector(state => state.wsAuthData);
-	const ingredientsData = useSelector(state => state.ingredientsData);
+	// const ingredientsData = useSelector(state => state.ingredientsData);
+	const ingredientsData = useTSelector(state => state.ingredientsData)
 
 
 	useEffect(() => {
