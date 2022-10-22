@@ -11,7 +11,7 @@ const IngredientDetails = () => {
 	const ingredient = ingredients.find((item) => item._id === id);
 
 	return !ingredients.length ? (
-		<Preloader type='preloader' />
+		<Preloader type='loader' />
 		) : (
 		<>
 			<img

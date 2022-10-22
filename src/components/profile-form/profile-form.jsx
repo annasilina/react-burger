@@ -52,7 +52,7 @@ const ProfileForm = () => {
 
 	return {
 		...(authData.isUserDataLoading ? (
-			<Preloader/>
+			<Preloader type='loader'/>
 		) : (
 			<form
 				className={styles.form}

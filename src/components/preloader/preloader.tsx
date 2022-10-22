@@ -1,21 +1,20 @@
 import styles from './preloader.module.css';
-import React from 'react';
+import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
 import {links} from '../../utils/constants';
 
-const Preloader = (props) => {
-	const { type } = props;
-	if (type === 'loader') {
-		return (
-			<div className={`${styles.main}`}>
-				<div className={`${styles.spinner}`}></div>
-			</div>
-		);
-	}
+interface TPreloaderProps {
+	type: 'loader' | 'error';
+}
 
-	if (type === 'error') {
-		return (
-			<div className={`${styles.main}`}>
+const Preloader: FC<TPreloaderProps> = ({type}) => {
+
+	return (
+		<div className={`${styles.main}`}>
+			{type === 'loader' &&
+				<div className={`${styles.spinner}`}></div>
+			}
+			{type === 'error' && (
 				<h1 className='text text_type_main-medium'>
 					Произошла ошибка. Попробуйте перезагрузить страницу, или вернуться на&#129;
 					<Link
@@ -25,9 +24,9 @@ const Preloader = (props) => {
 						главную.
 					</Link>
 				</h1>
-			</div>
-		);
-	}
+			)}
+		</div>
+	)
 };
 
 export default Preloader;
