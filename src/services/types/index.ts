@@ -1,12 +1,14 @@
 import {store} from '../store';
 import {TIngredientsActions} from "../actions/burger-ingredients";
 import {ThunkAction} from "redux-thunk";
-import { Action, ActionCreator } from 'redux';
+import {Action, ActionCreator} from 'redux';
 import {rootReducer} from "../reducers";
+import {TCreateOrderActions} from "../actions/order-details";
+import {TConstructorActions} from "../actions/constructor";
 
 export type RootState = ReturnType<typeof rootReducer>
 
-type TAppActions = TIngredientsActions;
+type TAppActions = TIngredientsActions | TCreateOrderActions | TConstructorActions;
 
 export type AppDispatch = typeof store.dispatch;
 
