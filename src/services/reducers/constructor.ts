@@ -21,11 +21,14 @@ export const constructorReducer = (state = initialState, action: TConstructorAct
 	switch (action.type) {
 		case CONSTRUCTOR_ADD_ITEM: {
 			if (action.ingredient.type === 'bun') {
-				return {...state, bunSelected: action.ingredient};
+				return {
+					...state,
+					bunSelected: {...action.ingredient, count: 1},
+				};
 			}
 			return {
 				...state,
-				ingredientsSelected: [...state.ingredientsSelected, action.ingredient],
+				ingredientsSelected: [...state.ingredientsSelected, {...action.ingredient, count: 1}],
 			};
 		}
 		case CONSTRUCTOR_DELETE_ITEM: {

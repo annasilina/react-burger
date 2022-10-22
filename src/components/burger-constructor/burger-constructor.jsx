@@ -9,6 +9,8 @@ import {links} from '../../utils/constants';
 import {useHistory, useLocation} from 'react-router-dom';
 import {cookie} from '../../cookie/cookie';
 import {useTSelector} from '../../services/hooks';
+import {getAllIngredientsInOrder} from '../../ingredients/getAllIngredientsInOrder';
+import {calcOrderCost} from '../../order/calcOrderCost';
 
 const BurgerConstructor = React.memo(({setModalVisibility}) => {
 	const refreshToken = cookie.get('refreshToken');
@@ -22,22 +24,13 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 
 	const orderCost = useMemo(() => {
 		return bunSelected
-			? ingredientsSelected.reduce((prevValue, ingredient) => {
-				return prevValue + ingredient.price;
-			}, bunSelected.price * 2)
-			: ingredientsSelected.reduce((prevValue, ingredient) => {
-				return prevValue + ingredient.price;
-			}, 0);
+			? calcOrderCost(getAllIngredientsInOrder(bunSelected, ingredientsSelected))
+			: calcOrderCost(ingredientsSelected);
 	}, [bunSelected, ingredientsSelected]);
 
 	const handleButtonClick = () => {
 		if (refreshToken) {
-			const allSelectIngredients = [];
-			ingredientsSelected.forEach((item) => {
-				allSelectIngredients.push(item);
-			});
-			allSelectIngredients.unshift(bunSelected);
-			setModalVisibility(allSelectIngredients);
+			setModalVisibility(getAllIngredientsInOrder(bunSelected, ingredientsSelected));
 		} else {
 			history.replace({
 				pathname: links.login,
