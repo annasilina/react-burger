@@ -6,12 +6,14 @@ import {getFormatDate} from '../../utils/getFormatDate';
 import {getOrderStatus} from '../../order/getOrderStatus';
 import {calcOrderCost} from '../../order/calcOrderCost';
 import {getIngredientsWithCount} from '../../ingredients/getIngredientsWithCount';
+import {useTSelector} from '../../services/hooks';
 
 const OrderFullInfo = (props) => {
 	const { id } = useParams();
 	const { wsAuth } = props;
 
-	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
+	// const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
+	const allIngredientsList = useTSelector(store => store.ingredientsData.ingredients);
 	const feedData = useSelector((store) => store.wsData)
 	const feedAuthData = useSelector((store) => store.wsAuthData)
 	const data = wsAuth ? feedAuthData : feedData;

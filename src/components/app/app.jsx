@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-// import {useDispatch, useSelector} from '../../services/hooks';
+import {useSelector} from 'react-redux';
 import {useTSelector, useTDispatch} from '../../services/hooks';
 
 import {getIngredients} from '../../services/actions/burger-ingredients';
@@ -35,12 +34,11 @@ const App = () => {
 	const refreshToken = cookie.get('refreshToken');
 	const background = location.state?.background;
 
-	const authData = useSelector((state) => state.authData);
+	const authData = useSelector(state => state.authData);
 	const dataAll = useSelector(state => state.wsData);
 	const dataAuth = useSelector(state => state.wsAuthData);
 	// const ingredientsData = useSelector(state => state.ingredientsData);
-	const ingredientsData = useTSelector(state => state.ingredientsData)
-
+	const ingredientsData = useTSelector(store => store.ingredientsData);
 
 	useEffect(() => {
 		dispatch(getIngredients());

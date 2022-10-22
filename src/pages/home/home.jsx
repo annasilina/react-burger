@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 
@@ -8,22 +8,30 @@ import BurgerConstructor from '../../components/burger-constructor/burger-constr
 import Modal from '../../components/modal/modal';
 import OrderDetails from '../../components/order-details/order-details';
 
-import {RESET_SELECTED_INGREDIENTS} from '../../services/actions/burger-ingredients';
+import {resetSelectedIngredients} from '../../services/actions/burger-ingredients';
 import {createOrder, RESET_ORDER_DETAILS,} from '../../services/actions/order-details';
 import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
 
 import styles from './home.module.css';
 import Preloader from '../../components/preloader/preloader';
+import {useTDispatch, useTSelector} from '../../services/hooks';
 
 const Home = () => {
-	const dispatch = useDispatch();
+	const dispatch = useTDispatch();
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
 
+	// const {ingredients, ingredientsIsLoading, ingredientsHasError} =
+	// 	useSelector((state) => ({
+	// 		ingredients: state.ingredientsData.ingredients,
+	// 		ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
+	// 		ingredientsHasError: state.ingredientsData.ingredientsHasError,
+	// 	}));
+
 	const {ingredients, ingredientsIsLoading, ingredientsHasError} =
-		useSelector((state) => ({
-			ingredients: state.ingredientsData.ingredients,
-			ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
-			ingredientsHasError: state.ingredientsData.ingredientsHasError,
+		useTSelector((store) => ({
+			ingredients: store.ingredientsData.ingredients,
+			ingredientsIsLoading: store.ingredientsData.ingredientsIsLoading,
+			ingredientsHasError: store.ingredientsData.ingredientsHasError,
 		}));
 
 	const {orderNumber, orderIsLoading, orderHasError} = useSelector(
@@ -51,9 +59,7 @@ const Home = () => {
 			dispatch({
 				type: CONSTRUCTOR_RESET,
 			});
-			dispatch({
-				type: RESET_SELECTED_INGREDIENTS,
-			});
+			dispatch(resetSelectedIngredients());
 		}
 	}, [orderIsLoading, dispatch]);
 

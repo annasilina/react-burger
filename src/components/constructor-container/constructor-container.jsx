@@ -4,12 +4,12 @@ import styles from './constructor-container.module.css';
 import bunDefault from '../../images/bunDefault.png';
 import ConstructorIngredient from '../constructor-ingredient/constructor-ingredient';
 import {useDrop} from 'react-dnd';
-import {useDispatch} from 'react-redux';
 import {addIngredientToConstructor} from '../../services/actions/constructor';
 import {increaseIngredient, selectIngredientBun} from '../../services/actions/burger-ingredients';
+import {useTDispatch} from '../../services/hooks';
 
 export const ConstructorContainer = ({bunSelected, ingredientsSelected}) => {
-	const dispatch = useDispatch();
+	const dispatch = useTDispatch();
 
 	const [{isHover}, dropTarget] = useDrop({
 		accept: 'ingredient',

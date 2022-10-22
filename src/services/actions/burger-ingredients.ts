@@ -3,7 +3,10 @@ import {
 	DECREASE_INGREDIENT,
 	GET_INGREDIENTS_FAILED,
 	GET_INGREDIENTS_LOADED,
-	GET_INGREDIENTS_LOADING, INCREASE_INGREDIENT, RESET_SELECTED_INGREDIENTS, SELECT_INGREDIENT_BUN
+	GET_INGREDIENTS_LOADING,
+	INCREASE_INGREDIENT,
+	RESET_SELECTED_INGREDIENTS,
+	SELECT_INGREDIENT_BUN
 } from '../constants/burger-ingredients';
 import {TIngredient} from "../../types/data";
 import {AppDispatch, AppThunk} from "../types";
@@ -75,6 +78,10 @@ export const increaseIngredient = (selectIngredient: TIngredient): IIncreaseIngr
 export const decreaseIngredient = (selectIngredient: TIngredient): IDecreaseIngredientAction => ({
 	type: DECREASE_INGREDIENT,
 	selectIngredient
+});
+
+export const resetSelectedIngredients = (): IResetSelectedIngredientsAction => ({
+	type: RESET_SELECTED_INGREDIENTS,
 });
 
 export const getIngredients: AppThunk = () => (dispatch: AppDispatch) => {

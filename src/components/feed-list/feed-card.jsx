@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './feed-list.module.css';
@@ -8,13 +7,15 @@ import {getOrderStatus} from '../../order/getOrderStatus';
 import {calcOrderCost} from '../../order/calcOrderCost';
 import {getIngredientsInfo} from '../../ingredients/getIngredientsInfo';
 import FeedIngredientImage from './feed-ingredient-image';
+import {useTSelector} from '../../services/hooks';
 
 const FeedCard = ({order}) => {
 	const location = useLocation();
 	const match = useRouteMatch();
 	const maxVisibleQty = 6;
 
-	const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
+	//const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
+	const allIngredientsList = useTSelector(store => store.ingredientsData.ingredients);
 	const ingredientsInOrder = getIngredientsInfo(allIngredientsList, order.ingredients);
 
 	return (

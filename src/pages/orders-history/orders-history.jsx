@@ -1,14 +1,15 @@
 import FeedList from '../../components/feed-list/feed-list';
 import styles from './orders-history.module.css';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {wsConnectionStartAuth} from '../../services/actions/webSocketAuth';
 import {wsConnectionCloseAuth} from '../../services/actions/webSocketAuth';
 import Preloader from '../../components/preloader/preloader';
+import {useTDispatch} from '../../services/hooks';
 
 const OrdersHistory = () => {
 	const feedAuthData = useSelector(store => store.wsAuthData);
-	const dispatch = useDispatch();
+	const dispatch = useTDispatch();
 
 	useEffect(() => {
 		dispatch(wsConnectionStartAuth());

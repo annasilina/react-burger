@@ -1,12 +1,13 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
+import {useTSelector} from '../../services/hooks';
 
 const BurgerIngredients = () => {
-	const ingredients = useSelector((state) => state.ingredientsData.ingredients);
+	// const ingredients = useSelector((state) => state.ingredientsData.ingredients);
+	const ingredients = useTSelector((store) => store.ingredientsData.ingredients);
 
 	const [current, setCurrent] = useState('bun');
 	const bunListRef = useRef(null);

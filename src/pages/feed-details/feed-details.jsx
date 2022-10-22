@@ -1,10 +1,11 @@
 import OrderFullInfo from '../../components/order-full-info/order-full-info';
 import styles from './feed-details.module.css'
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useEffect} from 'react';
 import {wsConnectionClose, wsConnectionStart} from '../../services/actions/webSocket';
 import {wsConnectionCloseAuth, wsConnectionStartAuth} from '../../services/actions/webSocketAuth';
 import Preloader from '../../components/preloader/preloader';
+import {useTDispatch} from '../../services/hooks';
 
 const FeedDetailsPage = (props) => {
 	const {wsAuth} = props;
@@ -13,7 +14,7 @@ const FeedDetailsPage = (props) => {
 
 	const data = wsAuth ? dataAuth : dataAll;
 
-	const dispatch = useDispatch();
+	const dispatch = useTDispatch();
 
 	useEffect(() => {
 		dispatch(wsAuth ? wsConnectionStartAuth() : wsConnectionStart());

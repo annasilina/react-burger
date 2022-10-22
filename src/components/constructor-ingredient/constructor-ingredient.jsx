@@ -3,13 +3,13 @@ import React, {useRef} from 'react';
 import styles from './constructor-ingredient.module.css';
 import {ingredientPropTypes} from '../../types/ingredient';
 import {ConstructorElement, DragIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useDispatch} from 'react-redux';
 import {CONSTRUCTOR_DELETE_ITEM, CONSTRUCTOR_REORDER_ITEM,} from '../../services/actions/constructor';
 import {decreaseIngredient} from '../../services/actions/burger-ingredients';
 import {useDrag, useDrop} from 'react-dnd';
+import {useTDispatch} from '../../services/hooks';
 
-export default function ConstructorIngredient({ingredient, index}) {
-	const dispatch = useDispatch();
+const ConstructorIngredient = ({ingredient, index}) => {
+	const dispatch = useTDispatch();
 	const elementRef = useRef(null);
 
 	const [{handlerId}, dropSelectedRef] = useDrop({
@@ -103,3 +103,5 @@ export default function ConstructorIngredient({ingredient, index}) {
 ConstructorIngredient.propTypes = {
 	ingredient: ingredientPropTypes.isRequired,
 };
+
+export default ConstructorIngredient;

@@ -1,12 +1,13 @@
 import React from 'react';
 
 import styles from './ingredient-details.module.css';
-import {useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import Preloader from '../preloader/preloader';
+import {useTSelector} from '../../services/hooks';
 
 const IngredientDetails = () => {
-	const ingredients = useSelector((store) => store.ingredientsData.ingredients);
+	// const ingredients = useSelector((store) => store.ingredientsData.ingredients);
+	const ingredients = useTSelector((store) => store.ingredientsData.ingredients);
 	const {id} = useParams();
 	const ingredient = ingredients.find((item) => item._id === id);
 

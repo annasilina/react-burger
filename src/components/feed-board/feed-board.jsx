@@ -8,7 +8,6 @@ const FeedBoard = () => {
 	const ordersComplete = orders.filter(order => order.status === 'done');
 	const ordersPending = orders.filter(order => order.status === 'pending');
 
-
 	return (
 		<section className={styles.container}>
 			<ul className={styles.list}>

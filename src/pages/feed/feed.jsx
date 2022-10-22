@@ -1,14 +1,15 @@
 import FeedList from '../../components/feed-list/feed-list';
 import styles from './feed.module.css'
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Preloader from '../../components/preloader/preloader';
 import {useEffect} from 'react';
 import FeedBoard from '../../components/feed-board/feed-board';
 import {wsConnectionClose, wsConnectionStart} from '../../services/actions/webSocket';
+import {useTDispatch} from '../../services/hooks';
 
 const FeedPage = () => {
 	const feedData = useSelector(state => state.wsData);
-	const dispatch = useDispatch();
+	const dispatch = useTDispatch();
 
 	useEffect(() => {
 		dispatch(wsConnectionStart())
