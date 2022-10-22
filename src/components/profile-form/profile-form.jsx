@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Button, Input,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile-form.module.css';
-import {setUserData} from '../../services/actions/auth';
+import {setUser} from '../../services/actions/auth';
 import {useForm} from '../../utils/useForm';
 import ErrorMessage from '../error-message/error-message';
 import Preloader from '../preloader/preloader';
@@ -37,7 +37,7 @@ const ProfileForm = () => {
 			password: form.password.value,
 		};
 
-		dispatch(setUserData(formValues));
+		dispatch(setUser(formValues));
 		setVisible(false);
 	};
 

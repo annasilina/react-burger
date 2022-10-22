@@ -1,4 +1,4 @@
-import {TIngredient, TUserData} from "../types/data";
+import {TIngredient, TUser} from "../types/data";
 import {TBaseResponse} from "../types/TBaseResponse";
 
 export interface IApicConfig {
@@ -16,12 +16,12 @@ export interface IInitData {
 	readonly body?: string;
 }
 
-export type TApiUserDataResponse = TBaseResponse & TUserData;
+export type TApiUserDataResponse = TBaseResponse & TUser;
 
 export type TApiUserDataWithTokensResponse = {
 	accessToken: string;
 	refreshToken: string;
-} & TBaseResponse & TUserData;
+} & TBaseResponse & TUser;
 
 export type TApiIngredientsDataResponse = {
 	data: Array<TIngredient>;

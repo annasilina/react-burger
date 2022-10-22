@@ -93,7 +93,7 @@ class Api {
 		}).then((res) => this.checkResponse(res));
 	};
 
-	getUserRequest = (accessToken: string): Promise<TApiUserDataResponse> => {
+	getUserRequest = (accessToken: string | undefined): Promise<TApiUserDataResponse> => {
 		return this.fetchWithTokenRefresh(`${this.authURL}/user`, {
 			method: 'GET',
 			headers: {
@@ -103,7 +103,7 @@ class Api {
 		}).then((data) => data as TApiUserDataResponse);
 	};
 
-	setUserDataRequest = (userData: TFormValues, accessToken: string): Promise<TApiUserDataResponse> => {
+	setUserDataRequest = (userData: TFormValues, accessToken: string | undefined): Promise<TApiUserDataResponse> => {
 		return this.fetchWithTokenRefresh(`${this.authURL}/user`, {
 			method: 'PATCH',
 			headers: {
@@ -124,7 +124,7 @@ class Api {
 		}).then((res) => this.checkResponse(res));
 	};
 
-	logoutRequest = (refreshToken: string): Promise<TBaseResponse> => {
+	logoutRequest = (refreshToken: string | undefined): Promise<TBaseResponse> => {
 		return fetch(`${this.authURL}/logout`, {
 			method: 'POST',
 			headers: this.headers,

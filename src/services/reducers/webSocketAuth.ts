@@ -4,12 +4,12 @@ import {
 	WS_CONNECTION_SUCCESS_AUTH,
 	WS_GET_MESSAGE_AUTH
 } from '../constants/webSocketAuth';
-import {TOrderData} from "../../types/data";
+import {TOrder} from "../../types/data";
 import {TWebSocketAuthActions} from "../actions/webSocketAuth";
 
 type TWebSocketAuthState = {
 	wsConnected: boolean,
-	orders: Array<TOrderData>,
+	orders: Array<TOrder>,
 	error: string | undefined,
 }
 

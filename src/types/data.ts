@@ -1,9 +1,11 @@
+export type TUser = {
+	user: TUserData
+}
+
 export type TUserData = {
-	user: {
-		name: string;
-		email: string;
-		password?: string;
-	}
+	name: string;
+	email: string;
+	password?: string;
 }
 
 export type TBun = 'bun' | 'main' | 'sauce';
@@ -26,18 +28,20 @@ export type TIngredient = {
 	constructorID?: string;
 };
 
-export type TOrderData = {
+export type TStatus = "done" | "pending" | "created" ;
+
+export type TOrder = {
 	createdAt: string;
 	ingredients: Array<string>;
 	name: string;
-	number: number
-	status: "done" | "pending" | "created" ;
+	number: number;
+	status: TStatus;
 	updatedAt: string;
 	_id: string;
 }
 
-export type TOrders = {
-	orders: Array<TOrderData>,
+export type TOrdersData = {
+	orders: Array<TOrder>,
 	total: number;
 	totalToday: number;
 }

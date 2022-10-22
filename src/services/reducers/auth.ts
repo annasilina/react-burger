@@ -17,9 +17,33 @@ import {
 	SET_USER_DATA_FAILED,
 	SET_USER_DATA_LOADING,
 } from '../constants/auth';
+import {TUserData} from "../../types/data";
+import {TAuthActions} from "../actions/auth";
 
-const initialState = {
-	user: {},
+interface IAuthState {
+	user: TUserData | null;
+	isRegisterLoading: boolean;
+	isRegisterFailed: boolean;
+	registerErrorMessage: string;
+	isAuthLoading: boolean;
+	isAuthFailed: boolean;
+	authErrorMessage: string;
+	isUserLoading: boolean;
+	isUserFailed: boolean;
+	userErrorMessage: string;
+	isUserDataLoading: boolean;
+	isUserDataFailed: boolean;
+	userDataErrorMessage: string;
+	isForgotPasswordLoading: boolean;
+	isForgotPasswordFailed: boolean;
+	forgotPasswordErrorMessage: string;
+	isResetPasswordLoading: boolean;
+	isResetPasswordFailed: boolean;
+	resetPasswordErrorMessage: string;
+}
+
+const initialState: IAuthState = {
+	user: null,
 	isRegisterLoading: false,
 	isRegisterFailed: false,
 	registerErrorMessage: '',
@@ -40,7 +64,7 @@ const initialState = {
 	resetPasswordErrorMessage: '',
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: TAuthActions): IAuthState => {
 	switch (action.type) {
 		case GET_REGISTRATION_LOADING: {
 			return {
@@ -61,7 +85,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isRegisterFailed: true,
 				isRegisterLoading: false,
-				registerErrorMessage: action.payload,
+				registerErrorMessage: action.message,
 			};
 		}
 		case GET_AUTH_LOADING: {
@@ -83,7 +107,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isAuthLoading: false,
 				isAuthFailed: true,
-				authErrorMessage: action.payload,
+				authErrorMessage: action.message,
 			};
 		}
 		case SET_USER_DATA_LOADING: {
@@ -95,7 +119,7 @@ export const authReducer = (state = initialState, action) => {
 		case SET_USER_DATA: {
 			return {
 				...state,
-				user: action.payload,
+				user: action.user,
 				userDataErrorMessage: '',
 			};
 		}
@@ -104,7 +128,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isUserDataLoading: false,
 				isUserDataFailed: true,
-				userDataErrorMessage: action.payload,
+				userDataErrorMessage: action.message,
 			};
 		}
 		case GET_USER_LOADING: {
@@ -128,7 +152,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isUserLoading: false,
 				isUserFailed: true,
-				userErrorMessage: action.payload,
+				userErrorMessage: action.message,
 			};
 		}
 		case LOGGED_OUT: {
@@ -145,7 +169,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isForgotPasswordLoading: false,
 				isForgotPasswordFailed: true,
-				forgotPasswordErrorMessage: action.payload,
+				forgotPasswordErrorMessage: action.message,
 			};
 		}
 		case RESET_PASSWORD_LOADING: {
@@ -159,7 +183,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				isResetPasswordLoading: false,
 				isResetPasswordFailed: true,
-				resetPasswordErrorMessage: action.payload,
+				resetPasswordErrorMessage: action.message,
 			};
 		}
 		default:
