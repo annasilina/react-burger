@@ -23,4 +23,5 @@ export type TIngredient = {
 	image_large: string;
 	__v: number;
 	uniqID?: string;
+	constructorID?: string;
 };

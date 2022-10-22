@@ -3,10 +3,10 @@ import React, {useRef} from 'react';
 import styles from './constructor-ingredient.module.css';
 import {ingredientPropTypes} from '../../types/ingredient';
 import {ConstructorElement, DragIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
-import {CONSTRUCTOR_DELETE_ITEM, CONSTRUCTOR_REORDER_ITEM,} from '../../services/actions/constructor';
 import {decreaseIngredient} from '../../services/actions/burger-ingredients';
 import {useDrag, useDrop} from 'react-dnd';
 import {useTDispatch} from '../../services/hooks';
+import {deleteIngredientFromConstructor, reorderIngredientsInConstructor} from '../../services/actions/constructor';
 
 const ConstructorIngredient = ({ingredient, index}) => {
 	const dispatch = useTDispatch();
@@ -43,13 +43,7 @@ const ConstructorIngredient = ({ingredient, index}) => {
 				return;
 			}
 
-			dispatch({
-				type: CONSTRUCTOR_REORDER_ITEM,
-				payload: {
-					dragItemIndex: dragItemIndex,
-					hoverItemIndex: hoverItemIndex,
-				},
-			});
+			dispatch(reorderIngredientsInConstructor(dragItemIndex, hoverItemIndex));
 
 			item.index = hoverItemIndex;
 		},
@@ -66,10 +60,7 @@ const ConstructorIngredient = ({ingredient, index}) => {
 	dragRef(dropSelectedRef(elementRef));
 
 	const handleDelete = (ingredient) => {
-		dispatch({
-			type: CONSTRUCTOR_DELETE_ITEM,
-			payload: ingredient,
-		});
+		dispatch(deleteIngredientFromConstructor(ingredient));
 		dispatch(decreaseIngredient(ingredient));
 	};
 

@@ -8,15 +8,16 @@ import {ConstructorContainer} from '../constructor-container/constructor-contain
 import {links} from '../../utils/constants';
 import {useHistory, useLocation} from 'react-router-dom';
 import {cookie} from '../../cookie/cookie';
+import {useTSelector} from '../../services/hooks';
 
 const BurgerConstructor = React.memo(({setModalVisibility}) => {
 	const refreshToken = cookie.get('refreshToken');
 	const location = useLocation();
 	const history = useHistory();
 	const orderIsLoading = useSelector((state) => state.orderData.orderIsLoading);
-	const bunSelected = useSelector((state) => state.constructorData.bunSelected);
-	const ingredientsSelected = useSelector(
-		(state) => state.constructorData.ingredientsSelected
+	const bunSelected = useTSelector((store) => store.constructorData.bunSelected);
+	const ingredientsSelected = useTSelector(
+		(store) => store.constructorData.ingredientsSelected
 	);
 
 	const orderCost = useMemo(() => {
@@ -31,8 +32,12 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 
 	const handleButtonClick = () => {
 		if (refreshToken) {
-			ingredientsSelected.unshift(bunSelected);
-			setModalVisibility(ingredientsSelected);
+			const allSelectIngredients = [];
+			ingredientsSelected.forEach((item) => {
+				allSelectIngredients.push(item);
+			});
+			allSelectIngredients.unshift(bunSelected);
+			setModalVisibility(allSelectIngredients);
 		} else {
 			history.replace({
 				pathname: links.login,

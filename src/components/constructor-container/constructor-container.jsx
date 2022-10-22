@@ -6,14 +6,13 @@ import ConstructorIngredient from '../constructor-ingredient/constructor-ingredi
 import {useDrop} from 'react-dnd';
 import {addIngredientToConstructor} from '../../services/actions/constructor';
 import {increaseIngredient, selectIngredientBun} from '../../services/actions/burger-ingredients';
-import {useTDispatch} from '../../services/hooks';
-import {useSelector} from 'react-redux';
+import {useTDispatch, useTSelector} from '../../services/hooks';
 
 export const ConstructorContainer = () => {
 	const dispatch = useTDispatch();
-	const bunSelected = useSelector((state) => state.constructorData.bunSelected);
-	const ingredientsSelected = useSelector(
-		(state) => state.constructorData.ingredientsSelected
+	const bunSelected = useTSelector((store) => store.constructorData.bunSelected);
+	const ingredientsSelected = useTSelector(
+		(store) => store.constructorData.ingredientsSelected
 	);
 
 	const [{isHover}, dropTarget] = useDrop({

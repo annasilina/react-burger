@@ -1,5 +1,5 @@
 import {TCookieProps} from "../types/TCookieProps";
-import {TApiUserDataWithTokensResponse} from "../types/api-responses";
+import {TApiUserDataWithTokensResponse} from "../api/types";
 
 class Cookie {
 	public get = (cookieName: string): string | undefined => {

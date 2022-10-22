@@ -1,11 +1,24 @@
+import {TIngredient, TUserData} from "../types/data";
 
-import {TIngredient, TUserData} from "./data";
+export interface IApicConfig {
+	readonly baseURL: string;
+	readonly headers: {
+		[key: string]: string;
+	}
+}
+
+export interface IInitData {
+	readonly method: 'POST' | 'PATCH' | 'GET';
+	readonly headers: {
+		[key: string]: string;
+	}
+	readonly body?: string;
+}
 
 export type TApiBaseResponse = {
 	success: boolean;
 	message?: string;
 }
-
 export type TApiUserDataResponse = TApiBaseResponse & TUserData;
 
 export type TApiUserDataWithTokensResponse = {

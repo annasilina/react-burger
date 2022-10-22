@@ -1,26 +1,13 @@
 import {cookie} from '../cookie/cookie';
 import {TFormValues} from '../types/TFormValues';
 import {
+	IApicConfig,
+	IInitData,
 	TApiBaseResponse,
-	TApiUserDataWithTokensResponse,
 	TApiIngredientsDataResponse,
-	TApiUserDataResponse
-} from "../types/api-responses";
-
-interface IApicConfig {
-	readonly baseURL: string;
-	readonly headers: {
-		[key: string]: string;
-	}
-}
-
-interface IInitData {
-	readonly method: 'POST' | 'PATCH' | 'GET';
-	readonly headers: {
-		[key: string]: string;
-	}
-	readonly body?: string;
-}
+	TApiUserDataResponse,
+	TApiUserDataWithTokensResponse
+} from "./types";
 
 const apiConfig: IApicConfig = {
 	baseURL: 'https://norma.nomoreparties.space/api',

@@ -10,11 +10,11 @@ import OrderDetails from '../../components/order-details/order-details';
 
 import {resetSelectedIngredients} from '../../services/actions/burger-ingredients';
 import {createOrder, RESET_ORDER_DETAILS,} from '../../services/actions/order-details';
-import {CONSTRUCTOR_RESET} from '../../services/actions/constructor';
 
 import styles from './home.module.css';
 import Preloader from '../../components/preloader/preloader';
 import {useTDispatch, useTSelector} from '../../services/hooks';
+import {resetConstructor} from '../../services/actions/constructor';
 
 const Home = () => {
 	const dispatch = useTDispatch();
@@ -56,9 +56,7 @@ const Home = () => {
 			dispatch({
 				type: RESET_ORDER_DETAILS,
 			});
-			dispatch({
-				type: CONSTRUCTOR_RESET,
-			});
+			dispatch(resetConstructor());
 			dispatch(resetSelectedIngredients());
 		}
 	}, [orderIsLoading, dispatch]);
