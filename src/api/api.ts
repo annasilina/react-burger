@@ -114,7 +114,7 @@ class Api {
 		}).then((data) => data as TApiUserDataResponse);
 	};
 
-	updateTokenRequest = (refreshToken: string): Promise<TApiUserDataWithTokensResponse> => {
+	updateTokenRequest = (refreshToken: string | undefined): Promise<TApiUserDataWithTokensResponse> => {
 		return fetch(`${this.authURL}/token`, {
 			method: 'POST',
 			headers: this.headers,

@@ -2,16 +2,24 @@ import {
 	WS_CONNECTION_CLOSED_AUTH,
 	WS_CONNECTION_ERROR_AUTH,
 	WS_CONNECTION_SUCCESS_AUTH,
-	WS_GET_MESSAGE_AUTH,
-} from '../actions/webSocketAuth';
+	WS_GET_MESSAGE_AUTH
+} from '../constants/webSocketAuth';
+import {TOrderData} from "../../types/data";
+import {TWebSocketAuthActions} from "../actions/webSocketAuth";
 
-const initialState = {
+type TWebSocketAuthState = {
+	wsConnected: boolean,
+	orders: Array<TOrderData>,
+	error: string | undefined,
+}
+
+const initialState: TWebSocketAuthState = {
 	wsConnected: false,
 	orders: [],
 	error: undefined,
 }
 
-export const wsAuthReducer = (state = initialState, action) => {
+export const wsAuthReducer = (state = initialState, action: TWebSocketAuthActions): TWebSocketAuthState => {
 	switch (action.type) {
 		case WS_CONNECTION_SUCCESS_AUTH: {
 			return {

@@ -1,18 +1,21 @@
 import {cookie} from '../../cookie/cookie';
 import {api} from '../../api/api';
+import {IWsActions} from "../store";
+import {AnyAction, Middleware, MiddlewareAPI} from "redux";
+import {AppDispatch, RootState} from "../types";
 
-export const socketMiddleware = (wsUrl, wsActions, auth) => {
-	return store => {
-		let socket = null;
+export const socketMiddleware = (wsUrl: string, wsActions: IWsActions, auth: boolean): Middleware => {
+	return (store: MiddlewareAPI<AppDispatch, RootState>) => {
+		let socket: WebSocket | null = null;
 
-		return next => action => {
+		return (next: (action: AnyAction) => void) => (action: AnyAction) => {
 			const { dispatch } = store;
 			const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 			const { type, payload } = action;
-			let accessToken = cookie.get('accessToken');
-			let refreshToken = cookie.get('refreshToken');
-			let isConnected = false;
-			let reconnectTimer;
+			let accessToken: string | undefined = cookie.get('accessToken');
+			let refreshToken: string | undefined = cookie.get('refreshToken');
+			let isConnected: boolean = false;
+			let reconnectTimer: number | undefined;
 
 			if (type === wsInit) {
 				console.log('ws connecting')

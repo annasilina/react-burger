@@ -4,14 +4,6 @@ import thunk from 'redux-thunk';
 import {rootReducer} from './reducers';
 import {socketMiddleware} from './middleware/socket-middleware';
 import {
-	WS_CONNECTION_CLOSED_AUTH,
-	WS_CONNECTION_ERROR_AUTH,
-	WS_CONNECTION_START_AUTH,
-	WS_CONNECTION_SUCCESS_AUTH,
-	WS_GET_MESSAGE_AUTH,
-	WS_SEND_MESSAGE_AUTH
-} from "./actions/webSocketAuth";
-import {
 	WS_CONNECTION_CLOSED,
 	WS_CONNECTION_ERROR,
 	WS_CONNECTION_START,
@@ -19,6 +11,14 @@ import {
 	WS_GET_MESSAGE,
 	WS_SEND_MESSAGE
 } from "./constants/webSocket";
+import {
+	WS_CONNECTION_CLOSED_AUTH,
+	WS_CONNECTION_ERROR_AUTH,
+	WS_CONNECTION_START_AUTH,
+	WS_CONNECTION_SUCCESS_AUTH,
+	WS_GET_MESSAGE_AUTH,
+	WS_SEND_MESSAGE_AUTH
+} from "./constants/webSocketAuth";
 
 declare global {
 	interface Window {
@@ -31,7 +31,16 @@ const composeEnhancers = typeof window === "object" && window.__REDUX_DEVTOOLS_E
 const wsUrl = "wss://norma.nomoreparties.space/orders/all";
 const wsUrlAuth = "wss://norma.nomoreparties.space/orders"
 
-const wsActions = {
+export interface IWsActions {
+	readonly wsInit: typeof WS_CONNECTION_START | typeof WS_CONNECTION_START_AUTH;
+	readonly wsSendMessage: typeof WS_SEND_MESSAGE | typeof WS_SEND_MESSAGE_AUTH;
+	readonly onOpen: typeof WS_CONNECTION_SUCCESS | typeof WS_CONNECTION_SUCCESS_AUTH;
+	readonly onClose: typeof WS_CONNECTION_CLOSED | typeof WS_CONNECTION_CLOSED_AUTH;
+	readonly onError: typeof WS_CONNECTION_ERROR | typeof WS_CONNECTION_ERROR_AUTH;
+	readonly onMessage: typeof WS_GET_MESSAGE | typeof WS_GET_MESSAGE_AUTH;
+}
+
+const wsActions: IWsActions = {
 	wsInit: WS_CONNECTION_START,
 	wsSendMessage: WS_SEND_MESSAGE,
 	onOpen: WS_CONNECTION_SUCCESS,
@@ -40,7 +49,7 @@ const wsActions = {
 	onMessage: WS_GET_MESSAGE,
 }
 
-const wsActionsAuth = {
+const wsActionsAuth: IWsActions = {
 	wsInit: WS_CONNECTION_START_AUTH,
 	wsSendMessage: WS_SEND_MESSAGE_AUTH,
 	onOpen: WS_CONNECTION_SUCCESS_AUTH,
