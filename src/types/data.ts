@@ -28,14 +28,14 @@ export type TIngredient = {
 	constructorID?: string;
 };
 
-export type TStatus = "done" | "pending" | "created" ;
+export type TOrderStatus = "done" | "pending" | "created" ;
 
 export type TOrder = {
 	createdAt: string;
 	ingredients: Array<string>;
 	name: string;
 	number: number;
-	status: TStatus;
+	status: TOrderStatus;
 	updatedAt: string;
 	_id: string;
 }

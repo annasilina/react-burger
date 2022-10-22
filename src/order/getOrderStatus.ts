@@ -1,5 +1,7 @@
 // доделать типизацию параметра после типизации данных заказа в ответе от бэка
-export const getOrderStatus = (orderStatus: string): string => {
+import {TOrderStatus} from "../types/data";
+
+export const getOrderStatus = (orderStatus: TOrderStatus): string => {
 	switch (orderStatus) {
 		case 'done': {
 			return 'Выполнен'
@@ -10,7 +12,5 @@ export const getOrderStatus = (orderStatus: string): string => {
 		case 'created': {
 			return 'Создан'
 		}
-		default:
-			return '';
 	}
 }
