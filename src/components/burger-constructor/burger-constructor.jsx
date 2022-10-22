@@ -43,10 +43,7 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 
 	return (
 		<section className={`mt-25`}>
-			<ConstructorContainer
-				bunSelected={bunSelected}
-				ingredientsSelected={ingredientsSelected}
-			/>
+			<ConstructorContainer />
 			<div className={`${styles.order} mt-10 mr-4`}>
 				<div className={`${styles.orderCost} mr-10`}>
 					<p className='text text_type_digits-medium mr-2'>
