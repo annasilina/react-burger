@@ -6,7 +6,6 @@ import IngredientsCategory from '../ingredients-category/ingredients-category';
 import {useTSelector} from '../../services/hooks';
 
 const BurgerIngredients = () => {
-	// const ingredients = useSelector((state) => state.ingredientsData.ingredients);
 	const ingredients = useTSelector((state) => state.ingredientsData.ingredients);
 
 	const [current, setCurrent] = useState('bun');

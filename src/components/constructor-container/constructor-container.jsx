@@ -10,9 +10,9 @@ import {useTDispatch, useTSelector} from '../../services/hooks';
 
 export const ConstructorContainer = () => {
 	const dispatch = useTDispatch();
-	const bunSelected = useTSelector((store) => store.constructorData.bunSelected);
+	const bunSelected = useTSelector((state) => state.constructorData.bunSelected);
 	const ingredientsSelected = useTSelector(
-		(store) => store.constructorData.ingredientsSelected
+		(state) => state.constructorData.ingredientsSelected
 	);
 
 	const [{isHover}, dropTarget] = useDrop({

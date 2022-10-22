@@ -1,15 +1,14 @@
 import React from 'react';
 import {Link, useHistory} from 'react-router-dom';
-import {useSelector} from 'react-redux';
 import {Button, Input,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './forgot-password.module.css';
 import {links} from '../../utils/constants';
 import {forgotPasswordAction} from '../../services/actions/auth';
 import {useForm} from '../../utils/useForm';
-import {useTDispatch} from '../../services/hooks';
+import {useTDispatch, useTSelector} from '../../services/hooks';
 
 const ForgotPasswordPage = () => {
-	const authData = useSelector((state) => state.authData);
+	const authData = useTSelector(state => state.authData);
 	const history = useHistory();
 	const dispatch = useTDispatch();
 	const {values, setValues, handleFormChange} = useForm({

@@ -1,5 +1,4 @@
 import {useParams} from 'react-router-dom';
-import {useSelector} from 'react-redux';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-full-info.module.css'
 import {getFormatDate} from '../../utils/getFormatDate';
@@ -12,10 +11,9 @@ const OrderFullInfo = (props) => {
 	const { id } = useParams();
 	const { wsAuth } = props;
 
-	// const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
-	const allIngredientsList = useTSelector(store => store.ingredientsData.ingredients);
-	const feedData = useSelector((store) => store.wsData)
-	const feedAuthData = useSelector((store) => store.wsAuthData)
+	const allIngredientsList = useTSelector(state => state.ingredientsData.ingredients);
+	const feedData = useTSelector(store => store.wsData);
+	const feedAuthData = useTSelector(state => state.wsAuthData);
 	const data = wsAuth ? feedAuthData : feedData;
 
 	const currentOrder = data.orders.find(order => order._id === id);

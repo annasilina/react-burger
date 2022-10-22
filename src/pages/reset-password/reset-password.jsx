@@ -1,19 +1,18 @@
 import React from 'react';
 import {Link, Redirect, useHistory, useLocation} from 'react-router-dom';
-import {useSelector} from 'react-redux';
 import {Button, Input, PasswordInput,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './reset-password.module.css';
 import {links} from '../../utils/constants';
 import {resetPasswordAction} from '../../services/actions/auth';
 import {useForm} from '../../utils/useForm';
-import {useTDispatch} from '../../services/hooks';
+import {useTDispatch, useTSelector} from '../../services/hooks';
 
 const ResetPasswordPage = () => {
 	const resetPasswordStatus = localStorage.getItem('resetPasswordStatus');
-	const location = useLocation();
-	const authData = useSelector((state) => state.authData);
-	const history = useHistory();
+	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
+	const location = useLocation();
+	const history = useHistory();
 	const {values, handleFormChange} = useForm({
 		password: '',
 		token: '',

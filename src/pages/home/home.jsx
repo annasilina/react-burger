@@ -19,30 +19,15 @@ const Home = () => {
 	const dispatch = useTDispatch();
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
 
-	// const {ingredients, ingredientsIsLoading, ingredientsHasError} =
-	// 	useSelector((state) => ({
-	// 		ingredients: state.ingredientsData.ingredients,
-	// 		ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
-	// 		ingredientsHasError: state.ingredientsData.ingredientsHasError,
-	// 	}));
-
-	// const {orderNumber, orderIsLoading, orderHasError} = useSelector(
-	// 	(state) => ({
-	// 		orderNumber: state.orderData.orderNumber,
-	// 		orderIsLoading: state.orderData.orderIsLoading,
-	// 		orderHasError: state.orderData.orderHasError,
-	// 	})
-	// );
-
 	const {ingredients, ingredientsIsLoading, ingredientsHasError} =
-		useTSelector((store) => ({
-			ingredients: store.ingredientsData.ingredients,
-			ingredientsIsLoading: store.ingredientsData.ingredientsIsLoading,
-			ingredientsHasError: store.ingredientsData.ingredientsHasError,
+		useTSelector((state) => ({
+			ingredients: state.ingredientsData.ingredients,
+			ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
+			ingredientsHasError: state.ingredientsData.ingredientsHasError,
 		}));
 
-	const {orderNumber, orderIsLoading, orderHasError} = useTSelector(
-		(store) => ({
+	const {orderNumber, orderIsLoading, orderHasError} =
+		useTSelector((store) => ({
 			orderNumber: store.orderData.orderNumber,
 			orderIsLoading: store.orderData.orderIsLoading,
 			orderHasError: store.orderData.orderHasError,

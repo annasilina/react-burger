@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import styles from './burger-constructor.module.css';
 import {Button, CurrencyIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useSelector} from 'react-redux';
 import {ConstructorContainer} from '../constructor-container/constructor-container';
 import {links} from '../../utils/constants';
 import {useHistory, useLocation} from 'react-router-dom';
@@ -16,10 +15,10 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 	const refreshToken = cookie.get('refreshToken');
 	const location = useLocation();
 	const history = useHistory();
-	const orderIsLoading = useSelector((state) => state.orderData.orderIsLoading);
-	const bunSelected = useTSelector((store) => store.constructorData.bunSelected);
+	const orderIsLoading = useTSelector((state) => state.orderData.orderIsLoading);
+	const bunSelected = useTSelector((state) => state.constructorData.bunSelected);
 	const ingredientsSelected = useTSelector(
-		(store) => store.constructorData.ingredientsSelected
+		(state) => state.constructorData.ingredientsSelected
 	);
 
 	const orderCost = useMemo(() => {

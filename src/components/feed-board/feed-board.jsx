@@ -1,10 +1,10 @@
 import styles from './feed-board.module.css';
-import {useSelector} from 'react-redux';
+import {useTSelector} from '../../services/hooks';
 
 const FeedBoard = () => {
-	const orders = useSelector(state => state.wsData.orders);
-	const total = useSelector(state => state.wsData.total);
-	const totalToday = useSelector(state => state.wsData.totalToday);
+	const orders = useTSelector(state => state.wsData.orders);
+	const total = useTSelector(state => state.wsData.total);
+	const totalToday = useTSelector(state => state.wsData.totalToday);
 	const ordersComplete = orders.filter(order => order.status === 'done');
 	const ordersPending = orders.filter(order => order.status === 'pending');
 

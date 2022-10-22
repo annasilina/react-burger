@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput,} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,10 +6,10 @@ import {links} from '../../utils/constants';
 import {registration} from '../../services/actions/auth';
 import {useForm} from '../../utils/useForm';
 import ErrorMessage from '../../components/error-message/error-message';
-import {useTDispatch} from '../../services/hooks';
+import {useTDispatch, useTSelector} from '../../services/hooks';
 
 const RegisterPage = () => {
-	const authData = useSelector((state) => state.authData);
+	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
 	const history = useHistory();
 	const {values, handleFormChange} = useForm({

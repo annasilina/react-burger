@@ -14,8 +14,7 @@ const FeedCard = ({order}) => {
 	const match = useRouteMatch();
 	const maxVisibleQty = 6;
 
-	//const allIngredientsList = useSelector(state => state.ingredientsData.ingredients);
-	const allIngredientsList = useTSelector(store => store.ingredientsData.ingredients);
+	const allIngredientsList = useTSelector(state => state.ingredientsData.ingredients);
 	const ingredientsInOrder = getIngredientsInfo(allIngredientsList, order.ingredients);
 
 	return (

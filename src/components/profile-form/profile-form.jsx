@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
 import {Button, Input,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile-form.module.css';
 import {setUser} from '../../services/actions/auth';
 import {useForm} from '../../utils/useForm';
 import ErrorMessage from '../error-message/error-message';
 import Preloader from '../preloader/preloader';
-import {useTDispatch} from '../../services/hooks';
+import {useTDispatch, useTSelector} from '../../services/hooks';
 
 const ProfileForm = () => {
 	const [visible, setVisible] = useState(false);
-	const authData = useSelector((state) => state.authData);
+	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
 	const {values, setValues, handleFormChange} = useForm({
 		name: authData.user.name || '',

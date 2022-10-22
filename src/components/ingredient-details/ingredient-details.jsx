@@ -6,8 +6,7 @@ import Preloader from '../preloader/preloader';
 import {useTSelector} from '../../services/hooks';
 
 const IngredientDetails = () => {
-	// const ingredients = useSelector((store) => store.ingredientsData.ingredients);
-	const ingredients = useTSelector((store) => store.ingredientsData.ingredients);
+	const ingredients = useTSelector((state) => state.ingredientsData.ingredients);
 	const {id} = useParams();
 	const ingredient = ingredients.find((item) => item._id === id);
 
