@@ -7,7 +7,7 @@ import {useTSelector} from '../../services/hooks';
 
 const BurgerIngredients = () => {
 	// const ingredients = useSelector((state) => state.ingredientsData.ingredients);
-	const ingredients = useTSelector((store) => store.ingredientsData.ingredients);
+	const ingredients = useTSelector((state) => state.ingredientsData.ingredients);
 
 	const [current, setCurrent] = useState('bun');
 	const bunListRef = useRef(null);

@@ -3,12 +3,12 @@ import {TFormValues} from '../types/TFormValues';
 import {
 	IApicConfig,
 	IInitData,
-	TApiBaseResponse,
 	TApiCreateOrderResponse,
 	TApiIngredientsDataResponse,
 	TApiUserDataResponse,
 	TApiUserDataWithTokensResponse
 } from "./types";
+import {TBaseResponse} from "../types/TBaseResponse";
 
 const apiConfig: IApicConfig = {
 	baseURL: 'https://norma.nomoreparties.space/api',
@@ -124,7 +124,7 @@ class Api {
 		}).then((res) => this.checkResponse(res));
 	};
 
-	logoutRequest = (refreshToken: string): Promise<TApiBaseResponse> => {
+	logoutRequest = (refreshToken: string): Promise<TBaseResponse> => {
 		return fetch(`${this.authURL}/logout`, {
 			method: 'POST',
 			headers: this.headers,
@@ -134,7 +134,7 @@ class Api {
 		}).then((res) => this.checkResponse(res));
 	};
 
-	forgotPasswordRequest = (email: string): Promise<TApiBaseResponse> => {
+	forgotPasswordRequest = (email: string): Promise<TBaseResponse> => {
 		return fetch(`${this.baseURL}/password-reset`, {
 			method: 'POST',
 			headers: this.headers,
@@ -144,7 +144,7 @@ class Api {
 		}).then((res) => this.checkResponse(res));
 	};
 
-	resetPasswordRequest = (passwordData: TFormValues): Promise<TApiBaseResponse> => {
+	resetPasswordRequest = (passwordData: TFormValues): Promise<TBaseResponse> => {
 		return fetch(`${this.baseURL}/password-reset/reset`, {
 			method: 'POST',
 			headers: this.headers,

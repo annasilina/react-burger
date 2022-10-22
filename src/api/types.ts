@@ -1,4 +1,5 @@
 import {TIngredient, TUserData} from "../types/data";
+import {TBaseResponse} from "../types/TBaseResponse";
 
 export interface IApicConfig {
 	readonly baseURL: string;
@@ -15,24 +16,20 @@ export interface IInitData {
 	readonly body?: string;
 }
 
-export type TApiBaseResponse = {
-	success: boolean;
-	message?: string;
-}
-export type TApiUserDataResponse = TApiBaseResponse & TUserData;
+export type TApiUserDataResponse = TBaseResponse & TUserData;
 
 export type TApiUserDataWithTokensResponse = {
 	accessToken: string;
 	refreshToken: string;
-} & TApiBaseResponse & TUserData;
+} & TBaseResponse & TUserData;
 
 export type TApiIngredientsDataResponse = {
 	data: Array<TIngredient>;
-} & TApiBaseResponse
+} & TBaseResponse
 
 export type TApiCreateOrderResponse = {
 	name: string;
 	order: {
 		number: number;
 	}
-} & TApiBaseResponse;
+} & TBaseResponse;

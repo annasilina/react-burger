@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {useTSelector, useTDispatch} from '../../services/hooks';
+import {useTDispatch, useTSelector} from '../../services/hooks';
 
 import {getIngredients} from '../../services/actions/burger-ingredients';
 import {links} from '../../utils/constants';
@@ -38,7 +38,7 @@ const App = () => {
 	const dataAll = useSelector(state => state.wsData);
 	const dataAuth = useSelector(state => state.wsAuthData);
 	// const ingredientsData = useSelector(state => state.ingredientsData);
-	const ingredientsData = useTSelector(store => store.ingredientsData);
+	const ingredientsData = useTSelector(state => state.ingredientsData);
 
 	useEffect(() => {
 		dispatch(getIngredients());

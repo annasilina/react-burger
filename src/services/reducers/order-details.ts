@@ -18,7 +18,7 @@ const initialState: TOrderDetailsState = {
 	orderHasError: false,
 };
 
-export const orderReducer = (state = initialState, action: TCreateOrderActions) => {
+export const orderReducer = (state = initialState, action: TCreateOrderActions): TOrderDetailsState => {
 	switch (action.type) {
 		case CREATE_ORDER_LOADING: {
 			return {

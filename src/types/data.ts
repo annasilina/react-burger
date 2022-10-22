@@ -25,3 +25,19 @@ export type TIngredient = {
 	uniqID?: string;
 	constructorID?: string;
 };
+
+export type TOrderData = {
+	createdAt: string;
+	ingredients: Array<string>;
+	name: string;
+	number: number
+	status: "done" | "pending" | "created" ;
+	updatedAt: string;
+	_id: string;
+}
+
+export type TOrders = {
+	orders: Array<TOrderData>,
+	total: number;
+	totalToday: number;
+}
