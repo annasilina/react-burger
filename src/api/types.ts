@@ -29,3 +29,10 @@ export type TApiUserDataWithTokensResponse = {
 export type TApiIngredientsDataResponse = {
 	data: Array<TIngredient>;
 } & TApiBaseResponse
+
+export type TApiCreateOrderResponse = {
+	name: string;
+	order: {
+		number: number;
+	}
+} & TApiBaseResponse;

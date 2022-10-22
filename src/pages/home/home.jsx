@@ -1,5 +1,4 @@
 import React, {useCallback, useState} from 'react';
-import {useSelector} from 'react-redux';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 
@@ -9,7 +8,7 @@ import Modal from '../../components/modal/modal';
 import OrderDetails from '../../components/order-details/order-details';
 
 import {resetSelectedIngredients} from '../../services/actions/burger-ingredients';
-import {createOrder, RESET_ORDER_DETAILS,} from '../../services/actions/order-details';
+import {createOrder, resetOrderDetails,} from '../../services/actions/order-details';
 
 import styles from './home.module.css';
 import Preloader from '../../components/preloader/preloader';
@@ -27,6 +26,14 @@ const Home = () => {
 	// 		ingredientsHasError: state.ingredientsData.ingredientsHasError,
 	// 	}));
 
+	// const {orderNumber, orderIsLoading, orderHasError} = useSelector(
+	// 	(state) => ({
+	// 		orderNumber: state.orderData.orderNumber,
+	// 		orderIsLoading: state.orderData.orderIsLoading,
+	// 		orderHasError: state.orderData.orderHasError,
+	// 	})
+	// );
+
 	const {ingredients, ingredientsIsLoading, ingredientsHasError} =
 		useTSelector((store) => ({
 			ingredients: store.ingredientsData.ingredients,
@@ -34,11 +41,11 @@ const Home = () => {
 			ingredientsHasError: store.ingredientsData.ingredientsHasError,
 		}));
 
-	const {orderNumber, orderIsLoading, orderHasError} = useSelector(
-		(state) => ({
-			orderNumber: state.orderData.orderNumber,
-			orderIsLoading: state.orderData.orderIsLoading,
-			orderHasError: state.orderData.orderHasError,
+	const {orderNumber, orderIsLoading, orderHasError} = useTSelector(
+		(store) => ({
+			orderNumber: store.orderData.orderNumber,
+			orderIsLoading: store.orderData.orderIsLoading,
+			orderHasError: store.orderData.orderHasError,
 		})
 	);
 
@@ -53,9 +60,7 @@ const Home = () => {
 	const handleCloseOrderModal = useCallback(() => {
 		if (!orderIsLoading) {
 			setIsOrderDetailsOpened(false);
-			dispatch({
-				type: RESET_ORDER_DETAILS,
-			});
+			dispatch(resetOrderDetails());
 			dispatch(resetConstructor());
 			dispatch(resetSelectedIngredients());
 		}

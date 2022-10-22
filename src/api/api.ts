@@ -4,6 +4,7 @@ import {
 	IApicConfig,
 	IInitData,
 	TApiBaseResponse,
+	TApiCreateOrderResponse,
 	TApiIngredientsDataResponse,
 	TApiUserDataResponse,
 	TApiUserDataWithTokensResponse
@@ -161,7 +162,7 @@ class Api {
 		);
 	};
 
-	sendNewOrderRequest = (idArray: Array<string>, accessToken: string) => {
+	sendNewOrderRequest = (idArray: Array<string>, accessToken: string | undefined): Promise<TApiCreateOrderResponse> => {
 		return this.fetchWithTokenRefresh(`${this.baseURL}/orders`, {
 			method: 'POST',
 			headers: {
@@ -170,8 +171,8 @@ class Api {
 			},
 			body: JSON.stringify({
 				ingredients: idArray,
-			}),
-		});
+			})
+		}).then((data) => data as TApiCreateOrderResponse);
 	};
 }
 

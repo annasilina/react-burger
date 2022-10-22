@@ -2,16 +2,23 @@ import {
 	CREATE_ORDER_FAILED,
 	CREATE_ORDER_LOADED,
 	CREATE_ORDER_LOADING,
-	RESET_ORDER_DETAILS,
-} from '../actions/order-details';
+	RESET_ORDER_DETAILS
+} from '../constants/order-details';
+import {TCreateOrderActions} from "../actions/order-details";
 
-const initialState = {
+type TOrderDetailsState = {
+	orderNumber: number;
+	orderIsLoading: boolean;
+	orderHasError: boolean;
+}
+
+const initialState: TOrderDetailsState = {
 	orderNumber: 0,
 	orderIsLoading: false,
 	orderHasError: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TCreateOrderActions) => {
 	switch (action.type) {
 		case CREATE_ORDER_LOADING: {
 			return {
