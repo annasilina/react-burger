@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Input,} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile-form.module.css';
 import {setUser} from '../../services/actions/auth';
 import {useForm} from '../../utils/useForm';
@@ -12,20 +12,21 @@ const ProfileForm = () => {
 	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
 	const {values, setValues, handleFormChange} = useForm({
-		name: authData.user.name || '',
-		email: authData.user.email || '',
+		name: authData.user ? authData.user.name : '',
+		email: authData.user ? authData.user.email :'',
 		password: '',
 	});
 
 	useEffect(() => {
 		if (
+			authData.user !== null &&
 			values.name === authData.user.name &&
 			values.email === authData.user.email &&
 			values.password === ''
 		) {
 			setVisible(false);
 		} else setVisible(true);
-	}, [values]);
+	}, [authData.user, values]);
 
 	const handleFormSubmit = (evt) => {
 		evt.preventDefault();

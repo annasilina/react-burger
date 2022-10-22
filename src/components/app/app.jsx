@@ -61,22 +61,22 @@ const App = () => {
 					<Route path={links.home} exact={true}>
 						<Home/>
 					</Route>
-					<ProtectedRoute path={links.profileOrderInfo} anonymReject={true} >
+					<ProtectedRoute path={links.profileOrderInfo} notAuthReject={true} >
 						<FeedDetailsPage wsAuth={true}/>
 					</ProtectedRoute>
-					<ProtectedRoute path={links.profile} anonymReject={true}>
+					<ProtectedRoute path={links.profile} notAuthReject={true}>
 						<Profile/>
 					</ProtectedRoute>
-					<ProtectedRoute path={links.login} anonymReject={false}>
+					<ProtectedRoute path={links.login} notAuthReject={false}>
 						<Login/>
 					</ProtectedRoute>
-					<ProtectedRoute path={links.register} anonymReject={false}>
+					<ProtectedRoute path={links.register} notAuthReject={false}>
 						<RegisterPage/>
 					</ProtectedRoute>
-					<ProtectedRoute path={links.forgotPassword} anonymReject={false}>
+					<ProtectedRoute path={links.forgotPassword} notAuthReject={false}>
 						<ForgotPasswordPage/>
 					</ProtectedRoute>
-					<ProtectedRoute path={links.resetPassword} anonymReject={false}>
+					<ProtectedRoute path={links.resetPassword} notAuthReject={false}>
 						<ResetPasswordPage/>
 					</ProtectedRoute>
 					<Route path={links.ingredient}>
