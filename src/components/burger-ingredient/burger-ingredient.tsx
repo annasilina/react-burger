@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Counter, CurrencyIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-ingredient.module.css';
-import {ingredientPropTypes} from '../../types/ingredient';
 import {useDrag} from 'react-dnd';
 import {Link, useLocation} from 'react-router-dom';
+import {TIngredient} from "../../types/data";
 
-const BurgerIngredient = React.memo(({ingredient}) => {
+interface IBurgerIngredientProps {
+	ingredient: TIngredient;
+}
+
+const BurgerIngredient: FC<IBurgerIngredientProps> = React.memo(({ingredient}) => {
 	const location = useLocation();
 
 	const [{isDragging}, dragRef] = useDrag({
@@ -52,9 +56,5 @@ const BurgerIngredient = React.memo(({ingredient}) => {
 		</li>
 	);
 });
-
-BurgerIngredient.propTypes = {
-	ingredient: ingredientPropTypes.isRequired,
-};
 
 export default BurgerIngredient;

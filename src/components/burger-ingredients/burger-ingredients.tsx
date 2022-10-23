@@ -1,30 +1,31 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {FC, useCallback, useRef, useState} from 'react';
 
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 import {useTSelector} from '../../services/hooks';
+import {TIngredient, TIngredientType} from "../../types/data";
 
-const BurgerIngredients = () => {
+const BurgerIngredients: FC = () => {
 	const ingredients = useTSelector((state) => state.ingredientsData.ingredients);
 
-	const [current, setCurrent] = useState('bun');
-	const bunListRef = useRef(null);
-	const sauceListRef = useRef(null);
+	const [current, setCurrent] = useState<string>('bun');
+	const bunListRef = useRef<HTMLDivElement>(null);
+	const sauceListRef = useRef<HTMLDivElement>(null);
 
-	const ingredientFilter = (ingredients, type) => {
+	const ingredientFilter = (ingredients: Array<TIngredient>, type: TIngredientType): Array<TIngredient> => {
 		return ingredients.filter((ingredient) => ingredient.type === type);
 	};
 
-	const onTabClick = (tab) => {
+	const onTabClick = (tab: string) => {
 		setCurrent(tab);
-		document.getElementById(tab).scrollIntoView({behavior: 'smooth'});
+		document.getElementById(tab)?.scrollIntoView({behavior: 'smooth'});
 	};
 
 	const handleContainerScroll = useCallback(() => {
-		const bunScrollTop = bunListRef.current.getBoundingClientRect().top;
-		const bunHeight = bunListRef.current.clientHeight;
-		const sauceScrollTop = sauceListRef.current.getBoundingClientRect().top;
+		const bunScrollTop = bunListRef.current?.getBoundingClientRect().top || 0;
+		const bunHeight = bunListRef.current?.clientHeight || 0;
+		const sauceScrollTop = sauceListRef.current?.getBoundingClientRect().top || 0;
 
 		if (bunScrollTop > bunHeight / 2) {
 			setCurrent('bun');
@@ -39,13 +40,25 @@ const BurgerIngredients = () => {
 		<section>
 			<h1 className='text text_type_main-large pt-10 pb-5'>Соберите бургер</h1>
 			<div className={`${styles.tabs} mb-10`}>
-				<Tab value='bun' active={current === 'bun'} onClick={onTabClick}>
+				{/*@ts-ignore*/}
+				<Tab
+					value='bun'
+					active={current === 'bun'}
+					onClick={(value) => onTabClick(value)}>
 					Булки
 				</Tab>
-				<Tab value='sauce' active={current === 'sauce'} onClick={onTabClick}>
+				{/*@ts-ignore*/}
+				<Tab
+					value='sauce'
+					active={current === 'sauce'}
+					onClick={(value) => onTabClick(value)}>
 					Соусы
 				</Tab>
-				<Tab value='main' active={current === 'main'} onClick={onTabClick}>
+				{/*@ts-ignore*/}
+				<Tab
+					value='main'
+					active={current === 'main'}
+					onClick={(value) => onTabClick(value)}>
 					Начинки
 				</Tab>
 			</div>

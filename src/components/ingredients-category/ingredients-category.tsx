@@ -1,11 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {forwardRef} from 'react';
 
 import styles from './ingredients-category.module.css';
-import {ingredientPropTypes} from '../../types/ingredient';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
+import {TIngredient, TIngredientType} from "../../types/data";
 
-const IngredientsCategory = React.forwardRef(
+type Ref = HTMLDivElement;
+
+interface IIngredientsCategoryProps {
+	title: string;
+	ingredients: Array<TIngredient>;
+	type: TIngredientType;
+	ref?: Ref;
+}
+
+const IngredientsCategory = forwardRef<Ref, IIngredientsCategoryProps>(
 	({title, ingredients, type}, ref) => {
 		return (
 			<div ref={ref}>
@@ -21,10 +29,5 @@ const IngredientsCategory = React.forwardRef(
 		);
 	}
 );
-
-IngredientsCategory.propTypes = {
-	ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-	title: PropTypes.string.isRequired,
-};
 
 export default IngredientsCategory;

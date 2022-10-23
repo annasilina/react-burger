@@ -8,13 +8,13 @@ export type TUserData = {
 	password?: string;
 }
 
-export type TBun = 'bun' | 'main' | 'sauce';
+export type TIngredientType = 'bun' | 'main' | 'sauce';
 
 export type TIngredient = {
 	_id: string;
 	name: string;
 	count: number;
-	type: TBun;
+	type: TIngredientType;
 	proteins: number;
 	fat: number;
 	carbohydrates: number;
