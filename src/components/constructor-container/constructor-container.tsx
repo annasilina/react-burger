@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor-container.module.css';
 import bunDefault from '../../images/bunDefault.png';
@@ -7,15 +7,15 @@ import {useDrop} from 'react-dnd';
 import {addIngredientToConstructor} from '../../services/actions/constructor';
 import {increaseIngredient, selectIngredientBun} from '../../services/actions/burger-ingredients';
 import {useTDispatch, useTSelector} from '../../services/hooks';
+import {TIngredient} from "../../types/data";
 
-export const ConstructorContainer = () => {
-	const dispatch = useTDispatch();
+export const ConstructorContainer: FC = () => {
 	const bunSelected = useTSelector((state) => state.constructorData.bunSelected);
 	const ingredientsSelected = useTSelector(
 		(state) => state.constructorData.ingredientsSelected
 	);
 
-	const [{isHover}, dropTarget] = useDrop({
+	const [{isHover}, dropTarget] = useDrop<TIngredient, void, {isHover: boolean}>({
 		accept: 'ingredient',
 		collect(monitor) {
 			return {
@@ -31,6 +31,9 @@ export const ConstructorContainer = () => {
 			}
 		},
 	});
+
+	const dispatch = useTDispatch();
+
 
 	const className = `${styles.elementsContainer} ml-4 ${
 		isHover ? styles.markedContainer : ''
@@ -52,7 +55,7 @@ export const ConstructorContainer = () => {
 						type='top'
 						isLocked={true}
 						thumbnail={bunDefault}
-						price='0'
+						price={0}
 						text='Пока тут пусто. Выберите булочку на ваш вкус.'
 					/>
 				)}
@@ -89,7 +92,7 @@ export const ConstructorContainer = () => {
 						type='bottom'
 						isLocked={true}
 						thumbnail={bunDefault}
-						price='0'
+						price={0}
 						text='Пока тут пусто. Выберите булочку на ваш вкус.'
 					/>
 				)}

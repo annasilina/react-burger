@@ -1,18 +1,29 @@
-import React, {useRef} from 'react';
-
+import React, {FC, useRef} from 'react';
+import type {Identifier, XYCoord} from "dnd-core";
 import styles from './constructor-ingredient.module.css';
-import {ingredientPropTypes} from '../../types/ingredient';
 import {ConstructorElement, DragIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
 import {decreaseIngredient} from '../../services/actions/burger-ingredients';
 import {useDrag, useDrop} from 'react-dnd';
 import {useTDispatch} from '../../services/hooks';
 import {deleteIngredientFromConstructor, reorderIngredientsInConstructor} from '../../services/actions/constructor';
+import {TIngredient} from "../../types/data";
 
-const ConstructorIngredient = ({ingredient, index}) => {
+interface IConstructorIngredientProps {
+	ingredient: TIngredient;
+	index: number;
+}
+
+export interface DragItem {
+	index: number;
+	id: string;
+	type: string;
+}
+
+const ConstructorIngredient: FC<IConstructorIngredientProps> = ({ingredient, index}) => {
 	const dispatch = useTDispatch();
-	const elementRef = useRef(null);
+	const elementRef = useRef<HTMLLIElement>(null);
 
-	const [{handlerId}, dropSelectedRef] = useDrop({
+	const [{handlerId}, dropSelectedRef] = useDrop<DragItem, void, {handlerId: Identifier | null}>({
 		accept: 'selected_ingredient',
 		collect(monitor) {
 			return {
@@ -33,7 +44,7 @@ const ConstructorIngredient = ({ingredient, index}) => {
 			const hoverRect = elementRef.current?.getBoundingClientRect();
 			const hoverMiddle = (hoverRect.bottom - hoverRect.top) / 2;
 			const clientOffset = monitor.getClientOffset();
-			const hoverClientHeight = clientOffset.y - hoverRect.top;
+			const hoverClientHeight = (clientOffset as XYCoord).y - hoverRect.top;
 
 			if (dragItemIndex < hoverItemIndex && hoverClientHeight < hoverMiddle) {
 				return;
@@ -51,7 +62,7 @@ const ConstructorIngredient = ({ingredient, index}) => {
 
 	const [{isDragging}, dragRef] = useDrag({
 		type: 'selected_ingredient',
-		item: {id: ingredient.conctructorID, index},
+		item: {id: ingredient.constructorID, index},
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
 		}),
@@ -59,7 +70,7 @@ const ConstructorIngredient = ({ingredient, index}) => {
 
 	dragRef(dropSelectedRef(elementRef));
 
-	const handleDelete = (ingredient) => {
+	const handleDelete = (ingredient: TIngredient): void => {
 		dispatch(deleteIngredientFromConstructor(ingredient));
 		dispatch(decreaseIngredient(ingredient));
 	};
@@ -90,9 +101,5 @@ const ConstructorIngredient = ({ingredient, index}) => {
 		</li>
 	);
 }
-
-ConstructorIngredient.propTypes = {
-	ingredient: ingredientPropTypes.isRequired,
-};
 
 export default ConstructorIngredient;
