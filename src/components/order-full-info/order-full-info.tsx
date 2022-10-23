@@ -6,21 +6,27 @@ import {getOrderStatus} from '../../order/getOrderStatus';
 import {calcOrderCost} from '../../order/calcOrderCost';
 import {getIngredientsWithCount} from '../../ingredients/getIngredientsWithCount';
 import {useTSelector} from '../../services/hooks';
+import {FC} from "react";
+import Preloader from "../preloader/preloader";
 
-const OrderFullInfo = (props) => {
-	const { id } = useParams();
-	const { wsAuth } = props;
+interface IOrderFullInfo {
+	wsAuth: boolean;
+}
+
+const OrderFullInfo: FC<IOrderFullInfo> = ({wsAuth}) => {
+	const id  = useParams();
 
 	const allIngredientsList = useTSelector(state => state.ingredientsData.ingredients);
-	const feedData = useTSelector(store => store.wsData);
+	const feedData = useTSelector(state => state.wsData);
 	const feedAuthData = useTSelector(state => state.wsAuthData);
 	const data = wsAuth ? feedAuthData : feedData;
 
 	const currentOrder = data.orders.find(order => order._id === id);
-	const ingredientsWithCount = getIngredientsWithCount(allIngredientsList, currentOrder.ingredients);
+	const ingredientsWithCount = currentOrder ? getIngredientsWithCount(allIngredientsList, currentOrder.ingredients) : null;
 
-	return (
-		<main className={styles.container}>
+	return {
+		...currentOrder && ingredientsWithCount ? (
+			<main className={styles.container}>
 			<p className={`${styles.number} text text_type_digits-default`}>{`#0${currentOrder.number}`}</p>
 			<h2 className='text text_type_main-medium pt-10 pb-3'>{currentOrder.name}</h2>
 			<p
@@ -55,7 +61,10 @@ const OrderFullInfo = (props) => {
 				</div>
 			</div>
 		</main>
-	)
+		) : (
+		<Preloader type='loader' />
+		)
+	}
 }
 
 export default OrderFullInfo;
