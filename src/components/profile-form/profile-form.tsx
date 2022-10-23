@@ -1,55 +1,64 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, FormEvent, useEffect, useState} from 'react';
 import {Button, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './profile-form.module.css';
 import {setUser} from '../../services/actions/auth';
-import {useForm} from '../../utils/useForm';
 import ErrorMessage from '../error-message/error-message';
 import Preloader from '../preloader/preloader';
 import {useTDispatch, useTSelector} from '../../services/hooks';
 
-const ProfileForm = () => {
+const ProfileForm: FC = () => {
 	const [visible, setVisible] = useState(false);
+	const [valueUserName, setValueUserName] = useState<string>('');
+	const [valueUserEmail, setValueUserEmail] = useState<string>('');
+	const [valueUserPassword, setValueUserPassword] = useState<string>('');
 	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
-	const {values, setValues, handleFormChange} = useForm({
-		name: authData.user ? authData.user.name : '',
-		email: authData.user ? authData.user.email :'',
-		password: '',
-	});
+	// const {values, setValues, handleFormChange} = useForm({
+	// 	userName: 'userName',
+	// 	userEmail: 'userEmail',
+	// 	userPassword: '******',
+	// });
 
 	useEffect(() => {
-		if (
-			authData.user !== null &&
-			values.name === authData.user.name &&
-			values.email === authData.user.email &&
-			values.password === ''
-		) {
-			setVisible(false);
-		} else setVisible(true);
-	}, [authData.user, values]);
+		if (authData.user !== null) {
+			// setValues({
+			// 	userName: authData.user.name,
+			// 	userEmail: authData.user.email,
+			// })
+			setValueUserName(authData.user.name);
+			setValueUserEmail(authData.user.email);
+		}
+	}, [authData.user]);
 
-	const handleFormSubmit = (evt) => {
+	useEffect(() => {
+		if (authData.user !== null)
+			valueUserName === authData.user.name && valueUserEmail === authData.user.email && valueUserPassword.length === 0
+		? setVisible(false)
+		: setVisible(true);
+	}, [valueUserName, valueUserEmail, valueUserPassword]);
+
+	const handleFormSubmit = (evt: FormEvent) => {
 		evt.preventDefault();
-		const form = evt.target;
+		const form = evt.target as HTMLFormElement;
 		const formValues = {
-			name: form.name.value,
-			email: form.email.value,
-			password: form.password.value,
+			name: form.userName.value,
+			email: form.userEmail.value,
+			password: form.userPassword.value,
 		};
 
 		dispatch(setUser(formValues));
 		setVisible(false);
 	};
 
-	const handleFormReset = (evt) => {
+	const handleFormReset = (evt: FormEvent) => {
 		evt.preventDefault();
 
-		setValues({
-			name: authData.user.name,
-			email: authData.user.email,
-			password: '',
-		});
+		if (authData.user !== null) {
+			setValueUserEmail(authData.user.email);
+			setValueUserName(authData.user.name)
+		}
 	};
+
 
 	return {
 		...(authData.isUserDataLoading ? (
@@ -62,30 +71,30 @@ const ProfileForm = () => {
 			>
 				<Input
 					type='text'
-					name='name'
+					name='userName'
 					placeholder='Имя'
-					value={values.name}
+					value={valueUserName}
 					icon='EditIcon'
 					size='default'
-					onChange={handleFormChange}
+					onChange={(evt) => setValueUserName(evt.target.value)}
 				/>
 				<Input
 					type='email'
-					name='email'
+					name='userEmail'
 					placeholder='Логин'
-					value={values.email}
+					value={valueUserEmail}
 					icon='EditIcon'
 					size='default'
-					onChange={handleFormChange}
+					onChange={(evt) => setValueUserEmail(evt.target.value)}
 				/>
 				<Input
 					type='password'
-					name='password'
+					name='userPassword'
 					placeholder='Пароль'
-					value={values.password}
+					value={valueUserPassword}
 					icon='EditIcon'
 					size='default'
-					onChange={handleFormChange}
+					onChange={(evt) => setValueUserPassword(evt.target.value)}
 				/>
 				{authData.isUserDataFailed && (
 					<ErrorMessage errorMessage={authData.userDataErrorMessage}/>
@@ -94,6 +103,7 @@ const ProfileForm = () => {
 					className={styles.buttonsContainer}
 					style={{opacity: visible ? 1 : 0}}
 				>
+					{/* @ts-ignore*/}
 					<Button
 						type='secondary'
 						size='medium'
@@ -106,7 +116,6 @@ const ProfileForm = () => {
 						type='primary'
 						size='medium'
 						htmlType='submit'
-						disabled={!visible}
 						{...(authData.isUserDataLoading
 							? {children: 'Сохранение...', disabled: true}
 							: {

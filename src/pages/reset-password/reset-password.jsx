@@ -14,7 +14,7 @@ const ResetPasswordPage = () => {
 	const location = useLocation();
 	const history = useHistory();
 	const {values, handleFormChange} = useForm({
-		password: '',
+		userPassword: '',
 		token: '',
 	});
 
@@ -43,7 +43,7 @@ const ResetPasswordPage = () => {
 			<form className={styles.form} onSubmit={handleFormSubmit}>
 				<h1 className='text text_type_main-medium'>Восстановление пароля</h1>
 				<PasswordInput
-					value={values.password}
+					value={values.userPassword}
 					placeholder='Введите новый пароль'
 					name='password'
 					size='default'

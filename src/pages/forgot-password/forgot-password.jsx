@@ -12,7 +12,7 @@ const ForgotPasswordPage = () => {
 	const history = useHistory();
 	const dispatch = useTDispatch();
 	const {values, setValues, handleFormChange} = useForm({
-		email: '',
+		userEmail: '',
 	});
 
 	const handleFormSubmit = (evt) => {
@@ -25,7 +25,7 @@ const ForgotPasswordPage = () => {
 				localStorage.setItem('resetPasswordStatus', 'requested');
 			}
 		});
-		setValues({email: ''});
+		setValues({userEmail: ''});
 	};
 
 	return (
@@ -35,7 +35,7 @@ const ForgotPasswordPage = () => {
 				<Input
 					type='email'
 					placeholder='Укажите e-mail'
-					value={values.email}
+					value={values.userEmail}
 					name='email'
 					icon={undefined}
 					size='default'

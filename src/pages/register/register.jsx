@@ -13,9 +13,9 @@ const RegisterPage = () => {
 	const dispatch = useTDispatch();
 	const history = useHistory();
 	const {values, handleFormChange} = useForm({
-		name: '',
-		email: '',
-		password: '',
+		userName: '',
+		userEmail: '',
+		userPassword: '',
 	});
 
 	const handleFormSubmit = (evt) => {
@@ -42,7 +42,7 @@ const RegisterPage = () => {
 				<Input
 					type='text'
 					placeholder='Имя'
-					value={values.name}
+					value={values.userName}
 					name='name'
 					icon={undefined}
 					size='default'
@@ -51,14 +51,14 @@ const RegisterPage = () => {
 				<Input
 					type='email'
 					placeholder='E-mail'
-					value={values.email}
+					value={values.userEmail}
 					name='email'
 					icon={undefined}
 					size='default'
 					onChange={handleFormChange}
 				/>
 				<PasswordInput
-					value={values.password}
+					value={values.userPassword}
 					name='password'
 					onChange={handleFormChange}
 				/>

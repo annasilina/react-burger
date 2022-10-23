@@ -11,8 +11,8 @@ const Login = () => {
 	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
 	const {values, setValues, handleFormChange} = useForm({
-		email: '',
-		password: '',
+		userEmail: '',
+		userPassword: '',
 	});
 
 	const handleFormSubmit = (evt) => {
@@ -25,8 +25,8 @@ const Login = () => {
 
 		dispatch(login(formValues));
 		setValues({
-			email: '',
-			password: '',
+			userEmail: '',
+			userPassword: '',
 		});
 		localStorage.clear();
 	};
@@ -38,13 +38,13 @@ const Login = () => {
 				<Input
 					type='email'
 					placeholder='E-mail'
-					value={values.email}
+					value={values.userEmail}
 					name='email'
 					icon={undefined}
 					onChange={handleFormChange}
 				/>
 				<PasswordInput
-					value={values.password}
+					value={values.userPassword}
 					name='password'
 					onChange={handleFormChange}
 				/>
