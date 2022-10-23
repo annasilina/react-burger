@@ -21,8 +21,8 @@ const RegisterPage = () => {
 		const form = evt.target as HTMLFormElement;
 		const formValues = {
 			name: form.userName.value,
-			email: form.email.value,
-			password: form.password.value,
+			email: form.userEmail.value,
+			password: form.userPassword.value,
 		};
 
 		dispatch(registration(formValues))
