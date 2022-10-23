@@ -10,7 +10,7 @@ const IngredientDetails: FC = () => {
 	const {id} = useParams<{ id: string }>();
 	const ingredient = ingredients.find((item) => item._id === id);
 
-	return !ingredients.length && !ingredient ? (
+	return !ingredients.length && ingredient === undefined ? (
 		<Preloader type='loader' />
 		) : (
 		<>
