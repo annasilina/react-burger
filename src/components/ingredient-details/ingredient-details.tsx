@@ -1,32 +1,32 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import styles from './ingredient-details.module.css';
 import {useParams} from 'react-router-dom';
 import Preloader from '../preloader/preloader';
 import {useTSelector} from '../../services/hooks';
 
-const IngredientDetails = () => {
+const IngredientDetails: FC = () => {
 	const ingredients = useTSelector((state) => state.ingredientsData.ingredients);
-	const {id} = useParams();
+	const {id} = useParams<{ id: string }>();
 	const ingredient = ingredients.find((item) => item._id === id);
 
-	return !ingredients.length ? (
+	return !ingredients.length && !ingredient ? (
 		<Preloader type='loader' />
 		) : (
 		<>
 			<img
-				src={ingredient.image_large}
-				alt={ingredient.name}
+				src={ingredient?.image_large}
+				alt={ingredient?.name}
 				className={`${styles.itemImage}`}
 			/>
-			<p className='text text_type_main-medium pt-4 pb-8'>{ingredient.name}</p>
+			<p className='text text_type_main-medium pt-4 pb-8'>{ingredient?.name}</p>
 			<ul className={`${styles.ingredientNutritionList}`}>
 				<li className={`${styles.nutritionItem}`}>
 					<p className='text text_type_main-default text_color_inactive'>
 						Калории, ккал
 					</p>
 					<p className='text text_type_digits-default text_color_inactive'>
-						{ingredient.calories}
+						{ingredient?.calories}
 					</p>
 				</li>
 				<li className={`${styles.nutritionItem}`}>
@@ -34,7 +34,7 @@ const IngredientDetails = () => {
 						Белки, г
 					</p>
 					<p className='text text_type_digits-default text_color_inactive'>
-						{ingredient.proteins}
+						{ingredient?.proteins}
 					</p>
 				</li>
 				<li className={`${styles.nutritionItem}`}>
@@ -42,7 +42,7 @@ const IngredientDetails = () => {
 						Жиры, г
 					</p>
 					<p className='text text_type_digits-default text_color_inactive'>
-						{ingredient.fat}
+						{ingredient?.fat}
 					</p>
 				</li>
 				<li className={`${styles.nutritionItem}`}>
@@ -50,7 +50,7 @@ const IngredientDetails = () => {
 						Углеводы, г
 					</p>
 					<p className='text text_type_digits-default text_color_inactive'>
-						{ingredient.carbohydrates}
+						{ingredient?.carbohydrates}
 					</p>
 				</li>
 			</ul>
