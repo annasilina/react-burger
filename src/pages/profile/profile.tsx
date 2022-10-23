@@ -4,8 +4,9 @@ import ProfileForm from '../../components/profile-form/profile-form';
 import {Route, Switch} from 'react-router-dom';
 import OrdersHistory from '../orders-history/orders-history';
 import {links} from '../../utils/constants';
+import {FC} from "react";
 
-const Profile = () => {
+const Profile: FC = () => {
 	return (
 			<main className={styles.main}>
 				<ProfileMenu/>

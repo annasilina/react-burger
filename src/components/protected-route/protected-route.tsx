@@ -6,6 +6,7 @@ import {FC} from "react";
 interface IProtectedRouteProps {
 	notAuthReject: boolean;
 	children: JSX.Element;
+	path: string;
 }
 
 export const ProtectedRoute: FC<IProtectedRouteProps> = (props) => {

@@ -1,8 +1,8 @@
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import styles from './ingredients.module.css';
-import React from 'react';
+import React, {FC} from 'react';
 
-const IngredientsPage = () => {
+const IngredientsPage: FC = () => {
 	return (
 		<>
 			<main className={styles.main}>

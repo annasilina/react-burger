@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
 import {useTDispatch, useTSelector} from '../../services/hooks';
 
@@ -24,14 +24,12 @@ import FeedPage from '../../pages/feed/feed';
 import FeedDetailsPage from '../../pages/feed-details/feed-details';
 import OrderFullInfo from '../order-full-info/order-full-info';
 
-const App = () => {
-	// const dispatch = useDispatch();
+const App: FC = () => {
 	const dispatch = useTDispatch();
 	const history = useHistory();
-	const location = useLocation();
+	const location = useLocation<{background: Location}>();
 
 	const refreshToken = cookie.get('refreshToken');
-	const background = location.state?.background;
 
 	const authData = useTSelector(state => state.authData);
 	const dataAll = useTSelector(state => state.wsData);
@@ -51,12 +49,15 @@ const App = () => {
 		history.goBack();
 	};
 
+	const background = location.state && location.state?.background;
+
 	return {
 		...(authData.isUserLoading ? (
 			<Preloader type='loader'/>
 		) : (
 			<>
 				<AppHeader/>
+				{/*@ts-ignore*/}
 				<Switch location={background || location}>
 					<Route path={links.home} exact={true}>
 						<Home/>
