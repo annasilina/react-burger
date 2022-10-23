@@ -10,25 +10,11 @@ import {BrowserRouter, HashRouter} from "react-router-dom";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
-//const Router = process.env.PUBLIC_URL ? HashRouter : BrowserRouter;
-//root.render(
-// 	<Provider store={store}>
-// 		<Router>
-// 			<App/>
-// 		</Router>
-// 	</Provider>
-
+const Router: Function = process.env.PUBLIC_URL ? HashRouter : BrowserRouter;
 root.render(
 	<Provider store={store}>
-		{process.env.PUBLIC_URL
-			?
-				<HashRouter basename={process.env.PUBLIC_URL} >
-					<App/>
-				</HashRouter>
-			:
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
-		}
+		<Router>
+			<App/>
+		</Router>
 	</Provider>
-);
+)
