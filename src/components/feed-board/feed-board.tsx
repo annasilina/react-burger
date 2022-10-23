@@ -1,7 +1,8 @@
 import styles from './feed-board.module.css';
 import {useTSelector} from '../../services/hooks';
+import {FC} from "react";
 
-const FeedBoard = () => {
+const FeedBoard: FC = () => {
 	const orders = useTSelector(state => state.wsData.orders);
 	const total = useTSelector(state => state.wsData.total);
 	const totalToday = useTSelector(state => state.wsData.totalToday);
