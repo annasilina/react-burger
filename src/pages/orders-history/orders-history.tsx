@@ -1,11 +1,11 @@
 import FeedList from '../../components/feed-list/feed-list';
 import styles from './orders-history.module.css';
-import {useEffect} from 'react';
+import {FC, useEffect} from 'react';
 import {wsConnectionCloseAuth, wsConnectionStartAuth} from '../../services/actions/webSocketAuth';
 import Preloader from '../../components/preloader/preloader';
 import {useTDispatch, useTSelector} from '../../services/hooks';
 
-const OrdersHistory = () => {
+const OrdersHistory: FC = () => {
 	const feedAuthData = useTSelector(state => state.wsAuthData);
 	const dispatch = useTDispatch();
 
