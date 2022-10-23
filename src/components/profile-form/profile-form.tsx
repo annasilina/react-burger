@@ -13,18 +13,9 @@ const ProfileForm: FC = () => {
 	const [valueUserPassword, setValueUserPassword] = useState<string>('');
 	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
-	// const {values, setValues, handleFormChange} = useForm({
-	// 	userName: 'userName',
-	// 	userEmail: 'userEmail',
-	// 	userPassword: '******',
-	// });
 
 	useEffect(() => {
 		if (authData.user !== null) {
-			// setValues({
-			// 	userName: authData.user.name,
-			// 	userEmail: authData.user.email,
-			// })
 			setValueUserName(authData.user.name);
 			setValueUserEmail(authData.user.email);
 		}

@@ -45,21 +45,17 @@ class Api {
 					if (json.success) {
 						resolve(json);
 					} else {
-						console.log('try to refresh token');
 						const refreshToken = cookie.get('refreshToken');
-
 						if (refreshToken) {
 							this.updateTokenRequest(refreshToken)
 								.then((data) => {
 									cookie.setTokens(data);
 									init.headers['Authorization'] = data.accessToken;
-									console.log('token updated');
 									fetch(input, init)
 										.then((res) => resolve(res.json()))
 										.catch((err) => reject(err));
 								})
 								.catch((err) => {
-									console.log('failed to update token');
 									reject(err);
 								});
 						} else {

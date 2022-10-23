@@ -11,10 +11,7 @@ const Login = () => {
 	const [valueUserPassword, setValueUserPassword] = useState<string>('');
 	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
-	// const {values, setValues, handleFormChange} = useForm({
-	// 	userEmail: '',
-	// 	userPassword: '',
-	// });
+
 
 	const handleFormSubmit = (evt: FormEvent) => {
 		evt.preventDefault();

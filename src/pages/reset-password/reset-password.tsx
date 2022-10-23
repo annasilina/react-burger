@@ -16,10 +16,6 @@ const ResetPasswordPage = () => {
 	const state = location.state as { from: Location };
 	const fromPage = state?.from?.pathname || links.home;
 	const history = useHistory();
-	// const {values, handleFormChange} = useForm({
-	// 	userPassword: '',
-	// 	token: '',
-	// });
 
 	if (!resetPasswordStatus) {
 		return <Redirect to={fromPage || links.home}/>;

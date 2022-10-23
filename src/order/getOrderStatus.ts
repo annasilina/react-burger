@@ -1,4 +1,3 @@
-// доделать типизацию параметра после типизации данных заказа в ответе от бэка
 import {TOrderStatus} from "../types/data";
 
 export const getOrderStatus = (orderStatus: TOrderStatus): string => {
