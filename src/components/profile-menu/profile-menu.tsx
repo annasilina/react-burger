@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {NavLink, useLocation} from 'react-router-dom';
 import styles from './profile-menu.module.css';
 import {links} from '../../utils/constants';
@@ -6,12 +6,11 @@ import {logout} from '../../services/actions/auth';
 import {cookie} from '../../cookie/cookie';
 import {useTDispatch} from '../../services/hooks';
 
-const ProfileMenu = () => {
+const ProfileMenu: FC = () => {
 	const dispatch = useTDispatch();
 	const location = useLocation();
 
-	const handleLogout = (evt) => {
-		evt.preventDefault();
+	const handleLogout = (): void => {
 		dispatch(logout(cookie.get('refreshToken')));
 	};
 
