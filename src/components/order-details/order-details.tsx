@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import CheckMarkIcon from '../../images/CheckMarkIcon.svg';
-import PropTypes from 'prop-types';
 
-const OrderDetails = React.memo(({orderID}) => {
+interface IOrderDetailsProps {
+	orderID: string;
+}
+
+const OrderDetails: FC<IOrderDetailsProps> = React.memo(({orderID}) => {
 	return (
 		<>
 			<p className='text text_type_digits-large pt-20'>{orderID}</p>
@@ -19,8 +22,5 @@ const OrderDetails = React.memo(({orderID}) => {
 	);
 });
 
-OrderDetails.propTypes = {
-	orderID: PropTypes.number.isRequired,
-};
 
 export default OrderDetails;
