@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {FC, useCallback, useEffect, useRef, useState} from 'react';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 
@@ -16,7 +16,7 @@ import {useTDispatch, useTSelector} from '../../services/hooks';
 import {resetConstructor} from '../../services/actions/constructor';
 import {getAllIngredientsInOrder} from '../../ingredients/getAllIngredientsInOrder';
 
-const Home = () => {
+const Home: FC = () => {
 	const dispatch = useTDispatch();
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
 	const [toggleOrderVisibility, setToggleOrderVisibility] = useState(false);
@@ -29,13 +29,18 @@ const Home = () => {
 			ingredientsHasError: state.ingredientsData.ingredientsHasError,
 		}));
 
-	const constructorData = useTSelector((state) => state.constructorData)
+	const {bunSelected, ingredientsSelected} =
+		useTSelector((state) => ({
+			bunSelected: state.constructorData.bunSelected,
+			ingredientsSelected: state.constructorData.ingredientsSelected,
+		})
+	);
 
 	const {orderNumber, orderIsLoading, orderHasError} =
-		useTSelector((store) => ({
-			orderNumber: store.orderData.orderNumber,
-			orderIsLoading: store.orderData.orderIsLoading,
-			orderHasError: store.orderData.orderHasError,
+		useTSelector((state) => ({
+			orderNumber: state.orderData.orderNumber,
+			orderIsLoading: state.orderData.orderIsLoading,
+			orderHasError: state.orderData.orderHasError,
 		})
 	);
 
@@ -48,20 +53,12 @@ const Home = () => {
 	useEffect(() => {
 		if (isInitialMount.current) {
 			isInitialMount.current = false;
-		} else {
-			dispatch(createOrder(getAllIngredientsInOrder(constructorData.bunSelected, constructorData.ingredientsSelected)));
+		} else if (bunSelected){
+			dispatch(createOrder(getAllIngredientsInOrder(bunSelected, ingredientsSelected)));
 			setIsOrderDetailsOpened(true);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [toggleOrderVisibility]);
-
-	// const handleOrderDetailsOpen = useCallback(
-	// (orderDetails) => {
-	// 	setIsOrderDetailsOpened(true);
-	// 	dispatch(createOrder(orderDetails));
-	// },
-	// [dispatch]
-	// );
 
 	const handleCloseOrderModal = useCallback(() => {
 		if (!orderIsLoading) {
@@ -96,7 +93,6 @@ const Home = () => {
 			</DndProvider>
 			{isOrderDetailsOpen && !orderHasError && (
 				<Modal
-					title=''
 					handleClose={handleCloseOrderModal}
 					{...(orderIsLoading
 						? {children: <Preloader type='loader'/>, title: 'Загружаем заказ...'}

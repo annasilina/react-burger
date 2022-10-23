@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 import CheckMarkIcon from '../../images/CheckMarkIcon.svg';
 
 interface IOrderDetailsProps {
-	orderID: string;
+	orderID: number;
 }
 
 const OrderDetails: FC<IOrderDetailsProps> = React.memo(({orderID}) => {

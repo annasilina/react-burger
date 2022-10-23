@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, ReactElement, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './modal.module.css';
@@ -7,8 +7,8 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 const modalsContainer = document.querySelector('#modals') as HTMLElement;
 
 interface IModalProps {
-	title: string;
-	children?: JSX.Element;
+	title?: string;
+	children?: ReactElement;
 	handleClose: () => void;
 }
 
