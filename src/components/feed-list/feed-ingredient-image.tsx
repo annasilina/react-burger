@@ -1,7 +1,15 @@
 import styles from './feed-list.module.css';
-import React from 'react';
+import React, {FC} from 'react';
+import {TIngredient} from "../../types/data";
 
-const FeedIngredientImage = (props) => {
+interface IFeedIngredientImageProps {
+	ingredient: TIngredient;
+	index: number;
+	totalQty: number;
+	maxVisibleQty: number;
+}
+
+const FeedIngredientImage: FC<IFeedIngredientImageProps> = (props) => {
 	const { ingredient, index, totalQty, maxVisibleQty } = props;
 	const lastIngredients = totalQty - maxVisibleQty;
 	const count = ingredient.count;

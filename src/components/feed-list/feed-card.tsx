@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Link, useLocation, useRouteMatch} from 'react-router-dom';
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './feed-list.module.css';
@@ -8,8 +8,13 @@ import {calcOrderCost} from '../../order/calcOrderCost';
 import {getIngredientsInfo} from '../../ingredients/getIngredientsInfo';
 import FeedIngredientImage from './feed-ingredient-image';
 import {useTSelector} from '../../services/hooks';
+import {TOrder} from "../../types/data";
 
-const FeedCard = ({order}) => {
+interface IFeedCardProps {
+	order: TOrder;
+}
+
+const FeedCard: FC<IFeedCardProps> = ({order}) => {
 	const location = useLocation();
 	const match = useRouteMatch();
 	const maxVisibleQty = 6;

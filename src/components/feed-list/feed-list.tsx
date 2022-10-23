@@ -1,7 +1,13 @@
 import FeedCard from './feed-card';
 import styles from './feed-list.module.css'
+import {TOrder} from "../../types/data";
+import {FC} from "react";
 
-const FeedList = ({orders}) => {
+interface IFeedListProps {
+	orders: Array<TOrder>
+}
+
+const FeedList: FC<IFeedListProps> = ({orders}) => {
 	return (
 		<section>
 			<div className={styles.container}>
