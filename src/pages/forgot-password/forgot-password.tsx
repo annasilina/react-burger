@@ -1,31 +1,27 @@
-import React from 'react';
+import React, {FormEvent, useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {Button, Input,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './forgot-password.module.css';
 import {links} from '../../utils/constants';
 import {forgotPasswordAction} from '../../services/actions/auth';
-import {useForm} from '../../utils/useForm';
 import {useTDispatch, useTSelector} from '../../services/hooks';
 
 const ForgotPasswordPage = () => {
 	const authData = useTSelector(state => state.authData);
+	const [valueUserEmail, setValueUserEmail] = useState<string>('');
 	const history = useHistory();
 	const dispatch = useTDispatch();
-	const {values, setValues, handleFormChange} = useForm({
-		userEmail: '',
-	});
 
-	const handleFormSubmit = (evt) => {
+	const handleFormSubmit = (evt: FormEvent) => {
 		evt.preventDefault();
-		const form = evt.target;
+		const form = evt.target as HTMLFormElement;
 
-		dispatch(forgotPasswordAction(form.email.value)).finally(() => {
-			if (!authData.isForgotPasswordFailed) {
+		dispatch(forgotPasswordAction(form.email.value))
+		if (!authData.isForgotPasswordFailed) {
 				history.push(links.resetPassword);
 				localStorage.setItem('resetPasswordStatus', 'requested');
 			}
-		});
-		setValues({userEmail: ''});
+		setValueUserEmail('');
 	};
 
 	return (
@@ -35,11 +31,11 @@ const ForgotPasswordPage = () => {
 				<Input
 					type='email'
 					placeholder='Укажите e-mail'
-					value={values.userEmail}
+					value={valueUserEmail}
 					name='email'
 					icon={undefined}
 					size='default'
-					onChange={handleFormChange}
+					onChange={(evt) => setValueUserEmail(evt.target.value)}
 				/>
 				<span className='mb-20'>
           <Button

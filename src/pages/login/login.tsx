@@ -1,34 +1,31 @@
-import React from 'react';
+import React, {FormEvent, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {Button, Input, PasswordInput,} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './login.module.css';
 import {login} from '../../services/actions/auth';
 import {links} from '../../utils/constants';
-import {useForm} from '../../utils/useForm';
 import {useTDispatch, useTSelector} from '../../services/hooks';
 
 const Login = () => {
+	const [valueUserEmail, setValueUserEmail] = useState<string>('');
+	const [valueUserPassword, setValueUserPassword] = useState<string>('');
 	const authData = useTSelector(state => state.authData);
 	const dispatch = useTDispatch();
-	const {values, setValues, handleFormChange} = useForm({
-		userEmail: '',
-		userPassword: '',
-	});
+	// const {values, setValues, handleFormChange} = useForm({
+	// 	userEmail: '',
+	// 	userPassword: '',
+	// });
 
-	const handleFormSubmit = (evt) => {
+	const handleFormSubmit = (evt: FormEvent) => {
 		evt.preventDefault();
-		const form = evt.target;
+		const form = evt.target as HTMLFormElement;
 		const formValues = {
-			email: form.email.value,
-			password: form.password.value,
+			email: form.userEmail.value,
+			password: form.userPassword.value,
 		};
-
 		dispatch(login(formValues));
-		setValues({
-			userEmail: '',
-			userPassword: '',
-		});
-		localStorage.clear();
+		setValueUserEmail('');
+		setValueUserPassword('');
 	};
 
 	return (
@@ -38,15 +35,15 @@ const Login = () => {
 				<Input
 					type='email'
 					placeholder='E-mail'
-					value={values.userEmail}
-					name='email'
+					value={valueUserEmail}
+					name='userEmail'
 					icon={undefined}
-					onChange={handleFormChange}
+					onChange={(evt)=>setValueUserEmail(evt.target.value)}
 				/>
 				<PasswordInput
-					value={values.userPassword}
-					name='password'
-					onChange={handleFormChange}
+					value={valueUserPassword}
+					name='userPassword'
+					onChange={(evt)=>setValueUserPassword(evt.target.value)}
 				/>
 				<span className='mb-20'>
           <Button
