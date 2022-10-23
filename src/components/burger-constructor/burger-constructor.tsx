@@ -1,5 +1,4 @@
-import React, {useMemo} from 'react';
-import PropTypes from 'prop-types';
+import React, {FC, useMemo} from 'react';
 
 import styles from './burger-constructor.module.css';
 import {Button, CurrencyIcon,} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,7 +10,12 @@ import {useTSelector} from '../../services/hooks';
 import {getAllIngredientsInOrder} from '../../ingredients/getAllIngredientsInOrder';
 import {calcOrderCost} from '../../order/calcOrderCost';
 
-const BurgerConstructor = React.memo(({setModalVisibility}) => {
+interface IBurgerConstructorProps {
+	toggleOrderVisibility: boolean;
+	setToggleOrderVisibility: (toggleOrderVisibility: boolean) => void;
+}
+
+const BurgerConstructor: FC<IBurgerConstructorProps> = React.memo(({toggleOrderVisibility, setToggleOrderVisibility}) => {
 	const refreshToken = cookie.get('refreshToken');
 	const location = useLocation();
 	const history = useHistory();
@@ -29,7 +33,7 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 
 	const handleButtonClick = () => {
 		if (refreshToken) {
-			setModalVisibility(getAllIngredientsInOrder(bunSelected, ingredientsSelected));
+			setToggleOrderVisibility(!toggleOrderVisibility)
 		} else {
 			history.replace({
 				pathname: links.login,
@@ -48,6 +52,7 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 					</p>
 					<CurrencyIcon type='primary'/>
 				</div>
+				{/* @ts-ignore */}
 				<Button
 					type='primary'
 					size='large'
@@ -63,8 +68,5 @@ const BurgerConstructor = React.memo(({setModalVisibility}) => {
 	);
 });
 
-BurgerConstructor.propTypes = {
-	setModalVisibility: PropTypes.func.isRequired,
-};
 
 export default BurgerConstructor;

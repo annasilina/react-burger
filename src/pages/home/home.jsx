@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 
@@ -14,10 +14,13 @@ import styles from './home.module.css';
 import Preloader from '../../components/preloader/preloader';
 import {useTDispatch, useTSelector} from '../../services/hooks';
 import {resetConstructor} from '../../services/actions/constructor';
+import {getAllIngredientsInOrder} from '../../ingredients/getAllIngredientsInOrder';
 
 const Home = () => {
 	const dispatch = useTDispatch();
 	const [isOrderDetailsOpen, setIsOrderDetailsOpened] = useState(false);
+	const [toggleOrderVisibility, setToggleOrderVisibility] = useState(false);
+	const isInitialMount = useRef(true);
 
 	const {ingredients, ingredientsIsLoading, ingredientsHasError} =
 		useTSelector((state) => ({
@@ -25,6 +28,8 @@ const Home = () => {
 			ingredientsIsLoading: state.ingredientsData.ingredientsIsLoading,
 			ingredientsHasError: state.ingredientsData.ingredientsHasError,
 		}));
+
+	const constructorData = useTSelector((state) => state.constructorData)
 
 	const {orderNumber, orderIsLoading, orderHasError} =
 		useTSelector((store) => ({
@@ -34,13 +39,29 @@ const Home = () => {
 		})
 	);
 
-	const handleOrderDetailsOpen = useCallback(
-		(orderDetails) => {
+	useEffect(() => {
+		  return () => {
+		    isInitialMount.current = true;
+		  };
+		}, []);
+
+	useEffect(() => {
+		if (isInitialMount.current) {
+			isInitialMount.current = false;
+		} else {
+			dispatch(createOrder(getAllIngredientsInOrder(constructorData.bunSelected, constructorData.ingredientsSelected)));
 			setIsOrderDetailsOpened(true);
-			dispatch(createOrder(orderDetails));
-		},
-		[dispatch]
-	);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [toggleOrderVisibility]);
+
+	// const handleOrderDetailsOpen = useCallback(
+	// (orderDetails) => {
+	// 	setIsOrderDetailsOpened(true);
+	// 	dispatch(createOrder(orderDetails));
+	// },
+	// [dispatch]
+	// );
 
 	const handleCloseOrderModal = useCallback(() => {
 		if (!orderIsLoading) {
@@ -66,7 +87,9 @@ const Home = () => {
 					{!ingredientsIsLoading && !ingredientsHasError && ingredients.length && (
 						<>
 							<BurgerIngredients/>
-							<BurgerConstructor setModalVisibility={handleOrderDetailsOpen}/>
+							<BurgerConstructor
+								toggleOrderVisibility={toggleOrderVisibility}
+								setToggleOrderVisibility={setToggleOrderVisibility}/>
 						</>
 					)}
 				</main>

@@ -8,7 +8,7 @@ const modalsContainer = document.querySelector('#modals') as HTMLElement;
 
 interface IModalProps {
 	title: string;
-	children: JSX.Element;
+	children?: JSX.Element;
 	handleClose: () => void;
 }
 
