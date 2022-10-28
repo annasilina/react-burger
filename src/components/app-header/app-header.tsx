@@ -7,6 +7,7 @@ import {BurgerIcon, ListIcon, Logo, ProfileIcon,} from '@ya.praktikum/react-deve
 
 const AppHeader: FC = () => {
 	const {pathname} = useLocation();
+	console.log(pathname);
 
 	return (
 		<>
