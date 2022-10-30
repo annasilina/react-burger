@@ -26,10 +26,8 @@ import OrderFullInfo from '../order-full-info/order-full-info';
 import {TLocation} from "../../types/TLocation";
 
 const App: FC = () => {
-// function App(): JSX.Element {
 	const dispatch = useTDispatch();
 	const history = useHistory();
-	// const location = useLocation<{background: Location}>();
 	const location = useLocation<TLocation>();
 
 	const refreshToken = cookie.get('refreshToken');
