@@ -23,11 +23,14 @@ import Preloader from '../preloader/preloader';
 import FeedPage from '../../pages/feed/feed';
 import FeedDetailsPage from '../../pages/feed-details/feed-details';
 import OrderFullInfo from '../order-full-info/order-full-info';
+import {TLocation} from "../../types/TLocation";
 
 const App: FC = () => {
+// function App(): JSX.Element {
 	const dispatch = useTDispatch();
 	const history = useHistory();
-	const location = useLocation<{background: Location}>();
+	// const location = useLocation<{background: Location}>();
+	const location = useLocation<TLocation>();
 
 	const refreshToken = cookie.get('refreshToken');
 
@@ -57,7 +60,6 @@ const App: FC = () => {
 		) : (
 			<>
 				<AppHeader/>
-				{/*@ts-ignore*/}
 				<Switch location={background || location}>
 					<Route path={links.home} exact={true}>
 						<Home/>
