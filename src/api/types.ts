@@ -1,7 +1,7 @@
 import {TIngredient, TUser} from "../types/data";
 import {TBaseResponse} from "../types/TBaseResponse";
 
-export interface IApicConfig {
+export interface IApiConfig {
 	readonly baseURL: string;
 	readonly headers: {
 		[key: string]: string;

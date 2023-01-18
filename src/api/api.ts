@@ -1,7 +1,7 @@
 import {cookie} from '../cookie/cookie';
 import {TFormValues} from '../types/TFormValues';
 import {
-	IApicConfig,
+	IApiConfig,
 	IInitData,
 	TApiCreateOrderResponse,
 	TApiIngredientsDataResponse,
@@ -10,7 +10,7 @@ import {
 } from "./types";
 import {TBaseResponse} from "../types/TBaseResponse";
 
-const apiConfig: IApicConfig = {
+const apiConfig: IApiConfig = {
 	baseURL: 'https://norma.nomoreparties.space/api',
 	headers: {
 		'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ class Api {
 		[key: string]: string;
 	}
 
-	constructor(config: IApicConfig) {
+	constructor(config: IApiConfig) {
 		this.baseURL = config.baseURL;
 		this.authURL = `${config.baseURL}/auth`;
 		this.headers = config.headers;
